@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #FAF8F4;
+  --surface: #FFFFFF;
+  --ink: #16232B;
+  --muted: #5B6870;
+  --accent: #0F5C63;
+  --accent-soft: #DCEBEA;
+  --sand: #D9C7A8;
+  --hairline: #E4DFD6;
+  --emergency: #B3392F;
+}
+
+html {
+  background-color: var(--background);
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem); /* min 17px on mobile */
+  line-height: 1.62;
+  color: var(--ink);
+  background-color: var(--background);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Accessible interactive tap targets */
+button, 
+a, 
+input, 
+select, 
+textarea {
+  min-height: 48px;
+}
+
+/* Focus styles for keyboard accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Hairline dividers */
+.hairline-b {
+  border-bottom: 1px solid var(--hairline);
+}
+.hairline-t {
+  border-top: 1px solid var(--hairline);
+}
+.hairline-x {
+  border-left: 1px solid var(--hairline);
+  border-right: 1px solid var(--hairline);
+}
+.hairline-all {
+  border: 1px solid var(--hairline);
+}
+
+/* Placeholder item styling as strictly specified in AGENTS.md */
+.credential-placeholder {
+  border: 1.5px dashed #A2AFB6;
+  background-color: rgba(220, 235, 234, 0.2);
+  color: #49575F;
+  border-radius: 8px;
+  padding: 0.35rem 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: monospace;
+  font-size: 0.88em;
+}
+
+/* Monoline SVG illustrations */
+.monoline-svg {
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

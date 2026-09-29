@@ -18,16 +18,17 @@
   - Demo ribbon persistent component (`<DemoRibbon />`)
   - Build, lint, and strict type-checks validated with zero errors.
 
-- [ ] **Milestone 2: Content Layer**
-  - Entity type definitions (`Doctor`, `Credential`, `Service`, `Location`, `Article`, `Testimonial`, `SiteSettings`)
-  - Typed seed data with strict bracketed placeholders for unverified claims
-  - Content-access module (`getContent()`, getters)
-  - Verification & status rendering rules (`verified`, `placeholder`, `pending`)
+- [x] **Milestone 2: Content Layer**
+  - Entity type definitions in `src/lib/content/types.ts` (`Doctor`, `Credential`, `Service`, `Location`, `Article`, `Testimonial`, `SiteSettings`)
+  - Typed seed data in `src/lib/content/seed.ts` adhering strictly to Section 2 honesty rules (all unconfirmed claims enclosed in visible brackets `[Degree, university, year]`)
+  - Content-access module in `src/lib/content/index.ts` with typed asynchronous getters
+  - Verification & status rendering rules (`verified`, `placeholder`, `pending` filtering)
+  - `<CredentialBlock />` with dashed muted outline and distinct status chips
 
 - [ ] **Milestone 3: Design System & Core Components**
   - Layout shell, Header, BottomActionBar, Footer
   - Button system, cards, badge/chips
-  - Hand-crafted monoline illustration set (10 SVGs)
+  - Hand-crafted monoline illustration set (10 SVGs in `src/components/illustrations/`)
   - Motion wrappers (`RevealOnScroll`, `StaggerContainer`, `TextReveal`)
   - Reduced-motion handling & Desktop-only Lenis smooth scroll
 
@@ -66,11 +67,11 @@
 ---
 
 ## Current Work & Next Steps
-- **Completed:** Milestone 1 complete and verified with production build.
-- **In Progress:** Milestone 2 (Content Layer: Entity types, seed data with strict bracketed placeholders, content-access module, verification rules).
+- **Completed:** Milestone 1 (Setup) and Milestone 2 (Content Layer). Branch renamed to `main` and remote origin configured.
+- **In Progress:** Milestone 3 (Design System & Core Components: Header, BottomActionBar, Footer, monoline illustrations, motion wrappers, Lenis smooth scroll).
 - **Next 5 Tasks:**
-  1. Define TypeScript entity types in `src/lib/content/types.ts`
-  2. Implement seed data in `src/lib/content/seed.ts` adhering strictly to section 2 honesty rules
-  3. Create content-access module `src/lib/content/index.ts`
-  4. Create `CredentialBlock` and placeholder rendering component with visual dashed styling
-  5. Run type-check & build, commit Milestone 2
+  1. Build the hand-crafted monoline SVG illustration system (10 SVGs in `src/components/illustrations/`)
+  2. Implement motion wrapper components (`RevealOnScroll`, `StaggerContainer`, `TextReveal`, `LenisSmoothScroll`) with `prefers-reduced-motion` safety
+  3. Create navigation `Header` (with scroll compacting and text wordmark) and `BottomActionBar` (fixed WhatsApp + Call with safe-area insets)
+  4. Create `Footer` with links, disclaimer, and demo analytics preview link
+  5. Run type-check & build, commit Milestone 3

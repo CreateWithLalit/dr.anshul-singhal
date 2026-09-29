@@ -3,6 +3,11 @@ import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { DemoRibbon } from "@/components/DemoRibbon";
 import { PasswordGate } from "@/components/PasswordGate";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { BottomActionBar } from "@/components/BottomActionBar";
+import { LenisSmoothScroll } from "@/components/motion/LenisSmoothScroll";
+import { LanguageProvider } from "@/components/LanguageContext";
 
 const fraunces = Fraunces({
   variable: "--font-serif",
@@ -39,11 +44,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
-      <body className="antialiased selection:bg-[#DCEBEA] selection:text-[#0F5C63]">
-        <DemoRibbon />
-        <PasswordGate>
-          <div className="flex-1 flex flex-col">{children}</div>
-        </PasswordGate>
+      <body className="antialiased selection:bg-[#DCEBEA] selection:text-[#0F5C63] min-h-screen flex flex-col">
+        <LanguageProvider>
+          <LenisSmoothScroll />
+          <DemoRibbon />
+          <PasswordGate>
+            <Header />
+            <main className="flex-1 flex flex-col">{children}</main>
+            <Footer />
+            <BottomActionBar />
+          </PasswordGate>
+        </LanguageProvider>
       </body>
     </html>
   );

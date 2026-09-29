@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# dr.anshul-singhal
+
+> **Dr. Anshul Singhal — Oral & Maxillofacial Surgeon**
+> Private Demo Prototype for in-person review (Noida / Delhi NCR).
+
+---
+
+## Overview
+This repository contains a fast, minimal, accessible prototype built with Next.js (App Router), Tailwind CSS, and Framer Motion (`motion`). It showcases:
+- **WhatsApp-First Contact Flow:** Fast direct communication tailored for Indian mobile patients.
+- **Doctor Referral Channel:** Structured referral form for dentist and physician colleagues.
+- **Strict Content Honesty:** No invented credentials, degrees, hospital empanelments, or testimonials. Unconfirmed items render as distinctly styled bracketed placeholders (`[Degree, university, year]`).
+- **Headless Content Layer:** All site copy passes through `src/lib/content/index.ts`, enabling clean replacement with a CMS (e.g. Sanity/Payload) without altering UI components.
+- **Accessible Motion:** Framer Motion scroll reveals, SVG draw effects, and Lenis smooth scrolling that automatically disable when `prefers-reduced-motion` is active.
+
+---
 
 ## Getting Started
 
-First, run the development server:
-
+### 1. Install Dependencies
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Environment Configuration
+Copy `.env.example` to `.env.local`:
+```bash
+cp .env.example .env.local
+```
+Key variables:
+- `NEXT_PUBLIC_DEMO_MODE=true` (enables demo banner, password gate, and mock endpoints)
+- `DEMO_PASSWORD=dranshul2026` (access code for private preview)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Run Locally
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000). The demo access code is `dranshul2026`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Quality & Build Checks
+```bash
+npm run type-check   # Strict TypeScript checks
+npm run build        # Production Next.js build
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Switching Demo Mode Off (Real Build)
+Set the environment variable in your production environment:
+```env
+NEXT_PUBLIC_DEMO_MODE=false
+```
+When `NEXT_PUBLIC_DEMO_MODE=false`:
+- The top warning ribbon disappears.
+- The password gate is deactivated.
+- Search engine indexing (`robots.txt`) is permitted.
+- Only verified credentials and approved services render.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Replacing Content
+All content is centralized in `src/lib/content/seed.ts` behind the interface defined in `src/lib/content/types.ts`. To update doctor qualifications, clinic addresses, or service scopes, edit `seed.ts` or connect an external headless API in `src/lib/content/index.ts`.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment (Vercel)
+1. Push this repository to GitHub.
+2. Import the project in Vercel.
+3. Configure `DEMO_PASSWORD` and `NEXT_PUBLIC_DEMO_MODE=true` under Project Settings > Environment Variables.
+4. Deploy.

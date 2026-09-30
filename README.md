@@ -1,9 +1,8 @@
-# Dr. Anshul Singhal — Website Demo Prototype
+# Dr. Anshul Singhal — Pre-Launch Production Website
 
-A private demo prototype of a personal website for **Dr. Anshul Singhal, Oral and Maxillofacial Surgeon (Noida / Delhi NCR)**.
+A production-ready personal website for **Dr. Anshul Singhal, Oral and Maxillofacial Surgeon**, currently operating in a private pre-launch content state.
 
-> **NOT for public distribution.** This is a private prototype prepared for in-person review.  
-> All content is placeholder. No real patient data is stored or processed.
+> **Pre-launch only.** The UI, content contracts, and integration boundaries are intended for the eventual live site. Current placeholders are temporary data placeholders, not a throwaway product. No real patient data is stored or processed.
 
 ---
 
@@ -24,8 +23,7 @@ npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000).
 
-The site is password-protected. Default demo access code: **`dranshul2026`**  
-Change it by setting `DEMO_PASSWORD` in `.env.local`.
+The site is password-protected in pre-launch mode. Set `DEMO_PASSWORD` in `.env.local`; do not rely on the development fallback outside local work.
 
 ---
 
@@ -46,28 +44,27 @@ Change it by setting `DEMO_PASSWORD` in `.env.local`.
 Copy `.env.example` to `.env.local` and fill in:
 
 ```env
-# Demo mode toggle — set to "false" to disable demo ribbon and placeholder styling
+# Pre-launch mode toggle — keep true until the launch checklist is complete
 NEXT_PUBLIC_DEMO_MODE=true
 
-# Password for the demo gate
-DEMO_PASSWORD=dranshul2026
+# Password for the pre-launch gate — use a private value
+DEMO_PASSWORD=replace-with-a-private-access-code
 ```
 
-### Turning off Demo Mode
-Set `NEXT_PUBLIC_DEMO_MODE=false`.  
-This removes the demo ribbon, disables placeholder styling, and enables normal indexing.  
-**Do not do this until content has been verified by Dr. Singhal.**
+### Pre-Launch Mode
+
+Pre-launch mode is a temporary protective state. It keeps the site private while verified content and integrations are collected. It controls the password gate, ribbon, placeholder styling, mock integrations, noindex metadata, and robots blocking. The current robots/metadata implementation must be made environment-aware before production mode is enabled; see the launch checklist below.
 
 ---
 
-## Password Gate
+## Private Access Gate
 
 All pages require a shared password (cookie session).  
 The gate is implemented in `src/middleware.ts` and `src/app/api/gate/route.ts`.
 
 - Enter the password at `/login`
-- A session cookie (`demo_session`) grants access for 24 hours
-- Replace with Vercel Deployment Protection for production
+- A session cookie (`demo_session`) grants access for 7 days
+- Vercel Deployment Protection may be used as an additional pre-launch control
 
 ---
 
@@ -75,7 +72,7 @@ The gate is implemented in `src/middleware.ts` and `src/app/api/gate/route.ts`.
 
 All content passes through `src/lib/content/index.ts` — a typed content-access module.
 
-**Seed data** lives in `src/lib/content/seed.ts`.
+**Pre-launch seed data** lives in `src/lib/content/seed.ts`. The content-access interface is the stable boundary: verified local data, a CMS, or Git-based content can replace the seed source without redesigning page components.
 
 | Entity | Fields |
 |---|---|
@@ -85,54 +82,52 @@ All content passes through `src/lib/content/index.ts` — a typed content-access
 | Article | slug, title, bodyParagraphs, readTimeMinutes |
 | SiteSettings | phone, WhatsApp, emergency number, ribbon text |
 
-### Credential status system
+### Verification and publication status
 Credentials have a `status` field:
 - `placeholder` → renders as a dashed outlined placeholder box (current state)
 - `verified` → renders as a green badge with the real data
 - `pending` → never shown publicly
 
-When Dr. Singhal confirms a credential, update its `status` in `seed.ts` from `placeholder` to `verified` and fill in the real value.
+When Dr. Singhal confirms a credential, update its `status` from `placeholder` to `verified` and provide the real value through the content source. Pending items remain unpublished.
 
 ---
 
-## Replacing Placeholder Content
+## Replacing Pre-Launch Content
 
 1. Confirm the real information with Dr. Singhal.
 2. Edit `src/lib/content/seed.ts` — find the relevant entity.
 3. Change `status: "placeholder"` to `status: "verified"` and replace the `[Bracketed placeholder]` value.
 4. Run `npm run type-check && npm run build`.
-5. Deploy.
+5. Run the quality checks and deploy the updated content.
 
-**No rebuild of the component layer is needed.** Only `seed.ts` changes.
+**No redesign or component-layer rebuild is required.** During the first production phase, verified values can be supplied through `seed.ts`; later, the source behind the content-access module may be exchanged for a CMS or Git-based source.
 
 ---
 
-## Deploying to Vercel
+## Deploying the Pre-Launch Site
 
 1. Push the repository to GitHub.
 2. Import the repository in [Vercel](https://vercel.com).
 3. Set the following environment variables in the Vercel dashboard:
    - `NEXT_PUBLIC_DEMO_MODE=true`
-   - `DEMO_GATE_PASSWORD=<your-demo-password>`
+   - `DEMO_PASSWORD=<your-private-access-code>`
 4. Deploy.
 5. (Optional) Enable **Vercel Deployment Protection** as an additional gate.
 
 ---
 
-## Demo-to-Real Transition
+## Pre-Launch to Production Transition
 
-When the real build is commissioned:
+The application is built to launch without redesigning it. Complete the following sequence only after client approval and written verification of relevant information.
 
-1. Replace `src/lib/content/seed.ts` with a CMS client (Sanity / Payload / MDX) behind the same `src/lib/content/index.ts` interface — no component changes required.
-2. Replace mock API handlers in `src/app/api/` with real integrations (email, WhatsApp Business API, Postgres for minimal lead capture).
-3. Set `NEXT_PUBLIC_DEMO_MODE=false`.
-4. Remove the password gate.
-5. Enable `robots.txt` indexing.
-6. Review all placeholder credentials with Dr. Singhal and update their `status` to `verified`.
-7. Review service list with Dr. Singhal and update `status` from `to-confirm` to `offered`.
-8. Add real clinic contact numbers.
-9. Replace the portrait placeholder with the doctor's approved photograph.
-10. Review Hindi translations with a native medical professional before publishing.
+1. Ingest verified doctor profile, credentials, registration details, services, clinic address/hours, contact routes, and approved photography through the typed content-access boundary. Keep unverified records `pending` or `placeholder`.
+2. Add consented testimonials, approved clinical/before-after assets, and structured-data values only if they have the required consent and verification.
+3. Connect real contact, referral, booking, and analytics providers behind their existing route/event boundaries. Confirm privacy, retention, and DPDP requirements before collecting data.
+4. Review every live route, Hindi translation, accessibility behaviour, mobile layout, performance budget, legal text, and WhatsApp disclosure.
+5. Make `NEXT_PUBLIC_DEMO_MODE=false`, then enable production-aware robots and metadata, remove private access, ribbon, and placeholder styling only after a staging verification confirms the new configuration.
+6. Deploy and verify indexing, structured data, contact delivery, booking, analytics consent/settings, and rollback procedures.
+
+The current codebase has identified gaps before Step 5: environment-aware robots/metadata, real mock-handler boundaries for forms, and verified production integrations still need implementation. Do not treat the mode switch alone as launch authorization.
 
 ---
 
@@ -177,7 +172,7 @@ Read `PROGRESS.md` for current implementation status.
 
 ---
 
-## Prototype Version
+## Project Status
 
-`v0.1.0 — Private Demo Prototype`  
+`v0.1.0 — Production-ready UI in pre-launch content state`
 Last updated: September 30, 2026  

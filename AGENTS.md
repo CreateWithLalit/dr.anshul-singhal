@@ -1,10 +1,10 @@
-# DEVELOPMENT PROMPT: Dr. Anshul Singhal Website Demo Prototype
+# DEVELOPMENT PROMPT: Dr. Anshul Singhal Website — Pre-Launch Production Build
 > **How to use this file:** give it to your AI coding agent as the first message (or place it in the project root as `AGENTS.md` / `CLAUDE.md` and tell the agent to read it fully before doing anything). It contains everything decided so far. Prepared by Lalit, September 29, 2026.
 
 ---
 
 ## 0. Your role and how to work
-You are a senior full-stack engineer and front-end designer. You are building a private demo prototype of a personal website for Dr. Anshul Singhal, Oral and Maxillofacial Surgeon (Noida / Delhi NCR). It will be shown to him in person in about two days to win approval for the real build.
+You are a senior full-stack engineer and front-end designer. You are building the production-ready personal website for Dr. Anshul Singhal, Oral and Maxillofacial Surgeon. It is currently operating in a private, pre-launch content state while verified content, assets, and integrations are collected. It will be shown to Dr. Singhal for approval, then launched by replacing verified data and enabling production integrations—not by rebuilding the application.
 
 ### Working protocol
 - Read this whole document first. Then reply with a short plan (milestones, any assumption you are making, anything ambiguous). Do not start coding until you have posted the plan. If something is ambiguous, choose the option most consistent with this document and state the choice; do not stall.
@@ -16,9 +16,9 @@ You are a senior full-stack engineer and front-end designer. You are building a 
 ---
 
 ## 1. Project summary
-- **Type:** demo prototype, private, not indexed, not for public distribution.
-- **Audience for the demo:** Dr. Singhal himself, viewing on a phone and a laptop.
-- **Purpose:** show a fast, minimal, trustworthy surgeon website with a WhatsApp-first contact flow, a referral channel for other doctors, elegant motion, and a content system where placeholder content can be replaced with real content without rebuilding.
+- **Type:** production-ready medical website in a private, pre-launch content state. It is not indexed or for public distribution until launch approval.
+- **Audience before launch:** Dr. Singhal and the project team, viewing on a phone and laptop. **Audience after launch:** patients and referring clinicians.
+- **Purpose:** deliver a fast, minimal, trustworthy surgeon website with a WhatsApp-first contact flow, a referral channel for other doctors, elegant motion, and a content/integration system that accepts verified production data without redesigning or rebuilding the application.
 - **The doctor's patients (context for design decisions):** they arrive mostly through word of mouth, are cost-conscious, often anxious, some elderly, mostly on mid-range Android phones over mobile data. Emergency visitors (facial injury) need a call button within one second.
 - **Positioning to express:** a specialist surgeon (not just a general dental clinic): clear, calm, honest, plain-language.
 
@@ -36,11 +36,11 @@ The only real information is the name "Dr. Anshul Singhal" and the generic title
 ### Required behavior
 - Credential areas use visibly empty bracketed fields, for example `[Degree, university, year]`, `[Registration no. to be confirmed]`, `[Membership to be confirmed]`, styled distinctly (dashed outline, muted colour).
 - Service copy is generic and educational ("what this procedure generally involves"). It must never claim that he personally performs a specific procedure. Show a small note on the services page: "Services to be confirmed with Dr. Singhal."
-- No person photos. The doctor portrait is a neutral placeholder (monoline avatar illustration or soft shape). Stock photos are limited to non-person scenes (see section 11).
-- Testimonials and before/after: use only clearly labelled "Sample layout" content built from illustrations, never clinical images or fake quotes attributed to people.
+- During pre-launch, no person photos are shown. The doctor portrait remains a neutral placeholder (monoline avatar illustration or soft shape). At launch, it may be replaced only with Dr. Singhal's approved photograph. Stock photography remains limited to non-person scenes (see section 11).
+- During pre-launch, testimonials and before/after use only clearly labelled "Sample layout" content built from illustrations, never clinical images or fake quotes attributed to people. At launch, these components may show only approved, consented, legally reviewed content.
 - Every statistic or count-up number is labelled "Sample figures" or uses non-claim numbers (for example, "4 steps in your care journey").
-- A persistent, subtle demo ribbon on every page: "Demo prototype: content is placeholder. Not for public distribution."
-- Phone, WhatsApp and address values are fake (for example `+91 00000 00000`), clearly marked as placeholder. Never use a real clinic number.
+- A persistent, subtle pre-launch ribbon on every page: "Pre-launch: some content is awaiting verification. Not for public distribution."
+- During pre-launch, phone, WhatsApp and address values are fake (for example `+91 00000 00000`) and clearly marked as placeholders. Never use a real clinic number until it is verified for launch.
 - If a requirement appears to conflict with these rules, the rules win.
 
 ---
@@ -51,8 +51,8 @@ The only real information is the name "Dr. Anshul Singhal" and the generic title
 - **Animation:** One main library: `motion` (Framer Motion's current package) for reveals, stagger, page transitions, count-up; plain CSS for simple hovers and the SVG draw effect
 - **Smooth scroll:** `lenis`, desktop / fine-pointer only, disabled on touch and when reduced motion is on
 - **Fonts:** `next/font`, self-hosted: a refined serif for headings (e.g. Fraunces or Newsreader) and a clean sans for body (e.g. Inter or DM Sans). Maximum two families, with fallback stacks
-- **Content:** Typed local seed data behind a content-access module (section 6). No CMS in the demo
-- **Backend:** Next.js route handlers (serverless) returning mock responses. No database, no email, no third parties
+- **Content:** Typed local seed data behind a content-access module (section 6) during pre-launch. The module is the stable boundary for a later CMS or verified production source.
+- **Backend:** Next.js route handlers (serverless) return mock responses during pre-launch. Payload types and handler boundaries must be ready for later production integrations without changing page components.
 - **Hosting:** Vercel
 - **Package manager:** pnpm or npm (choose one and stick to it)
 - **Do not add:** analytics, cookie banners, tracking pixels, a database, auth libraries, heavy chart libraries.
@@ -121,11 +121,11 @@ The site must never read content directly from components or files. All content 
 - **Site settings:** demo flag, ribbon text, default contacts, disclaimers
 
 ### Verification rule (build it into the renderer)
-Only `verified` items render as normal content. In demo mode, `placeholder` items render as bracketed, styled placeholders. `pending` is never shown publicly. This is a selling point of the pitch, so make the status chips and styling clear.
+Only `verified` items render as normal production content. In pre-launch mode, `placeholder` items render as bracketed, styled placeholders. `pending` is never shown publicly. This preserves factual safety before launch while making the same components ready for verified content later.
 
 Pages are composed of typed blocks (hero, credentials, service grid, step timeline, FAQ, location card, referral form, stats strip, sample before/after, and so on) that receive plain data and do not know its source.
 
-**Demo mode flag:** a single environment variable (for example `NEXT_PUBLIC_DEMO_MODE=true`) controls: ribbon, mock endpoints, noindex, and placeholder styling. Turning it off must not break the build.
+**Pre-launch mode flag:** a single environment variable (currently `NEXT_PUBLIC_DEMO_MODE=true`, to be renamed only in a planned compatibility-safe change) controls: private access, pre-launch ribbon, mock endpoints, noindex, robots blocking, and placeholder styling. Turning it off must not break the build and must enable the production-ready paths only after the launch checklist is complete.
 
 ---
 
@@ -171,8 +171,8 @@ Principle: motion decorates but never blocks. It must never delay or sit between
 
 ---
 
-## 9. Demo dashboard (`/demo/dashboard`)
-A doctor-facing analytics preview using hardcoded sample data, clearly labelled "Sample data: illustrates what reporting will look like."
+## 9. Pre-launch analytics preview (`/demo/dashboard`)
+A doctor-facing analytics preview using hardcoded sample data, clearly labelled "Sample data: illustrates what reporting will look like." It demonstrates the reporting UI and event model; it is not production analytics.
 - **Sections:** WhatsApp clicks, call taps, enquiries by page, enquiries by location, top-viewed services, weekly trend.
 - Cards fade/stagger in on scroll; charts animate on entry (bars grow, lines draw with `stroke-dasharray`/`stroke-dashoffset`, numbers count up).
 - Build charts as lightweight hand-built SVG/CSS, not a heavy chart library.
@@ -180,18 +180,22 @@ A doctor-facing analytics preview using hardcoded sample data, clearly labelled 
 
 ---
 
-## 10. Privacy, access and indexing
-- Every page has `noindex, nofollow`; `robots.txt` disallows all while demo mode is on.
-- Gate the site with a shared-password screen (app-level, password from an environment variable, simple cookie session) unless Vercel deployment protection is enabled. The gate must be a clean, minimal screen consistent with the design.
-- No analytics, cookies (other than the gate session), or third-party trackers.
-- No real personal data is ever collected.
+## 10. Pre-launch mode, launch controls, privacy, and indexing
+
+Pre-launch mode is a temporary operating state, not the product identity. It protects incomplete content while the production-ready UI, content contracts, and integration seams are completed.
+
+- **Pre-launch controls:** private access/password gate, `noindex, nofollow`, robots blocking, visibly styled placeholders, pre-launch ribbon, mock forms/booking, and sample-only dashboard data.
+- **Production controls:** enable only after every relevant item in the launch checklist is verified: remove the gate, remove the ribbon and placeholder styles, enable real integrations and analytics only where approved, make robots/indexing production-safe, and enable structured data populated solely from verified content.
+- Do not publish structured data, real contact routes, credentials, testimonials, clinical imagery, or patient outcomes until supplied and approved.
+- No analytics, cookies other than the gate session, or third-party trackers are active during pre-launch. No real personal data is collected or persisted during pre-launch.
+- The transition is configuration and data driven. Components must not be redesigned or replaced merely to launch.
 
 ---
 
 ## 11. Images (internet images allowed, with rules)
 - **Sources:** Unsplash, Pexels, Pixabay (free licences). Prefer Unsplash/Pexels.
 - **Non-person scenes only:** clean modern clinic interior, reception/waiting area without people, minimal medical or dental equipment, abstract teal/sand textures, architectural details. Search terms such as: "dental clinic interior", "modern clinic minimal", "medical equipment minimal", "abstract teal gradient".
-- Do not use photos of identifiable people, and do not present any stock image as the doctor or his patients. No AI-generated images.
+- Do not use stock photos of identifiable people or present any stock image as the doctor or his patients. A verified, approved photograph of Dr. Singhal is permitted at launch. No AI-generated images.
 - Download, compress (WebP/AVIF), size appropriately, and self-host in the project; do not hotlink. Use `next/image` with correct `sizes`, alt text and blur placeholders.
 - Keep an `ATTRIBUTIONS.md` listing each image, source URL, author and licence.
 - If you cannot access the internet, use CSS gradient / illustration placeholders in the same slots, and list the intended image slots (with suggested search terms) in the README so they can be dropped in later.
@@ -207,9 +211,10 @@ A doctor-facing analytics preview using hardcoded sample data, clearly labelled 
 
 ---
 
-## 13. Real-build considerations (do not implement now; keep the architecture ready)
-- Swap seed data for a headless CMS (Sanity or Payload) or Git-based MDX behind the same content-access module.
-- Real forms send to email/WhatsApp and store minimal leads in Postgres.
+## 13. Production launch considerations (do not enable before approval)
+- Swap seed data for a headless CMS (Sanity or Payload) or Git-based MDX behind the same content-access module, or retain verified local data while preserving the same interface.
+- Connect real forms to approved email/WhatsApp and, if selected, minimal-lead storage behind the existing handler boundary.
+- Add an approved doctor photograph, verified credentials, confirmed services, clinic details, consented testimonials, approved clinical imagery, and real analytics only through their typed data and integration boundaries.
 - Compliance to plan for: India's DPDP Act (core duties apply from May 13, 2027; older IT Act rules until then), dental council advertising rules (testimonials, claims, before/after), a privacy policy and disclaimer, disclosure that WhatsApp is a third-party platform. HIPAA does not apply.
 - Do not collect clinical details through the site.
 
@@ -223,20 +228,20 @@ A doctor-facing analytics preview using hardcoded sample data, clearly labelled 
 5. **Signature interactions:** SVG draw hero, scroll-drawn timeline, count-up stats, before/after slider, card hovers, page transitions, subtle parallax.
 6. **Remaining pages:** patient guide (2 samples), for-doctors with referral form, mock booking flow, privacy page, language toggle.
 7. **Dashboard:** `/demo/dashboard` with animated sample charts.
-8. **Polish and QA:** images, mobile pass, performance and accessibility audit, Lighthouse, fix issues, README, ATTRIBUTIONS.
+8. **Production readiness and QA:** complete the reusable components/integration boundaries, images and verified-content slots, mobile pass, performance and accessibility audit, Lighthouse, README, ATTRIBUTIONS, and launch checklist. Do not enable production data or integrations before approval.
 
 ---
 
 ## 15. Definition of done
 - [ ] All pages in section 5 render from seed data through the content-access module
-- [ ] No real personal claim appears anywhere except the name and generic title
-- [ ] Bracketed placeholders are clearly visible in credential areas; the demo ribbon shows on every page
+- [ ] No unverified personal claim appears before launch; verified content can replace placeholders through the content layer
+- [ ] Bracketed placeholders are clearly visible in pre-launch credential areas; the pre-launch ribbon shows on every page
 - [ ] All animations in section 7 work, are subtle, and switch off under reduced motion
 - [ ] Forms and booking work as mocks and store nothing
-- [ ] Site is password-gated and non-indexed; demo flag can be turned off without breaking the build
+- [ ] Site is safely private and non-indexed in pre-launch mode; the launch configuration can be enabled without redesigning or rebuilding
 - [ ] Performance and accessibility targets met on mobile
 - [ ] Images are self-hosted, non-person, attributed; no AI-generated images
-- [ ] README explains run, deploy, and demo-to-real steps
+- [ ] README explains run, deploy, pre-launch-to-production transition, content ingestion, and integration activation
 
 ---
 

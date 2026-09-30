@@ -1,20 +1,56 @@
-# Progress Tracker: Dr. Anshul Singhal Demo Prototype
+# Progress Tracker: Dr. Anshul Singhal Website — Pre-Launch Production Build
 
 **Last Updated:** September 30, 2026  
-**Status:** ~90% Complete — All demo-critical work done. Ready for Vercel deployment.
+**Status:** Production-ready UI/system foundations are substantially built; the site remains in a private pre-launch content state. It is not ready for public launch until verified content, production-mode controls, integrations, and QA gaps are complete.
+
+## Project Direction
+
+This is not a throwaway prototype. It is the production website operating with temporary pre-launch data and safeguards. The intended workflow is:
+
+`production-ready application → client approval → verified content/assets/contact details → approved integrations → launch`
+
+The application must not need a visual redesign or component rebuild at approval. Placeholder values are temporary data placeholders; they are replaced through typed content and integration boundaries.
+
+## Current State by Category
+
+### A. Production-ready UI/system already built
+
+- Next.js App Router foundation, strict TypeScript, Tailwind design tokens, responsive layout, core routes, monoline illustrations, motion wrappers, mobile action bar, password-gate middleware, and static sample dashboard.
+- Typed entities and a content-access module for doctor, credentials, services, locations, articles, testimonials, and settings.
+- Credential placeholder/verified presentation, generic service/detail templates, location/map slots, booking UI, patient guide, referral/contact UI, and privacy UI.
+
+### B. Temporary pre-launch content and controls
+
+- Local seed content contains bracketed placeholders, fake contacts, no testimonials, no photographic assets, sample figures, and generic educational copy.
+- Private access, noindex metadata, blocking robots file, pre-launch ribbon, mock form behaviour, mock booking, and sample-only analytics remain active.
+
+### C. Ready for later production integration
+
+- Typed content-access seam can exchange seed content for verified local content, Git content, or a CMS.
+- Credential statuses support verified publication and pending suppression.
+- Route/UI locations exist for real contact, referral, booking, analytics, structured data, portrait, testimonials, and approved before/after content.
+
+### D. Still required before public launch
+
+- Verify and ingest all doctor, credential, service, location, contact, legal, photo, and consented-content data.
+- Build server-side mock handler boundaries and validation for contact/referral, then connect approved production providers.
+- Make robots and metadata environment-aware; production mode must safely enable indexing only after the launch checklist.
+- Add verified structured-data rendering, production analytics events/provider, and real booking/referral/contact integrations only after approval.
+- Complete feature, mobile, accessibility, performance, Lighthouse, staging, and launch QA.
+- Resolve content-access gaps and any unverified language that implies a personal service, affiliation, location, or outcome.
 
 ---
 
 ## Milestone Status Overview
 
-- [x] **M1: Setup** (100%) — Next.js 15, TypeScript strict, Tailwind tokens, fonts, password gate, noindex, DemoRibbon.
-- [x] **M2: Content Layer** (100%) — Entity types, seed data, typed content-access module, credential status chips.
+- [x] **M1: Pre-launch Setup** (100%) — Next.js 15, TypeScript strict, Tailwind tokens, fonts, password gate, noindex, pre-launch ribbon.
+- [x] **M2: Content Foundation** (75%) — Entity types, seed data, typed content-access module, credential status chips. Remaining: route all display content through the access boundary and prepare verified-content ingestion workflow.
 - [x] **M3: Design System** (100%) — Header, Footer, BottomActionBar, 10 monoline SVG illustrations, motion wrappers (RevealOnScroll, Stagger, TextReveal, Lenis), reduced-motion safety.
-- [x] **M4: Core Pages** (95%) — Home, About, Services, 3× Service Detail, Locations (list + slug), Contact, Guide (list + 2 articles), For Doctors, Privacy, Not-Found.
+- [x] **M4: Core Pages** (85%) — Home, About, Services, 3× Service Detail, Locations (list + slug), Contact, Guide (list + 2 articles), For Doctors, Privacy, Not-Found. Remaining: production-safe content wording, complete pillars, and backend integration boundaries.
 - [x] **M5: Signature Interactions** (80%) — SVG draw hero, scroll-drawn timeline, count-up stats, card hover effects, page stagger animations. Missing: BeforeAfterSlider (slider is an illustration sequence), PageTransition (uses default App Router).
-- [x] **M6: Remaining Pages** (95%) — Guide articles with reading progress bar, For Doctors referral form, mock booking flow (3 steps), Privacy page, Language toggle (EN/हिन्दी) implemented.
+- [x] **M6: Remaining Pages** (80%) — Guide articles with reading progress bar, For Doctors referral form UI, mock booking flow UI, Privacy page, Language toggle. Remaining: complete translation coverage, handler boundaries, and production integration readiness.
 - [x] **M7: Demo Dashboard** (100%) — `/demo/dashboard` built with animated metric cards (count-up), horizontal bar charts, vertical bar charts, SVG line chart. All hand-built SVG/CSS. No chart libraries. Footer link works.
-- [ ] **M8: Polish, Assets & QA** (70%) — README.md done, ATTRIBUTIONS.md done, `npm run build` 21/21 pages, `tsc --noEmit` 0 errors. Missing: Vercel deployment, Lighthouse run, self-hosted non-person images.
+- [ ] **M8: Production Readiness & QA** (45%) — README and attributions exist; latest verification has passed. Missing: verified asset/content ingestion, integration activation plan, staging/mobile/Lighthouse checks, production-mode indexing controls, and launch checklist.
 
 ---
 
@@ -109,9 +145,9 @@
 
 ---
 
-## Security & Demo Protection Audit
+## Pre-Launch Protection Audit
 
-- **Password gate:** Active. All routes gated by `middleware.ts` via `demo_session` cookie.
+- **Password gate:** Active. All routes gated by `middleware.ts` via `demo_session` cookie; it is a temporary pre-launch control.
 - **noindex / nofollow:** Set globally in `src/app/layout.tsx` metadata. Also set per-page on all slug routes.
 - **robots.txt:** `Disallow: /` — all crawlers blocked.
 - **Contact numbers:** All fake (`+91 00000 00000`) — stored in seed.ts `settings`.
@@ -119,7 +155,7 @@
 - **Forms:** No data stored, no email sent, no external service called. Mock delays only. Honeypot on contact form.
 - **Booking flow:** No database, no real booking, no personal data storage.
 - **Analytics:** None. No tracking pixels, SDKs, or third parties.
-- **Dashboard:** Hardcoded sample data only.
+- **Dashboard:** Hardcoded sample data only; it is an analytics UI preview, not a production data source.
 
 ---
 
@@ -134,9 +170,16 @@
 
 ---
 
-## Deviations from AGENTS.md
+## Known Architecture and Specification Gaps
 
-None significant. Minor notes:
+- The requested `PRD_Dr_Anshul_Singhal_Website_Prototype.md` and `TRD_Dr_Anshul_Singhal_Website_Prototype.md` are absent from the repository, so their requirements cannot yet be reconciled against implementation.
+- `NEXT_PUBLIC_DEMO_MODE=false` does not currently make robots or global metadata production-aware; the static robots file and global noindex metadata require an implementation change before launch.
+- Contact and referral forms simulate success in the client. Required route-handler validation/payload boundaries and later real integrations remain to be built.
+- Content is not yet fully centralized through the content-access module.
+- The current login flow contains a development fallback/access-code display and needs hardening before any non-local deployment.
+- Unverified copy must be audited to remove wording that implies Dr. Singhal personally provides an unconfirmed service or operates at an unconfirmed location.
+
+Additional feature gaps:
 - Section 7 specifies `BeforeAfterSlider` — not yet built; static illustration used instead. Acceptable for demo.
 - Section 7 specifies `PageTransition` — not built; default App Router transitions used. Acceptable for demo.
 - Section 5 specifies face/jaw tap-able diagram — not built; plain service cards used instead. Acceptable for demo.
@@ -157,7 +200,7 @@ See `ATTRIBUTIONS.md` for full details and Unsplash search terms for each slot.
 
 ---
 
-## Known Bugs / Open Issues
+## Open Issues
 
 | Issue | Status |
 |---|---|
@@ -165,29 +208,29 @@ See `ATTRIBUTIONS.md` for full details and Unsplash search terms for each slot.
 | BeforeAfterSlider not built | Open — optional. Static illustration is in place. |
 | Interactive face/jaw diagram not built | Open — optional. |
 | PageTransition not built | Open — optional, uses default transitions. |
-| Vercel deployment not completed | **Required before demo.** See next steps. |
+| Vercel deployment not completed | Required only after pre-launch controls and staging checks are ready. |
 | Lighthouse run not completed | Open — manual testing recommended. |
 
 ---
 
-## Next 5 Tasks
+## Next Work Order
 
-1. **Deploy to Vercel** — push `main` to GitHub, import in Vercel, set env vars `NEXT_PUBLIC_DEMO_MODE=true` and `DEMO_PASSWORD=<code>`. Test on mobile. **Required before demo.**
-2. **Mobile device test** — verify on a 360px Android and iPhone viewport. Focus on header, bottom bar, service cards, booking flow, and dashboard.
-3. **Optional: BeforeAfterSlider** — accessible drag slider with tooth-gap/implant illustration.
-4. **Optional: Interactive face/jaw diagram** — region tap opens matching service.
-5. **Optional: PageTransition** — cross-fade using App Router template pattern.
+1. Correct content safety and content-access architecture; preserve placeholders as typed pre-launch data.
+2. Implement environment-aware pre-launch/production controls and secure the private gate configuration.
+3. Add mock route-handler validation and typed payloads for contact/referral, ready for later integration.
+4. Complete production-quality components and systems still required by the specification, without enabling real data or integrations.
+5. Run mobile, accessibility, performance, Lighthouse, staging, and pre-launch deployment QA; enable launch controls only after verified content and integrations are approved.
 
 ---
 
-## Vercel Deployment Steps
+## Pre-Launch Deployment Steps
 
 1. `git push origin main`
 2. Go to [vercel.com](https://vercel.com) → Import repository.
-3. Set environment variables:
+3. Set pre-launch environment variables:
    - `NEXT_PUBLIC_DEMO_MODE` = `true`
    - `DEMO_PASSWORD` = `dranshul2026` (or a new private code)
-4. Deploy.
+4. Deploy privately; do not enable public indexing or real integrations.
 5. (Optional) Enable Vercel Deployment Protection for a second authentication layer.
 6. Test all routes on the live URL.
 7. Test on a real Android phone (360px viewport).

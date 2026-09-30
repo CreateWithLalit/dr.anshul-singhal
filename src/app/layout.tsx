@@ -9,6 +9,7 @@ import { LenisSmoothScroll } from "@/components/motion/LenisSmoothScroll";
 import { LanguageProvider } from "@/components/LanguageContext";
 import { prelaunchRobots, siteUrl } from "@/lib/prelaunch";
 import { getVerifiedMedicalSchema } from "@/lib/structured-data";
+import { getSiteSettings } from "@/lib/content";
 
 const fraunces = Fraunces({
   variable: "--font-serif",
@@ -39,7 +40,7 @@ export const viewport: Viewport = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const medicalSchema = await getVerifiedMedicalSchema();
+  const [medicalSchema, settings] = await Promise.all([getVerifiedMedicalSchema(), getSiteSettings()]);
   // Check if this is the login page path (login page gets no site chrome)
   return (
     <html
@@ -66,10 +67,10 @@ export default async function RootLayout({
         <LanguageProvider>
           <LenisSmoothScroll />
           <DemoRibbon />
-          <Header />
+          <Header phone={settings.defaultPhone} whatsApp={settings.defaultWhatsApp} ctas={settings.contactCtas} />
           <main id="main-content" className="flex-1 flex flex-col min-h-screen">{children}</main>
-          <Footer />
-          <BottomActionBar />
+          <Footer phoneDisplay={settings.defaultPhoneFormatted} />
+          <BottomActionBar phone={settings.defaultPhone} whatsApp={settings.defaultWhatsApp} ctas={settings.contactCtas} />
         </LanguageProvider>
       </body>
     </html>

@@ -21,6 +21,9 @@ export async function generateMetadata({
     title: loc
       ? `${loc.name} | Dr. Anshul Singhal`
       : "Location | Dr. Anshul Singhal",
+    description: loc
+      ? "Clinic address, hours, directions pathway, and contact details are awaiting verification before public launch."
+      : undefined,
     robots: prelaunchRobots,
   };
 }

@@ -38,7 +38,7 @@ body {
 .lang-hi,
 [lang="hi"] {
   font-family: var(--font-sans), "Nirmala UI", "Noto Sans Devanagari", sans-serif;
-  line-height: 1.5;
+  line-height: 1.7;
 }
 
 /* Accessible interactive tap targets */

@@ -16,7 +16,7 @@ export function LanguageToggle({ className = "" }: { className?: string }) {
         type="button"
         onClick={() => setLanguage("en")}
         aria-pressed={language === "en"}
-        className={`px-2.5 py-1 text-xs rounded-pill font-medium transition-all ${
+        className={`min-h-[44px] px-3 py-2 text-xs rounded-pill font-medium transition-all ${
           language === "en"
             ? "bg-accent text-white shadow-soft"
             : "text-muted hover:text-ink"
@@ -28,7 +28,7 @@ export function LanguageToggle({ className = "" }: { className?: string }) {
         type="button"
         onClick={() => setLanguage("hi")}
         aria-pressed={language === "hi"}
-        className={`px-2.5 py-1 text-xs rounded-pill font-medium transition-all ${
+        className={`min-h-[44px] px-3 py-2 text-xs rounded-pill font-medium transition-all ${
           language === "hi"
             ? "bg-accent text-white shadow-soft"
             : "text-muted hover:text-ink"

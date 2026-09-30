@@ -48,13 +48,13 @@ The application must not need a visual redesign or component rebuild at approval
 ## Milestone Status Overview
 
 - [x] **M1: Pre-launch Setup** (100%) — Next.js 15, TypeScript strict, Tailwind tokens, fonts, password gate, noindex, pre-launch ribbon.
-- [x] **M2: Content Foundation** (80%) — Entity types, seed data, typed content-access module, credential status chips, portrait data contract, and all four pillars. Remaining: route all display content through the access boundary and prepare verified-content ingestion workflow.
+- [x] **M2: Content Foundation** (85%) — Entity types, seed data, typed content-access module, credential status chips, portrait data contract, four pillars, and content-driven global contact CTA configuration. Remaining: complete the final display-content centralization audit and verified-content ingestion workflow.
 - [x] **M3: Design System** (100%) — Header, Footer, BottomActionBar, 10 monoline SVG illustrations, motion wrappers (RevealOnScroll, Stagger, TextReveal, Lenis), reduced-motion safety.
-- [x] **M4: Core Pages** (90%) — Home, About, Services, 5× Service Detail, Locations (list + slug), Contact, Guide (list + 2 articles), For Doctors, Privacy, Not-Found. Remaining: full content-centralization audit and verified production content.
+- [x] **M4: Core Pages** (92%) — Home, About, Services, 5× Service Detail, Locations (list + slug), Contact, Guide (list + 2 articles), For Doctors, Privacy, Not-Found. Conversion and emergency CTAs are clearer; remaining work is the final content-centralization audit and verified production content.
 - [x] **M5: Signature Interactions** (80%) — SVG draw hero, scroll-drawn timeline, count-up stats, card hover effects, page stagger animations. Missing: BeforeAfterSlider (slider is an illustration sequence), PageTransition (uses default App Router).
 - [x] **M6: Remaining Pages** (85%) — Guide articles with reading progress bar, For Doctors referral form UI plus typed mock endpoint, mock booking flow UI, Privacy page, Language toggle with translated navigation/primary labels. Remaining: complete translation coverage and production integration readiness.
 - [x] **M7: Demo Dashboard** (100%) — `/demo/dashboard` built with animated metric cards (count-up), horizontal bar charts, vertical bar charts, SVG line chart. All hand-built SVG/CSS. No chart libraries. Footer link works.
-- [ ] **M8: Production Readiness & QA** (60%) — README and attributions exist; current type-check/lint/build pass. Pre-launch controls, private gate hardening, guarded structured-data seam, and mock form boundaries are implemented. Missing: verified asset/content ingestion, staging/mobile/Lighthouse checks, production-provider activation, and full launch checklist.
+- [ ] **M8: Production Readiness & QA** (65%) — README and attributions exist; current type-check/lint/build pass. Pre-launch controls, private gate hardening, guarded structured-data seam, mock form boundaries, India-first contact CTA wiring, and Hindi/mobile affordances are implemented. Missing: verified asset/content ingestion, staging/mobile/Lighthouse checks, production-provider activation, and full launch checklist.
 
 ---
 
@@ -84,6 +84,18 @@ The application must not need a visual redesign or component rebuild at approval
 ---
 
 ## Session Log
+
+### Session: October 1, 2026 (main product implementation phase)
+**Implemented from the final product/Gemini review:**
+- Centralized global WhatsApp, call, booking, emergency labels, and WhatsApp prefill text in typed site settings. The Header, mobile BottomActionBar, Footer, location booking action, About CTA, and reusable service template now consume the appropriate content boundary rather than carrying duplicate global contact values.
+- Made conversion paths more obvious without adding clutter: solid booking CTA on About, consistent content-driven contact actions, and a persistent mobile WhatsApp/call bar with safe-area padding and 48px targets.
+- Improved India-first readability and trust presentation: larger EN/Hindi selector hit areas, Devanagari-capable fallbacks with looser line height, an intentional portrait frame, dashed placeholder credential chip, and maintained +91 placeholder display.
+- Strengthened patient safety and reusable service flow: service wording explicitly remains educational, cost information avoids prices, emergency guidance prioritizes local emergency services for life-threatening symptoms, and service/location metadata includes safe descriptive architecture while `noindex` remains active.
+- Kept the referral demo no-storage and added an explicit instruction not to submit medical records, images, or urgent emergency information.
+
+**Deferred intentionally:** verified content and photo ingestion; a live directions/map link; full Hindi medical translation; real form/booking/analytics integrations; uploads or referral X-rays; Google Business Profile/local schema populated with verified clinic data; Lighthouse and protected-staging QA; optional face diagram, before/after slider, and page-transition work.
+
+**Verification result:** `npm run type-check` exit 0; `npm run lint` exit 0 with no warnings or errors; `npm run build` exit 0 with 26 static pages generated.
 
 ### Session: October 1, 2026 (recovery and production-readiness documentation)
 **Work completed:**

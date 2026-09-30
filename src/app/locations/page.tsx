@@ -3,7 +3,7 @@ import Link from "next/link";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import { LocationPinIcon, ChatBubbleIcon, PhoneCallIcon, CalendarIcon } from "@/components/illustrations";
-import { getLocations } from "@/lib/content";
+import { getLocations, getSiteSettings } from "@/lib/content";
 import { prelaunchRobots } from "@/lib/prelaunch";
 
 export const metadata = {
@@ -12,7 +12,7 @@ export const metadata = {
 };
 
 export default async function LocationsPage() {
-  const locations = await getLocations();
+  const [locations, settings] = await Promise.all([getLocations(), getSiteSettings()]);
 
   return (
     <div className="bg-[#FAF8F4]">
@@ -81,7 +81,7 @@ export default async function LocationsPage() {
                         className="flex items-center justify-center gap-2 w-full py-3 border border-[#0F5C63]/30 rounded-full text-[#0F5C63] text-sm font-medium hover:bg-[#DCEBEA]/40 transition-colors"
                       >
                         <CalendarIcon size={14} />
-                        Book Appointment
+                        {settings.contactCtas.bookLabel}
                       </Link>
                     )}
                   </div>

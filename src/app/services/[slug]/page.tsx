@@ -5,7 +5,7 @@ import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import { ChatBubbleIcon, PhoneCallIcon } from "@/components/illustrations";
 import { VideoSlot } from "@/components/VideoSlot";
-import { getServiceBySlug, getServices } from "@/lib/content";
+import { getServiceBySlug, getServices, getSiteSettings } from "@/lib/content";
 import { prelaunchRobots } from "@/lib/prelaunch";
 
 export async function generateStaticParams() {
@@ -20,6 +20,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: service
       ? `${service.title} | Dr. Anshul Singhal`
       : "Service | Dr. Anshul Singhal",
+    description: service
+      ? `${service.shortSummary} Educational information only; service availability is to be confirmed.`
+      : undefined,
     robots: prelaunchRobots,
   };
 }
@@ -30,7 +33,7 @@ export default async function ServiceDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const [service, services] = await Promise.all([getServiceBySlug(slug), getServices()]);
+  const [service, services, settings] = await Promise.all([getServiceBySlug(slug), getServices(), getSiteSettings()]);
   if (!service) notFound();
   const relatedServices = services.filter((item) => service.relatedSlugs.includes(item.slug));
 
@@ -65,7 +68,7 @@ export default async function ServiceDetailPage({
               <svg className="w-3.5 h-3.5 text-[#D9C7A8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="12" cy="12" r="10" /><path d="M12 8v4M12 16h.01" />
               </svg>
-              Generic educational overview. Whether Dr. Singhal offers this service is to be confirmed.
+              Educational information only. Services to be confirmed with Dr. Singhal.
             </span>
           </RevealOnScroll>
         </div>
@@ -128,7 +131,7 @@ export default async function ServiceDetailPage({
               Cost Factors
             </h2>
             <p className="text-sm text-[#5B6870] mb-4">
-              Surgical investment varies by individual case. These are the most common variables — no specific pricing is presented here.
+              Costs can vary by individual assessment, clinical complexity, materials, facility requirements, and follow-up needs. No prices are presented in this pre-launch site.
             </p>
             <ul className="space-y-2">
               {service.costFactors.map((cf, i) => (
@@ -145,9 +148,9 @@ export default async function ServiceDetailPage({
           <RevealOnScroll>
             <aside className="rounded-[16px] border border-[#B3392F]/25 bg-[#B3392F]/5 p-6" aria-label="Emergency contact guidance">
               <h2 className="font-serif text-xl font-normal text-[#16232B]">Need urgent help after a facial injury?</h2>
-              <p className="mt-2 text-sm leading-relaxed text-[#5B6870]">For immediate danger, breathing difficulty, severe bleeding, or loss of consciousness, seek emergency services immediately. The call action remains available throughout this site.</p>
-              <a href="tel:+910000000000" className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#B3392F] px-5 py-3 text-sm font-medium text-white hover:bg-[#922e26]">
-                <PhoneCallIcon size={16} strokeWidth={2} /> Emergency call
+              <p className="mt-2 text-sm leading-relaxed text-[#5B6870]">For immediate danger, breathing difficulty, severe bleeding, or loss of consciousness, contact local emergency services immediately. For a non-life-threatening concern, use the verified clinic number when it is published.</p>
+              <a href={`tel:${settings.emergencyCallNumber}`} className="mt-4 inline-flex min-h-12 items-center gap-2 rounded-full bg-[#B3392F] px-5 py-3 text-sm font-medium text-white hover:bg-[#922e26]">
+                <PhoneCallIcon size={16} strokeWidth={2} /> {settings.contactCtas.emergencyLabel}
               </a>
               <p className="mt-2 text-xs text-[#5B6870]">Placeholder number — replace only with verified emergency contact details.</p>
             </aside>
@@ -220,23 +223,23 @@ export default async function ServiceDetailPage({
             </div>
             <div className="flex flex-wrap gap-3 flex-shrink-0">
               <a
-                href="https://wa.me/910000000000"
+                href={`https://wa.me/${settings.defaultWhatsApp}?text=${encodeURIComponent(settings.contactCtas.whatsappMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-5 py-3 rounded-full bg-[#0F5C63] text-white text-sm font-medium hover:bg-[#0b464c] transition-colors"
               >
                 <ChatBubbleIcon size={15} strokeWidth={2} />
-                WhatsApp
+                {settings.contactCtas.whatsappLabel}
               </a>
               <a
-                href="tel:+910000000000"
+                href={`tel:${settings.defaultPhone}`}
                 className="flex items-center gap-2 px-5 py-3 rounded-full border border-[#2C3B45] text-white text-sm font-medium hover:bg-[#1E2F3A] transition-colors"
               >
                 <PhoneCallIcon size={15} strokeWidth={1.8} />
-                Call
+                {settings.contactCtas.callLabel}
               </a>
               <Link href="/contact" className="flex items-center gap-2 px-5 py-3 rounded-full bg-white text-[#16232B] text-sm font-medium hover:bg-[#DCEBEA] transition-colors">
-                Book
+                {settings.contactCtas.bookLabel}
               </Link>
             </div>
           </div>

@@ -3,8 +3,9 @@
 import React from "react";
 import { ChatBubbleIcon, PhoneCallIcon } from "./illustrations";
 import { useLanguage } from "./LanguageContext";
+import type { SiteSettings } from "@/lib/content";
 
-export function BottomActionBar() {
+export function BottomActionBar({ phone, whatsApp, ctas }: { phone: string; whatsApp: string; ctas: SiteSettings["contactCtas"] }) {
   const { t } = useLanguage();
 
   return (
@@ -12,7 +13,7 @@ export function BottomActionBar() {
       <div className="grid grid-cols-2 gap-2 max-w-md mx-auto">
         {/* WhatsApp Call to Action */}
         <a
-          href="https://wa.me/910000000000?text=Hello%20Dr.%20Anshul%20Singhal,%20I%20would%20like%20to%20inquire%20about%20a%20consultation"
+          href={`https://wa.me/${whatsApp}?text=${encodeURIComponent(ctas.whatsappMessage)}`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 py-3 px-3 rounded-pill bg-[#0F5C63] text-white font-medium text-sm shadow-soft active:scale-[0.98] transition-transform"
@@ -23,7 +24,7 @@ export function BottomActionBar() {
 
         {/* Immediate Call Action */}
         <a
-          href="tel:+910000000000"
+          href={`tel:${phone}`}
           className="flex items-center justify-center gap-2 py-3 px-3 rounded-pill bg-surface text-ink border border-hairline font-medium text-sm active:bg-background shadow-soft active:scale-[0.98] transition-transform"
         >
           <PhoneCallIcon size={17} strokeWidth={2} className="text-[#0F5C63]" />

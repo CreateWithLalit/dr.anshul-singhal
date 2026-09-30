@@ -9,6 +9,7 @@ import { prelaunchRobots } from "@/lib/prelaunch";
 
 export const metadata = {
   title: "Surgical Services | Dr. Anshul Singhal",
+  description: "Educational guides about oral and maxillofacial care. Service availability is confirmed before public launch.",
   robots: prelaunchRobots,
 };
 

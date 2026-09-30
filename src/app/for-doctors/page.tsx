@@ -78,7 +78,7 @@ export default function ForDoctorsPage() {
 
             <RevealOnScroll delay={0.1}>
               <div className="bg-white border border-[#E4DFD6] rounded-[16px] p-6 sm:p-8">
-                <p className="text-xs text-[#9BA7AE] mb-6">Demo only: This is a placeholder form.</p>
+                <p className="text-xs text-[#9BA7AE] mb-6">Demo only: nothing is sent or stored. Do not include medical records, images, or urgent emergency information.</p>
                 
                 {state === "sent" ? (
                   <div className="text-center py-8">

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { LanguageToggle } from "./LanguageToggle";
 import { useLanguage } from "./LanguageContext";
 import { ChatBubbleIcon } from "./illustrations";
+import type { SiteSettings } from "@/lib/content";
 
 const NAV_LINKS = [
   { href: "/about", key: "navAbout" },
@@ -16,7 +17,7 @@ const NAV_LINKS = [
   { href: "/contact", key: "navContact" },
 ];
 
-export function Header() {
+export function Header({ phone, whatsApp, ctas }: { phone: string; whatsApp: string; ctas: SiteSettings["contactCtas"] }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
@@ -70,6 +71,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
+                aria-current={active ? "page" : undefined}
                 className={`text-[0.8125rem] font-medium whitespace-nowrap transition-colors relative py-1 ${
                   active ? "text-[#0F5C63]" : "text-[#5B6870] hover:text-[#16232B]"
                 }`}
@@ -87,13 +89,13 @@ export function Header() {
         <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
           <LanguageToggle />
           <a
-            href="https://wa.me/910000000000?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20a%20consultation%20with%20Dr.%20Anshul%20Singhal"
+            href={`https://wa.me/${whatsApp}?text=${encodeURIComponent(ctas.whatsappMessage)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0F5C63] text-white text-[0.8125rem] font-medium hover:bg-[#0b464c] transition-colors"
           >
             <ChatBubbleIcon size={14} strokeWidth={2.2} />
-            WhatsApp
+            {ctas.whatsappLabel}
           </a>
         </div>
 
@@ -105,7 +107,7 @@ export function Header() {
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-expanded={mobileOpen}
             aria-label="Toggle menu"
-            className="p-2 rounded-lg border border-[#E4DFD6] text-[#16232B] hover:bg-white transition"
+            className="min-h-12 min-w-12 p-2 rounded-lg border border-[#E4DFD6] text-[#16232B] hover:bg-white transition"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               {mobileOpen
@@ -136,7 +138,7 @@ export function Header() {
           </nav>
           <div className="mt-4 pt-4 border-t border-[#E4DFD6] grid grid-cols-2 gap-2">
             <a
-              href="https://wa.me/910000000000?text=Hello%2C%20consultation%20enquiry"
+              href={`https://wa.me/${whatsApp}?text=${encodeURIComponent(ctas.whatsappMessage)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 py-3 rounded-full bg-[#0F5C63] text-white text-sm font-medium"
@@ -145,7 +147,7 @@ export function Header() {
               {t("btnWhatsApp")}
             </a>
             <a
-              href="tel:+910000000000"
+              href={`tel:${phone}`}
               className="flex items-center justify-center py-3 rounded-full border border-[#E4DFD6] text-[#16232B] text-sm font-medium hover:bg-[#FAF8F4]"
             >
               {t("btnCall")}

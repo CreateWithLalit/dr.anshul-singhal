@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-export function Footer() {
+export function Footer({ phoneDisplay }: { phoneDisplay: string }) {
   return (
     <footer className="bg-[#16232B] text-[#FAF8F4] pt-14 pb-28 sm:pb-14 mt-auto border-t border-[#2C3B45]">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
@@ -68,7 +68,7 @@ export function Footer() {
                 </Link>
               </li>
               <li className="pt-2 text-xs text-[#9BA7AE]/70">
-                WhatsApp: +91 00000 00000
+                WhatsApp: {phoneDisplay}
                 <br />
                 <span className="text-[10px] text-[#6F7D85]">(Placeholder — confirm before launch)</span>
               </li>

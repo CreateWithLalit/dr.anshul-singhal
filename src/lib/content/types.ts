@@ -109,6 +109,13 @@ export interface SiteSettings {
   privacyNoticeText: string;
   statFiguresDisclaimer: string;
   servicesDisclaimer: string;
+  contactCtas: {
+    whatsappLabel: string;
+    callLabel: string;
+    bookLabel: string;
+    emergencyLabel: string;
+    whatsappMessage: string;
+  };
 }
 
 export interface ContentData {

@@ -29,7 +29,7 @@ export function CredentialBlock({ credential, className = "" }: CredentialBlockP
 
         {isPlaceholder ? (
           <span
-            className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-pill text-[11px] font-medium bg-[#FAF8F4] text-[#5B6870] border border-[#A2AFB6]/60"
+            className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-pill text-[11px] font-medium bg-[#FAF8F4] text-[#5B6870] border border-dashed border-[#A2AFB6]/70"
             title="Awaiting Dr. Singhal's verification before public launch"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#D9C7A8]" />

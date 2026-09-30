@@ -5,7 +5,7 @@ import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import { CredentialBlock } from "@/components/CredentialBlock";
 import { FaceProfileIcon, ShieldCheckIcon } from "@/components/illustrations";
-import { getDoctor, getCredentials } from "@/lib/content";
+import { getDoctor, getCredentials, getSiteSettings } from "@/lib/content";
 import { prelaunchRobots } from "@/lib/prelaunch";
 
 export const metadata = {
@@ -14,7 +14,7 @@ export const metadata = {
 };
 
 export default async function AboutPage() {
-  const [doctor, credentials] = await Promise.all([getDoctor(), getCredentials()]);
+  const [doctor, credentials, settings] = await Promise.all([getDoctor(), getCredentials(), getSiteSettings()]);
 
   return (
     <div className="bg-[#FAF8F4]">
@@ -151,7 +151,7 @@ export default async function AboutPage() {
               href="/contact"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#0F5C63] text-white font-medium hover:bg-[#0b464c] transition-colors"
             >
-              Contact & Appointments
+              {settings.contactCtas.bookLabel}
             </Link>
           </RevealOnScroll>
         </div>

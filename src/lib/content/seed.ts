@@ -387,12 +387,19 @@ export const seedContent: ContentData = {
     emergencyCallNumber: "+910000000000",
     defaultLocationName: "[Consultation location to be confirmed]",
     disclaimerText:
-      "Medical Disclaimer: Information on this website is for general educational purposes only and does not constitute formal medical diagnosis or treatment advice. Consult Dr. Singhal directly for individual clinical evaluation.",
+      "Medical Disclaimer: Information on this website is for general educational purposes only and does not constitute formal medical diagnosis or treatment advice. Seek an individual clinical evaluation from an appropriately qualified professional.",
     privacyNoticeText:
       "This prototype operates in demonstration mode. No medical records or personal health identifiers are recorded or transmitted.",
     statFiguresDisclaimer:
       "Sample figures: illustrative representation for prototype review.",
     servicesDisclaimer:
       "Services and clinical scope to be confirmed directly with Dr. Singhal.",
+    contactCtas: {
+      whatsappLabel: "WhatsApp",
+      callLabel: "Call now",
+      bookLabel: "Book consultation",
+      emergencyLabel: "Emergency call",
+      whatsappMessage: "Hello, I would like to enquire about a consultation.",
+    },
   },
 };

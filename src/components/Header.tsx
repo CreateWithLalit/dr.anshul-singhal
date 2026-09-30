@@ -7,75 +7,76 @@ import { LanguageToggle } from "./LanguageToggle";
 import { useLanguage } from "./LanguageContext";
 import { ChatBubbleIcon } from "./illustrations";
 
+const NAV_LINKS = [
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/locations", label: "Locations" },
+  { href: "/guide", label: "Guide" },
+  { href: "/for-doctors", label: "For Doctors" },
+  { href: "/contact", label: "Contact" },
+];
+
 export function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const { t } = useLanguage();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+  // Hide header chrome on login page
+  const isLogin = pathname === "/login";
+  if (isLogin) return null;
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close mobile menu upon navigation
   useEffect(() => {
-    setMobileMenuOpen(false);
+    setMobileOpen(false);
   }, [pathname]);
-
-  const navLinks = [
-    { href: "/about", label: t("navAbout") },
-    { href: "/services", label: t("navServices") },
-    { href: "/locations", label: t("navLocations") },
-    { href: "/guide", label: t("navGuide") },
-    { href: "/for-doctors", label: t("navForDoctors") },
-    { href: "/contact", label: t("navContact") },
-  ];
 
   return (
     <header
       className={`sticky top-0 z-40 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/95 backdrop-blur-md hairline-b py-3 shadow-soft"
-          : "bg-background py-5"
+        scrolled
+          ? "bg-white/95 backdrop-blur-md border-b border-[#E4DFD6] py-2.5 shadow-[0_1px_8px_rgba(22,35,43,0.04)]"
+          : "bg-[#FAF8F4] py-4"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-        {/* Wordmark logo */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 flex items-center justify-between gap-6">
+
+        {/* Wordmark — always one line */}
         <Link
           href="/"
-          className="group flex flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
+          className="flex-shrink-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F5C63] rounded-sm"
         >
-          <span className="font-serif text-xl sm:text-2xl font-normal text-ink group-hover:text-accent transition-colors leading-tight">
+          <span className="block font-serif text-[1.15rem] sm:text-[1.25rem] font-normal text-[#16232B] group-hover:text-[#0F5C63] transition-colors whitespace-nowrap leading-snug">
             {t("doctorName")}
           </span>
-          <span className="text-[11px] uppercase tracking-wider text-muted font-sans font-medium">
+          <span className="block text-[10px] uppercase tracking-[0.13em] text-[#5B6870] font-sans whitespace-nowrap">
             {t("doctorTitle")}
           </span>
         </Link>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Nav */}
         <nav
           aria-label="Main Navigation"
-          className="hidden lg:flex items-center gap-6"
+          className="hidden lg:flex items-center gap-5 xl:gap-7"
         >
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href;
+          {NAV_LINKS.map((link) => {
+            const active = pathname.startsWith(link.href);
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-accent relative py-1 ${
-                  isActive ? "text-accent" : "text-muted"
+                className={`text-[0.8125rem] font-medium whitespace-nowrap transition-colors relative py-1 ${
+                  active ? "text-[#0F5C63]" : "text-[#5B6870] hover:text-[#16232B]"
                 }`}
               >
                 {link.label}
-                {isActive && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent rounded-full" />
+                {active && (
+                  <span className="absolute -bottom-0.5 left-0 right-0 h-[1.5px] bg-[#0F5C63] rounded-full" />
                 )}
               </Link>
             );
@@ -83,87 +84,73 @@ export function Header() {
         </nav>
 
         {/* Desktop Actions */}
-        <div className="hidden sm:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
           <LanguageToggle />
-
           <a
-            href="https://wa.me/910000000000?text=Hello%20Dr.%20Anshul%20Singhal,%20I%20would%20like%20to%20inquire%20about%20a%20consultation"
+            href="https://wa.me/910000000000?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20a%20consultation%20with%20Dr.%20Anshul%20Singhal"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-pill bg-accent text-white text-sm font-medium hover:bg-accent-hover transition-colors shadow-soft"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0F5C63] text-white text-[0.8125rem] font-medium hover:bg-[#0b464c] transition-colors"
           >
-            <ChatBubbleIcon size={16} strokeWidth={2} />
-            <span>{t("btnWhatsApp")}</span>
+            <ChatBubbleIcon size={14} strokeWidth={2.2} />
+            WhatsApp
           </a>
         </div>
 
-        {/* Mobile Hamburger Button */}
+        {/* Mobile: language + hamburger */}
         <div className="flex items-center gap-2 lg:hidden">
-          <LanguageToggle className="sm:hidden" />
+          <LanguageToggle />
           <button
             type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-expanded={mobileMenuOpen}
-            aria-label="Toggle navigation menu"
-            className="p-2.5 rounded-lg text-ink hover:bg-surface border border-hairline focus:outline-none focus:ring-2 focus:ring-accent"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-expanded={mobileOpen}
+            aria-label="Toggle menu"
+            className="p-2 rounded-lg border border-[#E4DFD6] text-[#16232B] hover:bg-white transition"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-            >
-              {mobileMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-              )}
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              {mobileOpen
+                ? <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                : <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />}
             </svg>
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[65px] bg-surface hairline-b shadow-card p-6 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-          <nav className="flex flex-col gap-3">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`text-base font-medium py-2 px-3 rounded-lg transition-colors ${
-                    isActive
-                      ? "bg-accent-soft text-accent"
-                      : "text-ink hover:bg-background"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-
-            <div className="pt-4 border-t border-hairline flex flex-col gap-2 mt-2">
-              <a
-                href="https://wa.me/910000000000?text=Hello%20Dr.%20Anshul%20Singhal,%20I%20would%20like%20to%20inquire%20about%20a%20consultation"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3 rounded-pill bg-accent text-white text-center font-medium flex items-center justify-center gap-2"
+      {/* Mobile drawer */}
+      {mobileOpen && (
+        <div className="lg:hidden absolute top-full inset-x-0 bg-white border-b border-[#E4DFD6] shadow-[0_8px_24px_rgba(22,35,43,0.08)] p-5 z-50">
+          <nav className="flex flex-col gap-1">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`py-2.5 px-3 rounded-lg text-[0.9375rem] font-medium transition-colors ${
+                  pathname.startsWith(link.href)
+                    ? "bg-[#DCEBEA] text-[#0F5C63]"
+                    : "text-[#16232B] hover:bg-[#FAF8F4]"
+                }`}
               >
-                <ChatBubbleIcon size={18} />
-                <span>{t("btnWhatsApp")}</span>
-              </a>
-
-              <a
-                href="tel:+910000000000"
-                className="w-full py-3 rounded-pill bg-white border border-hairline text-ink text-center font-medium hover:bg-background transition"
-              >
-                {t("btnCall")} (+91 00000 00000)
-              </a>
-            </div>
+                {link.label}
+              </Link>
+            ))}
           </nav>
+          <div className="mt-4 pt-4 border-t border-[#E4DFD6] grid grid-cols-2 gap-2">
+            <a
+              href="https://wa.me/910000000000?text=Hello%2C%20consultation%20enquiry"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 py-3 rounded-full bg-[#0F5C63] text-white text-sm font-medium"
+            >
+              <ChatBubbleIcon size={16} strokeWidth={2} />
+              WhatsApp
+            </a>
+            <a
+              href="tel:+910000000000"
+              className="flex items-center justify-center py-3 rounded-full border border-[#E4DFD6] text-[#16232B] text-sm font-medium hover:bg-[#FAF8F4]"
+            >
+              Call Clinic
+            </a>
+          </div>
         </div>
       )}
     </header>

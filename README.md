@@ -68,3 +68,4 @@ All content is centralized in `src/lib/content/seed.ts` behind the interface def
 2. Import the project in Vercel.
 3. Configure `DEMO_PASSWORD` and `NEXT_PUBLIC_DEMO_MODE=true` under Project Settings > Environment Variables.
 4. Deploy.
+# dr.anshul-singhal

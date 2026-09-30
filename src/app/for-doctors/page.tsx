@@ -1,0 +1,103 @@
+"use client";
+
+import React, { useState } from "react";
+import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
+import { CalendarIcon } from "@/components/illustrations";
+
+export default function ForDoctorsPage() {
+  const [form, setForm] = useState({ drName: "", clinic: "", patientName: "", details: "" });
+  const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.drName || !form.patientName) return;
+    setState("sending");
+    await new Promise((r) => setTimeout(r, 800));
+    setState("sent");
+  };
+
+  return (
+    <div className="bg-[#FAF8F4]">
+      <section className="bg-white border-b border-[#E4DFD6] py-12 sm:py-16">
+        <div className="max-w-4xl mx-auto px-5 sm:px-8">
+          <RevealOnScroll>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0F5C63] mb-3">Clinical Pathway</p>
+            <h1 className="font-serif text-4xl sm:text-5xl text-[#16232B] font-normal mb-4">For Referring Doctors</h1>
+            <p className="text-base text-[#5B6870] max-w-lg leading-relaxed">
+              A structured referral pathway for dental practitioners and physicians requiring specialist maxillofacial input.
+            </p>
+          </RevealOnScroll>
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-20">
+        <div className="max-w-4xl mx-auto px-5 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+            <RevealOnScroll>
+              <h2 className="font-serif text-2xl text-[#16232B] font-normal mb-5">What to Include</h2>
+              <ul className="space-y-4 text-sm text-[#5B6870] leading-relaxed mb-8">
+                <li className="flex gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0F5C63] mt-2 flex-shrink-0" />
+                  Brief history of present complaint and relevant medical background.
+                </li>
+                <li className="flex gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0F5C63] mt-2 flex-shrink-0" />
+                  Recent radiographs (OPG/CBCT) if available.
+                </li>
+                <li className="flex gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0F5C63] mt-2 flex-shrink-0" />
+                  Urgency of referral (e.g., routine evaluation vs. suspected pathology).
+                </li>
+              </ul>
+
+              <div className="bg-[#DCEBEA]/30 border border-[#0F5C63]/15 rounded-[12px] p-6">
+                <p className="font-medium text-[#16232B] mb-2 text-sm">Direct Clinician Line</p>
+                <p className="text-sm text-[#5B6870] mb-3">For urgent case discussions, please call the clinic and request the clinician line.</p>
+                <a href="tel:+910000000000" className="inline-flex items-center gap-2 text-[#0F5C63] font-medium text-sm">
+                  <CalendarIcon size={16} /> +91 00000 00000
+                </a>
+              </div>
+            </RevealOnScroll>
+
+            <RevealOnScroll delay={0.1}>
+              <div className="bg-white border border-[#E4DFD6] rounded-[16px] p-6 sm:p-8">
+                <p className="text-xs text-[#9BA7AE] mb-6">Demo only: This is a placeholder form.</p>
+                
+                {state === "sent" ? (
+                  <div className="text-center py-8">
+                    <div className="w-12 h-12 rounded-full bg-[#DCEBEA] flex items-center justify-center mx-auto mb-4">✓</div>
+                    <p className="font-serif text-lg text-[#16232B]">Referral Received</p>
+                    <p className="text-sm text-[#5B6870] mt-2">The clinic will contact the patient shortly.</p>
+                    <button onClick={() => setState("idle")} className="text-[#0F5C63] underline text-sm mt-4">Send another</button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Referring Doctor *</label>
+                      <input required type="text" value={form.drName} onChange={(e) => setForm({ ...form, drName: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Clinic Name</label>
+                      <input type="text" value={form.clinic} onChange={(e) => setForm({ ...form, clinic: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Patient Name & Contact *</label>
+                      <input required type="text" value={form.patientName} onChange={(e) => setForm({ ...form, patientName: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Clinical Details</label>
+                      <textarea rows={3} value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63] resize-none" />
+                    </div>
+                    <button type="submit" disabled={state === "sending"} className="w-full py-3.5 rounded-full bg-[#0F5C63] text-white font-medium text-sm hover:bg-[#0b464c] transition-colors disabled:opacity-50">
+                      {state === "sending" ? "Sending..." : "Submit Referral"}
+                    </button>
+                  </form>
+                )}
+              </div>
+            </RevealOnScroll>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

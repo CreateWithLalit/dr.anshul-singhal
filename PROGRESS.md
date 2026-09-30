@@ -58,10 +58,11 @@ The application must not need a visual redesign or component rebuild at approval
 
 ---
 
-## Build Metrics (September 30, 2026)
+## Build Metrics (October 1, 2026)
 
 - **TypeScript check (`npm run type-check`):** Exit 0, 0 errors.
-- **Production build (`npm run build`):** Exit 0, 21/21 static pages generated.
+- **Lint (`npm run lint`):** Exit 0, no ESLint warnings or errors.
+- **Production build (`npm run build`):** Exit 0, 26 static pages generated.
 
 | Route | Type | First Load JS |
 |---|---|---|
@@ -83,6 +84,14 @@ The application must not need a visual redesign or component rebuild at approval
 ---
 
 ## Session Log
+
+### Session: October 1, 2026 (recovery and production-readiness documentation)
+**Work completed:**
+- Recovered the interrupted documentation pass by reviewing clean commit `899124e` against `AGENTS.md`, `README.md`, and the implemented pre-launch controls.
+- Confirmed the README accurately describes the production-ready/pre-launch direction, typed content seam, password gate, noindex/robots behavior, structured-data guard, mock integration boundaries, limitations, content replacement, and deployment/launch sequence.
+- Removed the committed sample password and obsolete `NEXT_PUBLIC_DEMO_DEFAULT_PASS` value from `.env.example`; the template now requires an operator-supplied private value and includes the optional site URL setting documented in the README.
+
+**Verification result:** `npm run type-check` exit 0; `npm run lint` exit 0 with no warnings or errors; `npm run build` exit 0 with 26 static pages generated.
 
 ### Session: September 30, 2026 (AI agent)
 **Work completed:**
@@ -219,11 +228,11 @@ See `ATTRIBUTIONS.md` for full details and Unsplash search terms for each slot.
 
 ## Next Work Order
 
-1. Correct content safety and content-access architecture; preserve placeholders as typed pre-launch data.
-2. Implement environment-aware pre-launch/production controls and secure the private gate configuration.
-3. Add mock route-handler validation and typed payloads for contact/referral, ready for later integration.
-4. Complete production-quality components and systems still required by the specification, without enabling real data or integrations.
-5. Run mobile, accessibility, performance, Lighthouse, staging, and pre-launch deployment QA; enable launch controls only after verified content and integrations are approved.
+1. Complete the content-centralization audit and ingest only verified doctor, credential, service, location, legal, and approved-asset data through the typed content boundary.
+2. On a protected staging deployment, verify the password gate, `noindex` metadata, dynamic `robots.txt`, placeholder rendering, and structured-data suppression in pre-launch mode; separately verify the production-mode responses before enabling them.
+3. Select and connect approved contact, referral, booking, and analytics providers behind the existing typed boundaries, with privacy/retention review before collecting any data.
+4. Complete mobile, keyboard/accessibility, performance, Lighthouse, legal, Hindi-review, and end-to-end launch QA.
+5. Enable public production mode only after the launch checklist, verified content, integrations, and stakeholder approval are complete.
 
 ---
 

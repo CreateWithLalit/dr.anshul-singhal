@@ -68,11 +68,17 @@
 ---
 
 ## Current Work & Next Steps
-- **Completed:** Milestones 1, 2, and 3 are complete and verified with production builds. Git repository is on `main` branch with remote origin `https://github.com/CreateWithLalit/dr.anshul-singhal.git`.
-- **In Progress:** Milestone 4 (Core Pages: Home, About, Services, 3 Service Detail routes, Locations, and Contact).
+- **Completed:** Milestones 1, 2, 3, and core pages of Milestone 4. Bug fix committed on `main`.
+- **Bug fix (30 Sep 2026):** Runtime error on `/guide/[slug]` resolved — two causes:
+  1. **Field name mismatch**: page used `article.body` (string) and `article.readingTime`, but the `Article` type declares `bodyParagraphs: string[]` and `readTimeMinutes: number`. Fixed to use correct field names — no optional chaining added.
+  2. **`robots.ts` build conflict**: `src/app/robots.ts` caused `PageNotFoundError` during build trace collection. Replaced with static `public/robots.txt`.
+  3. Also fixed: `ease: "easeInOut" as const` in `_home-animations.tsx` (Framer Motion strict `Easing` type), added `generateMetadata` with awaited `params` to all slug routes, added `not-found.tsx` for clean 404 responses.
+  4. All pages verified: `/guide` 200, both articles 200, unknown slug → 404, `/services/wisdom-teeth` 200, `/locations/noida-central` 200.
+  5. `tsc --noEmit` passes clean (exit 0). Production build completes with all 20 static pages generated (exit 0).
+- **In Progress:** Remaining Milestone 4 polish, Milestone 5 (signature interactions), and Milestone 6 (patient guide reading progress, for-doctors referral form, booking flow, language toggle).
 - **Next 5 Tasks:**
-  1. Build `/` Home page incorporating Hero, monoline drawing, 4 service pillars, care journey timeline, sample stats, location card, and referral teaser
-  2. Build `/about` page with portrait illustration placeholder, bio placeholder, credential list with status chips, and credential explainer
-  3. Build `/services` page with four pillars, face/jaw diagram interactive selector, and "Services to be confirmed" note
-  4. Build dynamic `/services/[slug]` route supporting `wisdom-teeth`, `facial-injury`, and `dental-implants` with timeline, FAQ, cost factors, and before/after layout
-  5. Build `/locations` & `/contact` with mock form handler
+  1. Milestone 5: SVG draw hero animation (already wired, verify on mobile)
+  2. Milestone 5: Count-up stats strip and scroll-drawn timeline on home page
+  3. Milestone 5: Accessible before/after illustration slider
+  4. Milestone 6: Language toggle dictionary (EN / हिन्दी) for nav, hero, contact buttons
+  5. Milestone 7: `/demo/dashboard` with animated sample SVG/CSS charts

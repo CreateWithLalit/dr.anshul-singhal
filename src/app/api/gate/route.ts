@@ -1,18 +1,31 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { isPrelaunchMode } from "@/lib/prelaunch";
+
+const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;
 
 export async function POST(request: Request) {
+  if (!isPrelaunchMode) return NextResponse.json({ success: true });
+
   try {
     const { password } = await request.json();
-    const expectedPassword = process.env.DEMO_PASSWORD || "dranshul2026";
+    const expectedPassword = process.env.DEMO_PASSWORD;
 
-    if (password && password.trim() === expectedPassword.trim()) {
+    if (!expectedPassword) {
+      return NextResponse.json(
+        { success: false, error: "Private access is not configured." },
+        { status: 503 }
+      );
+    }
+
+    if (typeof password === "string" && password.trim() === expectedPassword.trim()) {
       const cookieStore = await cookies();
       cookieStore.set("demo_session", "authenticated", {
         path: "/",
         httpOnly: true,
         sameSite: "lax",
-        maxAge: 60 * 60 * 24 * 7, // 7 days
+        maxAge: SESSION_MAX_AGE_SECONDS,
+        secure: process.env.NODE_ENV === "production",
       });
 
       return NextResponse.json({ success: true });
@@ -31,6 +44,7 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
+  if (!isPrelaunchMode) return NextResponse.json({ authenticated: true });
   const cookieStore = await cookies();
   const session = cookieStore.get("demo_session");
   const isAuthenticated = session?.value === "authenticated";

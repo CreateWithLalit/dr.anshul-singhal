@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getLocationBySlug, getLocations } from "@/lib/content";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { LocationPinIcon, ChatBubbleIcon, PhoneCallIcon } from "@/components/illustrations";
+import { prelaunchRobots } from "@/lib/prelaunch";
 
 export async function generateStaticParams() {
   const locs = await getLocations();
@@ -20,7 +21,7 @@ export async function generateMetadata({
     title: loc
       ? `${loc.name} | Dr. Anshul Singhal`
       : "Location | Dr. Anshul Singhal",
-    robots: { index: false, follow: false },
+    robots: prelaunchRobots,
   };
 }
 

@@ -8,19 +8,19 @@ import { useLanguage } from "./LanguageContext";
 import { ChatBubbleIcon } from "./illustrations";
 
 const NAV_LINKS = [
-  { href: "/about", label: "About" },
-  { href: "/services", label: "Services" },
-  { href: "/locations", label: "Locations" },
-  { href: "/guide", label: "Guide" },
-  { href: "/for-doctors", label: "For Doctors" },
-  { href: "/contact", label: "Contact" },
+  { href: "/about", key: "navAbout" },
+  { href: "/services", key: "navServices" },
+  { href: "/locations", key: "navLocations" },
+  { href: "/guide", key: "navGuide" },
+  { href: "/for-doctors", key: "navForDoctors" },
+  { href: "/contact", key: "navContact" },
 ];
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -74,7 +74,7 @@ export function Header() {
                   active ? "text-[#0F5C63]" : "text-[#5B6870] hover:text-[#16232B]"
                 }`}
               >
-                {link.label}
+                  {t(link.key)}
                 {active && (
                   <span className="absolute -bottom-0.5 left-0 right-0 h-[1.5px] bg-[#0F5C63] rounded-full" />
                 )}
@@ -130,7 +130,7 @@ export function Header() {
                     : "text-[#16232B] hover:bg-[#FAF8F4]"
                 }`}
               >
-                {link.label}
+                <span lang={language === "hi" ? "hi" : "en"} className={language === "hi" ? "lang-hi" : ""}>{t(link.key)}</span>
               </Link>
             ))}
           </nav>
@@ -142,13 +142,13 @@ export function Header() {
               className="flex items-center justify-center gap-2 py-3 rounded-full bg-[#0F5C63] text-white text-sm font-medium"
             >
               <ChatBubbleIcon size={16} strokeWidth={2} />
-              WhatsApp
+              {t("btnWhatsApp")}
             </a>
             <a
               href="tel:+910000000000"
               className="flex items-center justify-center py-3 rounded-full border border-[#E4DFD6] text-[#16232B] text-sm font-medium hover:bg-[#FAF8F4]"
             >
-              Call Clinic
+              {t("btnCall")}
             </a>
           </div>
         </div>

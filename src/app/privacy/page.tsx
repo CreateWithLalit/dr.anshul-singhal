@@ -1,9 +1,10 @@
 import React from "react";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
+import { prelaunchRobots } from "@/lib/prelaunch";
 
 export const metadata = {
   title: "Privacy & Disclaimer | Dr. Anshul Singhal",
-  robots: { index: false, follow: false },
+  robots: prelaunchRobots,
 };
 
 export default function PrivacyPage() {

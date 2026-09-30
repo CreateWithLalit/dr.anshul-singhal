@@ -7,6 +7,8 @@ import { Footer } from "@/components/Footer";
 import { BottomActionBar } from "@/components/BottomActionBar";
 import { LenisSmoothScroll } from "@/components/motion/LenisSmoothScroll";
 import { LanguageProvider } from "@/components/LanguageContext";
+import { prelaunchRobots, siteUrl } from "@/lib/prelaunch";
+import { getVerifiedMedicalSchema } from "@/lib/structured-data";
 
 const fraunces = Fraunces({
   variable: "--font-serif",
@@ -23,8 +25,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Dr. Anshul Singhal | Oral & Maxillofacial Surgeon",
   description:
-    "Specialist oral and maxillofacial surgery in Noida & Delhi NCR. Calm, precise, patient-first care.",
-  robots: { index: false, follow: false },
+    "A pre-launch website for Dr. Anshul Singhal, Oral and Maxillofacial Surgeon.",
+  robots: prelaunchRobots,
+  ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),
 };
 
 export const viewport: Viewport = {
@@ -33,9 +36,10 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const medicalSchema = await getVerifiedMedicalSchema();
   // Check if this is the login page path (login page gets no site chrome)
   return (
     <html
@@ -47,11 +51,23 @@ export default function RootLayout({
         className="antialiased selection:bg-[#DCEBEA] selection:text-[#0F5C63] bg-[#FAF8F4]"
         suppressHydrationWarning
       >
+        {medicalSchema && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalSchema) }}
+          />
+        )}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-pill focus:bg-[#0F5C63] focus:px-4 focus:py-3 focus:text-sm focus:font-medium focus:text-white"
+        >
+          Skip to main content
+        </a>
         <LanguageProvider>
           <LenisSmoothScroll />
           <DemoRibbon />
           <Header />
-          <main className="flex-1 flex flex-col min-h-screen">{children}</main>
+          <main id="main-content" className="flex-1 flex flex-col min-h-screen">{children}</main>
           <Footer />
           <BottomActionBar />
         </LanguageProvider>

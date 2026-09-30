@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { ChatBubbleIcon, PhoneCallIcon, CalendarIcon, LocationPinIcon } from "@/components/illustrations";
+import type { MockFormResponse } from "@/lib/forms";
 
 const BOOKING_STEPS = ["Location", "Date & Slot", "Confirm"] as const;
 type BookingStep = 0 | 1 | 2 | 3;
@@ -36,12 +37,23 @@ export default function ContactPage() {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (form.hp) return; // honeypot
     if (!form.name.trim() || !form.phone.trim() || !form.message.trim()) return;
     setFormState("sending");
-    // Simulate network delay — no data sent
-    await new Promise((r) => setTimeout(r, 900));
-    setFormState("sent");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, website: form.hp }),
+      });
+      const result = (await response.json()) as MockFormResponse;
+      if (result.success) {
+        setFormState("sent");
+      } else {
+        setFormState("error");
+      }
+    } catch {
+      setFormState("error");
+    }
   };
 
   return (
@@ -53,7 +65,7 @@ export default function ContactPage() {
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0F5C63] mb-3">Get in Touch</p>
             <h1 className="font-serif text-4xl sm:text-5xl text-[#16232B] font-normal mb-4">Contact & Appointments</h1>
             <p className="text-base text-[#5B6870] max-w-lg leading-relaxed">
-              WhatsApp is the fastest way to reach Dr. Singhal&apos;s consultation suite directly.
+              WhatsApp and phone contact routes will be verified before launch. This pre-launch page demonstrates the intended patient pathway.
             </p>
           </RevealOnScroll>
         </div>
@@ -127,9 +139,9 @@ export default function ContactPage() {
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                   </div>
-                  <p className="font-serif text-xl text-[#16232B]">Enquiry received</p>
+                  <p className="font-serif text-xl text-[#16232B]">Form preview complete</p>
                   <p className="text-sm text-[#5B6870]">
-                    In the live build, this would trigger a secure notification to the clinic.
+                    Demo only: nothing is sent or stored.
                   </p>
                   <button onClick={() => setFormState("idle")} className="text-[#0F5C63] underline text-sm">
                     Send another
@@ -185,6 +197,11 @@ export default function ContactPage() {
                       placeholder="Briefly describe your concern or the treatment you are enquiring about…"
                     />
                   </div>
+                  {formState === "error" && (
+                    <p className="text-sm text-[#B3392F]" role="alert">
+                      Please check the required fields and try again.
+                    </p>
+                  )}
                   <button
                     type="submit"
                     disabled={formState === "sending"}

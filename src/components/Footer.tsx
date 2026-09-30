@@ -12,10 +12,10 @@ export function Footer() {
               Dr. Anshul Singhal
             </h2>
             <p className="text-[10px] uppercase tracking-[0.14em] text-[#D9C7A8]">
-              Oral &amp; Maxillofacial Surgeon · Noida / Delhi NCR
+              Oral &amp; Maxillofacial Surgeon
             </p>
             <p className="text-sm text-[#9BA7AE] leading-relaxed max-w-sm">
-              Specialist surgical consultations for facial trauma, dental implants, jaw disorders, and impacted teeth.
+              A pre-launch information and consultation pathway. Services and contact details await verification.
             </p>
             <div className="pt-1">
               <span className="inline-flex items-center gap-2 text-[11px] bg-[#1E2F3A] text-[#DCEBEA] px-3 py-1.5 rounded-full border border-[#2C3B45]">

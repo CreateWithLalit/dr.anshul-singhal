@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { isPrelaunchMode } from "@/lib/prelaunch";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -16,8 +17,7 @@ export function middleware(request: NextRequest) {
   }
 
   // Only gate in demo mode
-  const isDemo = process.env.NEXT_PUBLIC_DEMO_MODE !== "false";
-  if (!isDemo) return NextResponse.next();
+  if (!isPrelaunchMode) return NextResponse.next();
 
   const session = request.cookies.get("demo_session");
   if (session?.value !== "authenticated") {

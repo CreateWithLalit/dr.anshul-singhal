@@ -1,6 +1,6 @@
 # Progress Tracker: Dr. Anshul Singhal Website — Pre-Launch Production Build
 
-**Last Updated:** September 30, 2026  
+**Last Updated:** October 1, 2026  
 **Status:** Production-ready UI/system foundations are substantially built; the site remains in a private pre-launch content state. It is not ready for public launch until verified content, production-mode controls, integrations, and QA gaps are complete.
 
 ## Project Direction
@@ -17,7 +17,9 @@ The application must not need a visual redesign or component rebuild at approval
 
 - Next.js App Router foundation, strict TypeScript, Tailwind design tokens, responsive layout, core routes, monoline illustrations, motion wrappers, mobile action bar, password-gate middleware, and static sample dashboard.
 - Typed entities and a content-access module for doctor, credentials, services, locations, articles, testimonials, and settings.
-- Credential placeholder/verified presentation, generic service/detail templates, location/map slots, booking UI, patient guide, referral/contact UI, and privacy UI.
+- Credential placeholder/verified presentation, generic service/detail templates, location/map slots, responsive portrait slot, booking UI, patient guide, referral/contact UI, privacy UI, video/media slot, and related-service linking.
+- All four required service pillars are represented in typed seed content: Maxillofacial Surgery, Implantology, Geriatric Dentistry, and Full Mouth Rehabilitation.
+- Shared pre-launch mode now drives middleware, ribbon, robots route, metadata, and the structured-data publication guard. A skip link and Devanagari-capable UI fallback are in place.
 
 ### B. Temporary pre-launch content and controls
 
@@ -29,12 +31,14 @@ The application must not need a visual redesign or component rebuild at approval
 - Typed content-access seam can exchange seed content for verified local content, Git content, or a CMS.
 - Credential statuses support verified publication and pending suppression.
 - Route/UI locations exist for real contact, referral, booking, analytics, structured data, portrait, testimonials, and approved before/after content.
+- Contact and referral mock routes have typed payloads, server-side validation, trimming, length checks, phone checks, honeypots, and explicit no-storage/no-transmission responses.
+- Structured-data generation is implemented as a guarded production seam: it emits nothing in pre-launch or until minimum verified fields exist.
 
 ### D. Still required before public launch
 
 - Verify and ingest all doctor, credential, service, location, contact, legal, photo, and consented-content data.
-- Build server-side mock handler boundaries and validation for contact/referral, then connect approved production providers.
-- Make robots and metadata environment-aware; production mode must safely enable indexing only after the launch checklist.
+- Connect approved production providers behind the completed contact/referral mock handler boundaries.
+- Complete staging verification of environment-aware robots and metadata before enabling production indexing.
 - Add verified structured-data rendering, production analytics events/provider, and real booking/referral/contact integrations only after approval.
 - Complete feature, mobile, accessibility, performance, Lighthouse, staging, and launch QA.
 - Resolve content-access gaps and any unverified language that implies a personal service, affiliation, location, or outcome.
@@ -44,13 +48,13 @@ The application must not need a visual redesign or component rebuild at approval
 ## Milestone Status Overview
 
 - [x] **M1: Pre-launch Setup** (100%) — Next.js 15, TypeScript strict, Tailwind tokens, fonts, password gate, noindex, pre-launch ribbon.
-- [x] **M2: Content Foundation** (75%) — Entity types, seed data, typed content-access module, credential status chips. Remaining: route all display content through the access boundary and prepare verified-content ingestion workflow.
+- [x] **M2: Content Foundation** (80%) — Entity types, seed data, typed content-access module, credential status chips, portrait data contract, and all four pillars. Remaining: route all display content through the access boundary and prepare verified-content ingestion workflow.
 - [x] **M3: Design System** (100%) — Header, Footer, BottomActionBar, 10 monoline SVG illustrations, motion wrappers (RevealOnScroll, Stagger, TextReveal, Lenis), reduced-motion safety.
-- [x] **M4: Core Pages** (85%) — Home, About, Services, 3× Service Detail, Locations (list + slug), Contact, Guide (list + 2 articles), For Doctors, Privacy, Not-Found. Remaining: production-safe content wording, complete pillars, and backend integration boundaries.
+- [x] **M4: Core Pages** (90%) — Home, About, Services, 5× Service Detail, Locations (list + slug), Contact, Guide (list + 2 articles), For Doctors, Privacy, Not-Found. Remaining: full content-centralization audit and verified production content.
 - [x] **M5: Signature Interactions** (80%) — SVG draw hero, scroll-drawn timeline, count-up stats, card hover effects, page stagger animations. Missing: BeforeAfterSlider (slider is an illustration sequence), PageTransition (uses default App Router).
-- [x] **M6: Remaining Pages** (80%) — Guide articles with reading progress bar, For Doctors referral form UI, mock booking flow UI, Privacy page, Language toggle. Remaining: complete translation coverage, handler boundaries, and production integration readiness.
+- [x] **M6: Remaining Pages** (85%) — Guide articles with reading progress bar, For Doctors referral form UI plus typed mock endpoint, mock booking flow UI, Privacy page, Language toggle with translated navigation/primary labels. Remaining: complete translation coverage and production integration readiness.
 - [x] **M7: Demo Dashboard** (100%) — `/demo/dashboard` built with animated metric cards (count-up), horizontal bar charts, vertical bar charts, SVG line chart. All hand-built SVG/CSS. No chart libraries. Footer link works.
-- [ ] **M8: Production Readiness & QA** (45%) — README and attributions exist; latest verification has passed. Missing: verified asset/content ingestion, integration activation plan, staging/mobile/Lighthouse checks, production-mode indexing controls, and launch checklist.
+- [ ] **M8: Production Readiness & QA** (60%) — README and attributions exist; current type-check/lint/build pass. Pre-launch controls, private gate hardening, guarded structured-data seam, and mock form boundaries are implemented. Missing: verified asset/content ingestion, staging/mobile/Lighthouse checks, production-provider activation, and full launch checklist.
 
 ---
 
@@ -173,10 +177,10 @@ The application must not need a visual redesign or component rebuild at approval
 ## Known Architecture and Specification Gaps
 
 - The requested `PRD_Dr_Anshul_Singhal_Website_Prototype.md` and `TRD_Dr_Anshul_Singhal_Website_Prototype.md` are absent from the repository, so their requirements cannot yet be reconciled against implementation.
-- `NEXT_PUBLIC_DEMO_MODE=false` does not currently make robots or global metadata production-aware; the static robots file and global noindex metadata require an implementation change before launch.
-- Contact and referral forms simulate success in the client. Required route-handler validation/payload boundaries and later real integrations remain to be built.
+- Environment-aware metadata and a dynamic robots route are implemented, but must be staging-verified before production indexing is enabled.
+- Contact and referral routes are validated, no-storage mock boundaries. Real provider integrations remain intentionally disabled.
 - Content is not yet fully centralized through the content-access module.
-- The current login flow contains a development fallback/access-code display and needs hardening before any non-local deployment.
+- The current login flow no longer exposes or falls back to a password; `DEMO_PASSWORD` is required in pre-launch mode. Deployment configuration still requires staging verification.
 - Unverified copy must be audited to remove wording that implies Dr. Singhal personally provides an unconfirmed service or operates at an unconfirmed location.
 
 Additional feature gaps:

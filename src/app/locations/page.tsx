@@ -4,10 +4,11 @@ import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import { LocationPinIcon, ChatBubbleIcon, PhoneCallIcon, CalendarIcon } from "@/components/illustrations";
 import { getLocations } from "@/lib/content";
+import { prelaunchRobots } from "@/lib/prelaunch";
 
 export const metadata = {
   title: "Clinic Location | Dr. Anshul Singhal",
-  robots: { index: false, follow: false },
+  robots: prelaunchRobots,
 };
 
 export default async function LocationsPage() {

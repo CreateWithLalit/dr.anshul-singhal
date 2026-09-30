@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import { ChatBubbleIcon, PhoneCallIcon } from "@/components/illustrations";
+import { VideoSlot } from "@/components/VideoSlot";
 import { getServiceBySlug, getServices } from "@/lib/content";
+import { prelaunchRobots } from "@/lib/prelaunch";
 
 export async function generateStaticParams() {
   const services = await getServices();
@@ -18,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: service
       ? `${service.title} | Dr. Anshul Singhal`
       : "Service | Dr. Anshul Singhal",
-    robots: { index: false, follow: false },
+    robots: prelaunchRobots,
   };
 }
 
@@ -28,8 +30,9 @@ export default async function ServiceDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const service = await getServiceBySlug(slug);
+  const [service, services] = await Promise.all([getServiceBySlug(slug), getServices()]);
   if (!service) notFound();
+  const relatedServices = services.filter((item) => service.relatedSlugs.includes(item.slug));
 
   return (
     <div className="bg-[#FAF8F4]">
@@ -138,6 +141,19 @@ export default async function ServiceDetailPage({
           </div>
         </RevealOnScroll>
 
+        {service.slug === "facial-injury" && (
+          <RevealOnScroll>
+            <aside className="rounded-[16px] border border-[#B3392F]/25 bg-[#B3392F]/5 p-6" aria-label="Emergency contact guidance">
+              <h2 className="font-serif text-xl font-normal text-[#16232B]">Need urgent help after a facial injury?</h2>
+              <p className="mt-2 text-sm leading-relaxed text-[#5B6870]">For immediate danger, breathing difficulty, severe bleeding, or loss of consciousness, seek emergency services immediately. The call action remains available throughout this site.</p>
+              <a href="tel:+910000000000" className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#B3392F] px-5 py-3 text-sm font-medium text-white hover:bg-[#922e26]">
+                <PhoneCallIcon size={16} strokeWidth={2} /> Emergency call
+              </a>
+              <p className="mt-2 text-xs text-[#5B6870]">Placeholder number — replace only with verified emergency contact details.</p>
+            </aside>
+          </RevealOnScroll>
+        )}
+
         {/* FAQs */}
         <RevealOnScroll>
           <h2 className="font-serif text-2xl text-[#16232B] font-normal mb-7">
@@ -170,18 +186,39 @@ export default async function ServiceDetailPage({
           </RevealOnScroll>
         )}
 
+        <RevealOnScroll>
+          <VideoSlot title="Future approved educational media" />
+        </RevealOnScroll>
+
+        {relatedServices.length > 0 && (
+          <RevealOnScroll>
+            <section aria-labelledby="related-services-heading">
+              <h2 id="related-services-heading" className="font-serif text-2xl font-normal text-[#16232B] mb-5">Related educational guides</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {relatedServices.map((related) => (
+                  <Link key={related.slug} href={`/services/${related.slug}`} className="group rounded-[12px] border border-[#E4DFD6] bg-white p-5 transition hover:-translate-y-0.5 hover:border-[#0F5C63]/30 hover:shadow-soft">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#0F5C63]">{related.pillarLabel}</p>
+                    <h3 className="mt-2 font-serif text-lg font-normal text-[#16232B]">{related.title}</h3>
+                    <span className="mt-3 inline-flex text-sm font-medium text-[#0F5C63]">Read guide →</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          </RevealOnScroll>
+        )}
+
         {/* CTA */}
         <RevealOnScroll>
           <div className="bg-[#16232B] rounded-[16px] p-7 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
             <div>
               <h2 className="font-serif text-xl text-white font-normal mb-1">
-                Have questions about this treatment?
+                Need help planning your next step?
               </h2>
               <p className="text-sm text-[#9BA7AE]">
-                Reach out via WhatsApp or call for a specialist discussion.
+                Use WhatsApp, call, or the booking pathway to discuss an individual consultation.
               </p>
             </div>
-            <div className="flex gap-3 flex-shrink-0">
+            <div className="flex flex-wrap gap-3 flex-shrink-0">
               <a
                 href="https://wa.me/910000000000"
                 target="_blank"
@@ -198,6 +235,9 @@ export default async function ServiceDetailPage({
                 <PhoneCallIcon size={15} strokeWidth={1.8} />
                 Call
               </a>
+              <Link href="/contact" className="flex items-center gap-2 px-5 py-3 rounded-full bg-white text-[#16232B] text-sm font-medium hover:bg-[#DCEBEA] transition-colors">
+                Book
+              </Link>
             </div>
           </div>
         </RevealOnScroll>

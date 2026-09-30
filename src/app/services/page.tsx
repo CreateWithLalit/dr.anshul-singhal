@@ -5,10 +5,11 @@ import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContai
 import { JawSkullIcon, DentalImplantIcon, ToothIcon, FaceProfileIcon } from "@/components/illustrations";
 import { getServices } from "@/lib/content";
 import type { ServicePillar } from "@/lib/content/types";
+import { prelaunchRobots } from "@/lib/prelaunch";
 
 export const metadata = {
   title: "Surgical Services | Dr. Anshul Singhal",
-  robots: { index: false, follow: false },
+  robots: prelaunchRobots,
 };
 
 const PILLAR_ICONS: Record<ServicePillar, React.ReactNode> = {

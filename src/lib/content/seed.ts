@@ -8,9 +8,10 @@ export const seedContent: ContentData = {
       "Specialist surgical care for the face, mouth, and jaws — focused on calm clarity, careful diagnosis, and patient dignity.",
     bioPlaceholder:
       "[Doctor biographical statement to be confirmed with Dr. Singhal. This section will outline clinical philosophy, surgical training, and primary areas of surgical focus.]",
-    portraitPlaceholder: {
+    portrait: {
       alt: "Monoline architectural and anatomical silhouette placeholder for Dr. Anshul Singhal",
       type: "illustration",
+      status: "placeholder",
     },
     registrationNumber: {
       value: "[Registration no. to be confirmed]",
@@ -256,13 +257,79 @@ export const seedContent: ContentData = {
       sampleBeforeAfterNote:
         "Sample sequential illustration of tooth gap, osteotomy, implant placement, and crown restoration.",
     },
+    {
+      slug: "geriatric-dentistry",
+      pillar: "geriatric",
+      pillarLabel: "Geriatric Dentistry",
+      title: "Geriatric Dentistry & Oral Health Planning",
+      shortSummary:
+        "Educational guidance on oral-health planning when age, medical history, comfort, and daily function need to be considered together.",
+      educationalOverview:
+        "Geriatric dental care generally considers the whole person as well as the mouth. A care plan may account for medical conditions, medicines, mobility, dry mouth, existing restorations, nutrition, and the practical support available during recovery. The appropriate treatment pathway depends on an individual clinical assessment.",
+      whatToExpect: [
+        "A discussion of medical history, medicines, priorities, and practical comfort needs",
+        "An assessment of oral function, existing teeth or restorations, and relevant imaging",
+        "A staged plan that explains possible options, recovery considerations, and review points",
+      ],
+      steps: [
+        { number: 1, title: "Understand Priorities", description: "Clarify symptoms, daily-function concerns, medical context, and individual goals." },
+        { number: 2, title: "Clinical Assessment", description: "Review oral tissues, teeth, restorations, and any appropriate diagnostic information." },
+        { number: 3, title: "Discuss Options", description: "Explain possible conservative, restorative, or referral pathways in plain language." },
+        { number: 4, title: "Plan Follow-up", description: "Agree on review points and practical support for ongoing oral care." },
+      ],
+      faqs: [
+        { question: "Why is medical history important?", answer: "Medicines and general health can affect comfort, healing considerations, and the safest way to plan treatment." },
+        { question: "Can treatment be planned in stages?", answer: "Often, care discussions consider sequencing and comfort. The suitable approach depends on the person and clinical findings." },
+      ],
+      costFactors: [
+        "Diagnostic needs and the complexity of the oral-health assessment",
+        "The number and type of options considered in a staged care plan",
+        "Any laboratory, restorative, or specialist-care requirements",
+      ],
+      relatedSlugs: ["dental-implants", "full-mouth-rehabilitation"],
+      status: "to-confirm",
+      sampleBeforeAfterNote: "Sample layout only. Future approved media can be added after consent and verification.",
+    },
+    {
+      slug: "full-mouth-rehabilitation",
+      pillar: "rehabilitation",
+      pillarLabel: "Full Mouth Rehabilitation",
+      title: "Full Mouth Rehabilitation Planning",
+      shortSummary:
+        "Educational guidance on planning for extensive restorative needs, bite function, comfort, and long-term maintenance.",
+      educationalOverview:
+        "Full mouth rehabilitation is a term often used when several aspects of oral function and restoration need coordinated planning. Assessment can include teeth, gums, bite, jaw comfort, existing restorations, missing teeth, and the patient’s practical priorities. A suitable plan is individual and may involve more than one dental discipline.",
+      whatToExpect: [
+        "An assessment of current function, bite, teeth, restorations, and relevant diagnostic records",
+        "A discussion of phased options, likely review points, and maintenance requirements",
+        "Clear explanation that a final plan depends on an individual clinical evaluation",
+      ],
+      steps: [
+        { number: 1, title: "Functional Assessment", description: "Review current concerns, oral function, existing work, and appropriate diagnostic information." },
+        { number: 2, title: "Planning Discussion", description: "Consider possible treatment sequences and the disciplines that may be involved." },
+        { number: 3, title: "Staged Care", description: "Discuss how approved treatment may be sequenced for comfort, function, and review." },
+        { number: 4, title: "Maintenance", description: "Explain the ongoing care and review that restorations may require." },
+      ],
+      faqs: [
+        { question: "Does rehabilitation always mean one treatment?", answer: "Not necessarily. It can describe coordinated planning across several oral-health needs, with the final approach depending on clinical assessment." },
+        { question: "Why is planning important?", answer: "A clear plan helps explain priorities, sequencing, expected maintenance, and factors that may affect cost." },
+      ],
+      costFactors: [
+        "The scope of diagnostic and planning work required",
+        "The number and type of teeth or restorations being considered",
+        "Any laboratory, specialist, or staged-treatment requirements",
+      ],
+      relatedSlugs: ["dental-implants", "geriatric-dentistry"],
+      status: "to-confirm",
+      sampleBeforeAfterNote: "Sample layout only. Future approved media can be added after consent and verification.",
+    },
   ],
 
   locations: [
     {
       slug: "noida-central",
       name: "Specialist Surgical Consultation Suite",
-      district: "Noida / Delhi NCR",
+      district: "[Consultation area to be confirmed]",
       address: "[Clinic Address to be confirmed • Sector / Landmark, Noida, UP]",
       hours: [
         "Monday – Friday: [Hours to be confirmed]",
@@ -318,7 +385,7 @@ export const seedContent: ContentData = {
     defaultWhatsApp: "910000000000",
     defaultWhatsAppFormatted: "+91 00000 00000",
     emergencyCallNumber: "+910000000000",
-    defaultLocationName: "Noida Surgical Consultation Suite",
+    defaultLocationName: "[Consultation location to be confirmed]",
     disclaimerText:
       "Medical Disclaimer: Information on this website is for general educational purposes only and does not constitute formal medical diagnosis or treatment advice. Consult Dr. Singhal directly for individual clinical evaluation.",
     privacyNoticeText:

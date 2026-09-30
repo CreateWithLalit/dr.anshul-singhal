@@ -14,27 +14,28 @@ import {
   CalendarIcon,
 } from "@/components/illustrations";
 import { getServices, getLocations, getSiteSettings } from "@/lib/content";
+import { HomeActions } from "@/components/HomeActions";
 
 const CARE_STEPS = [
   {
     n: "01",
     title: "First Contact",
-    desc: "Reach Dr. Singhal directly by WhatsApp or phone. Describe your situation briefly — no referral letter required for an initial enquiry.",
+    desc: "Use WhatsApp or phone to share a brief, non-clinical enquiry. Contact details will be verified before launch.",
   },
   {
     n: "02",
     title: "Specialist Consultation",
-    desc: "An in-person evaluation with imaging review. Clear, plain-language diagnosis without medical jargon.",
+    desc: "A consultation is an opportunity to discuss concerns, available records, and next steps in plain language.",
   },
   {
     n: "03",
     title: "Diagnosis & Plan",
-    desc: "A personalised surgical plan with step-by-step transparency on procedure, recovery, and cost factors.",
+    desc: "If treatment is appropriate, planning can explain possible steps, recovery considerations, and cost factors.",
   },
   {
     n: "04",
     title: "Treatment & Follow-up",
-    desc: "Precise surgery followed by structured post-operative care and long-term monitoring.",
+    desc: "A confirmed care plan can include treatment, recovery guidance, and appropriate review points.",
   },
 ];
 
@@ -82,7 +83,7 @@ export default async function HomePage() {
               <RevealOnScroll>
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#DCEBEA] text-[#0F5C63] text-xs font-semibold uppercase tracking-wider">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0F5C63]" />
-                  Oral &amp; Maxillofacial Surgeon · Noida / Delhi NCR
+                  Oral &amp; Maxillofacial Surgeon
                 </div>
               </RevealOnScroll>
 
@@ -105,24 +106,7 @@ export default async function HomePage() {
 
               {/* CTA buttons */}
               <RevealOnScroll delay={0.18}>
-                <div className="flex flex-wrap items-center gap-3">
-                  <a
-                    href={`https://wa.me/${settings.defaultWhatsApp}?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20a%20consultation%20with%20Dr.%20Anshul%20Singhal`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-[#0F5C63] text-white font-medium text-[0.9375rem] hover:bg-[#0b464c] transition-colors shadow-[0_4px_14px_rgba(15,92,99,0.25)] active:scale-[0.98]"
-                  >
-                    <ChatBubbleIcon size={18} strokeWidth={2} />
-                    WhatsApp Consultation
-                  </a>
-                  <a
-                    href={`tel:${settings.defaultPhone}`}
-                    className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white border border-[#E4DFD6] text-[#16232B] font-medium text-[0.9375rem] hover:bg-[#FAF8F4] transition-colors shadow-[0_2px_8px_rgba(22,35,43,0.04)] active:scale-[0.98]"
-                  >
-                    <PhoneCallIcon size={18} strokeWidth={1.8} className="text-[#0F5C63]" />
-                    Call Clinic
-                  </a>
-                </div>
+                <HomeActions phone={settings.defaultPhone} whatsApp={settings.defaultWhatsApp} />
                 <p className="mt-2 text-[11px] text-[#9BA7AE] font-sans">
                   Contact details are placeholder — confirm before launch.
                 </p>
@@ -372,7 +356,7 @@ export default async function HomePage() {
                   </p>
                 </div>
                 <h2 className="font-serif text-2xl sm:text-3xl text-[#16232B] font-normal leading-snug">
-                  Refer a patient to a specialist you can trust.
+                  A clearer pathway for specialist referral information.
                 </h2>
                 <p className="text-sm text-[#5B6870] leading-relaxed">
                   A structured, transparent referral pathway for dental practitioners and physicians requiring specialist

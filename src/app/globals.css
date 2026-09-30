@@ -34,6 +34,13 @@ body {
   overflow-x: hidden;
 }
 
+/* Hindi UI labels use the platform's Devanagari-capable fallback without adding a third web font. */
+.lang-hi,
+[lang="hi"] {
+  font-family: var(--font-sans), "Nirmala UI", "Noto Sans Devanagari", sans-serif;
+  line-height: 1.5;
+}
+
 /* Accessible interactive tap targets */
 button, 
 a, 

@@ -18,7 +18,7 @@ export function BottomActionBar() {
           className="flex items-center justify-center gap-2 py-3 px-3 rounded-pill bg-[#0F5C63] text-white font-medium text-sm shadow-soft active:scale-[0.98] transition-transform"
         >
           <ChatBubbleIcon size={17} strokeWidth={2} />
-          <span>WhatsApp</span>
+          <span>{t("btnWhatsApp")}</span>
         </a>
 
         {/* Immediate Call Action */}

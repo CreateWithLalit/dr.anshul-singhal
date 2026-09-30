@@ -1,14 +1,16 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import { CredentialBlock } from "@/components/CredentialBlock";
 import { FaceProfileIcon, ShieldCheckIcon } from "@/components/illustrations";
 import { getDoctor, getCredentials } from "@/lib/content";
+import { prelaunchRobots } from "@/lib/prelaunch";
 
 export const metadata = {
   title: "About & Credentials | Dr. Anshul Singhal",
-  robots: { index: false, follow: false },
+  robots: prelaunchRobots,
 };
 
 export default async function AboutPage() {
@@ -37,11 +39,28 @@ export default async function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-14">
             {/* Portrait */}
             <RevealOnScroll className="lg:col-span-1">
-              <div className="aspect-[3/4] max-w-xs mx-auto lg:mx-0 rounded-[16px] bg-[#DCEBEA]/40 border border-[#E4DFD6] flex flex-col items-center justify-center gap-4 p-6">
-                <FaceProfileIcon size={64} className="text-[#0F5C63] opacity-50" strokeWidth={1.2} />
-                <p className="text-xs text-center text-[#5B6870] leading-relaxed">
-                  Portrait placeholder — a monoline illustration or neutral headshot will appear here.
-                </p>
+              <div className="relative aspect-[3/4] max-w-xs mx-auto lg:mx-0 rounded-[16px] bg-[#DCEBEA]/40 border border-[#E4DFD6] overflow-hidden">
+                {doctor.portrait.type === "image" && doctor.portrait.src ? (
+                  <Image
+                    src={doctor.portrait.src}
+                    alt={doctor.portrait.alt}
+                    fill
+                    sizes="(min-width: 1024px) 20rem, 75vw"
+                    className="object-cover"
+                    placeholder={doctor.portrait.blurDataURL ? "blur" : "empty"}
+                    blurDataURL={doctor.portrait.blurDataURL}
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-6">
+                    <FaceProfileIcon size={64} className="text-[#0F5C63] opacity-50" strokeWidth={1.2} />
+                    <p className="text-xs text-center text-[#5B6870] leading-relaxed">
+                      Approved professional portrait will appear here after verification.
+                    </p>
+                  </div>
+                )}
+                {doctor.portrait.status !== "verified" && (
+                  <span className="absolute left-3 top-3 credential-placeholder text-[10px]">Awaiting approved portrait</span>
+                )}
               </div>
             </RevealOnScroll>
 

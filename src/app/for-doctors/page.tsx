@@ -3,17 +3,34 @@
 import React, { useState } from "react";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { CalendarIcon } from "@/components/illustrations";
+import type { MockFormResponse } from "@/lib/forms";
 
 export default function ForDoctorsPage() {
-  const [form, setForm] = useState({ drName: "", clinic: "", patientName: "", details: "" });
-  const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
+  const [form, setForm] = useState({ drName: "", clinic: "", patientName: "", patientPhone: "", details: "", hp: "" });
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.drName || !form.patientName) return;
+    if (!form.drName.trim() || !form.patientName.trim() || !form.patientPhone.trim()) return;
     setState("sending");
-    await new Promise((r) => setTimeout(r, 800));
-    setState("sent");
+    try {
+      const response = await fetch("/api/referral", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          referringDoctor: form.drName,
+          clinicName: form.clinic,
+          patientName: form.patientName,
+          patientPhone: form.patientPhone,
+          referralSummary: form.details,
+          website: form.hp,
+        }),
+      });
+      const result = (await response.json()) as MockFormResponse;
+      setState(result.success ? "sent" : "error");
+    } catch {
+      setState("error");
+    }
   };
 
   return (
@@ -24,7 +41,7 @@ export default function ForDoctorsPage() {
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0F5C63] mb-3">Clinical Pathway</p>
             <h1 className="font-serif text-4xl sm:text-5xl text-[#16232B] font-normal mb-4">For Referring Doctors</h1>
             <p className="text-base text-[#5B6870] max-w-lg leading-relaxed">
-              A structured referral pathway for dental practitioners and physicians requiring specialist maxillofacial input.
+              A production-ready referral pathway for dental practitioners and physicians. Contact details and service scope will be verified before launch.
             </p>
           </RevealOnScroll>
         </div>
@@ -66,12 +83,13 @@ export default function ForDoctorsPage() {
                 {state === "sent" ? (
                   <div className="text-center py-8">
                     <div className="w-12 h-12 rounded-full bg-[#DCEBEA] flex items-center justify-center mx-auto mb-4">✓</div>
-                    <p className="font-serif text-lg text-[#16232B]">Referral Received</p>
-                    <p className="text-sm text-[#5B6870] mt-2">The clinic will contact the patient shortly.</p>
+                    <p className="font-serif text-lg text-[#16232B]">Form preview complete</p>
+                    <p className="text-sm text-[#5B6870] mt-2">Demo only: nothing is sent or stored.</p>
                     <button onClick={() => setState("idle")} className="text-[#0F5C63] underline text-sm mt-4">Send another</button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
+                    <input type="text" name="website" value={form.hp} onChange={(e) => setForm({ ...form, hp: e.target.value })} className="hidden" tabIndex={-1} autoComplete="off" />
                     <div>
                       <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Referring Doctor *</label>
                       <input required type="text" value={form.drName} onChange={(e) => setForm({ ...form, drName: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
@@ -81,9 +99,14 @@ export default function ForDoctorsPage() {
                       <input type="text" value={form.clinic} onChange={(e) => setForm({ ...form, clinic: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Patient Name & Contact *</label>
-                      <input required type="text" value={form.patientName} onChange={(e) => setForm({ ...form, patientName: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Patient Name *</label>
+                      <input required maxLength={80} type="text" value={form.patientName} onChange={(e) => setForm({ ...form, patientName: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
                     </div>
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Patient Phone *</label>
+                      <input required maxLength={20} pattern="[0-9+\\s()\\-]{7,20}" type="tel" value={form.patientPhone} onChange={(e) => setForm({ ...form, patientPhone: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
+                    </div>
+                    {state === "error" && <p className="text-sm text-[#B3392F]" role="alert">Please check the required fields and try again.</p>}
                     <div>
                       <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Clinical Details</label>
                       <textarea rows={3} value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63] resize-none" />

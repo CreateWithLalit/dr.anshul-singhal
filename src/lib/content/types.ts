@@ -13,9 +13,12 @@ export interface Doctor {
   title: string; // "Oral and Maxillofacial Surgeon"
   positioningLine: string;
   bioPlaceholder: string;
-  portraitPlaceholder: {
+  portrait: {
     alt: string;
-    type: "illustration";
+    type: "illustration" | "image";
+    status: VerificationStatus;
+    src?: string;
+    blurDataURL?: string;
   };
   registrationNumber: {
     value: string;

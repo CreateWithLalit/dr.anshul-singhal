@@ -102,25 +102,13 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <div className="mt-5 pt-4 border-t border-[#E4DFD6] flex items-center justify-between gap-2 text-xs text-[#5B6870]">
-            <span>
-              Code:{" "}
-              <code className="bg-[#FAF8F4] px-1.5 py-0.5 rounded border border-[#E4DFD6] text-[#16232B]">
-                dranshul2026
-              </code>
-            </span>
-            <button
-              type="button"
-              onClick={() => setPassword("dranshul2026")}
-              className="text-[#0F5C63] underline font-medium hover:no-underline"
-            >
-              Autofill
-            </button>
+          <div className="mt-5 pt-4 border-t border-[#E4DFD6] text-center text-xs text-[#5B6870]">
+            Access is provided by the project team.
           </div>
         </div>
 
         <p className="mt-4 text-center text-xs text-[#5B6870]/70">
-          Demo prototype · Not for public distribution
+          Pre-launch website · Not for public distribution
         </p>
       </div>
     </main>

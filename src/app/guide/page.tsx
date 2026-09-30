@@ -3,10 +3,11 @@ import Link from "next/link";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import { getArticles } from "@/lib/content";
+import { prelaunchRobots } from "@/lib/prelaunch";
 
 export const metadata = {
   title: "Patient Guide | Dr. Anshul Singhal",
-  robots: { index: false, follow: false },
+  robots: prelaunchRobots,
 };
 
 export default async function GuidePage() {

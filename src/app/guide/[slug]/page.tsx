@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getArticleBySlug, getArticles } from "@/lib/content";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { ReadingProgressBar } from "@/components/ReadingProgressBar";
+import { prelaunchRobots } from "@/lib/prelaunch";
 
 export async function generateStaticParams() {
   const articles = await getArticles();
@@ -21,7 +22,7 @@ export async function generateMetadata({
     title: article
       ? `${article.title} | Patient Guide | Dr. Anshul Singhal`
       : "Patient Guide | Dr. Anshul Singhal",
-    robots: { index: false, follow: false },
+    robots: prelaunchRobots,
   };
 }
 

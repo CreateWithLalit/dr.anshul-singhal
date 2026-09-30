@@ -165,7 +165,7 @@ export function CountUp({
 }
 
 // Animated timeline connector line
-export function TimelineLine({ animate }: { animate?: boolean }) {
+export function TimelineLine() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const prefersReduced = useReducedMotion();

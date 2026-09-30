@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { ChatBubbleIcon, PhoneCallIcon, CalendarIcon, LocationPinIcon } from "@/components/illustrations";
 
@@ -54,7 +53,7 @@ export default function ContactPage() {
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0F5C63] mb-3">Get in Touch</p>
             <h1 className="font-serif text-4xl sm:text-5xl text-[#16232B] font-normal mb-4">Contact & Appointments</h1>
             <p className="text-base text-[#5B6870] max-w-lg leading-relaxed">
-              WhatsApp is the fastest way to reach Dr. Singhal's consultation suite directly.
+              WhatsApp is the fastest way to reach Dr. Singhal&apos;s consultation suite directly.
             </p>
           </RevealOnScroll>
         </div>

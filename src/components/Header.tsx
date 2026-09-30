@@ -22,10 +22,6 @@ export function Header() {
   const pathname = usePathname();
   const { t } = useLanguage();
 
-  // Hide header chrome on login page
-  const isLogin = pathname === "/login";
-  if (isLogin) return null;
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -35,6 +31,10 @@ export function Header() {
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
+
+  // Hide header chrome on login page
+  const isLogin = pathname === "/login";
+  if (isLogin) return null;
 
   return (
     <header

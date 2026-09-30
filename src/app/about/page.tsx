@@ -115,7 +115,7 @@ export default async function AboutPage() {
           <RevealOnScroll delay={0.2} className="mt-8">
             <div className="bg-[#FAF8F4] border border-[#E4DFD6] rounded-[12px] p-5 text-sm text-[#5B6870] space-y-2">
               <p className="font-semibold text-[#16232B]">What happens at launch?</p>
-              <p>Once Dr. Singhal confirms each credential, the dashed &ldquo;Placeholder&rdquo; chip is replaced with a verified green badge. The website's content module is updated in one step — no rebuild required.</p>
+              <p>Once Dr. Singhal confirms each credential, the dashed &ldquo;Placeholder&rdquo; chip is replaced with a verified green badge. The website&apos;s content module is updated in one step — no rebuild required.</p>
             </div>
           </RevealOnScroll>
         </div>

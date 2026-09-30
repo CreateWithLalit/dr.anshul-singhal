@@ -19,10 +19,10 @@ export default function PrivacyPage() {
             <p>The content provided on this website is for general educational and informational purposes only. It is not intended as, and should not be considered, medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.</p>
             
             <h2 className="font-serif text-xl text-[#16232B] font-normal mt-8 mb-3">2. Data Privacy (To be finalised)</h2>
-            <p>Upon launch, this website will comply with relevant data protection regulations (including India's DPDP Act, where applicable). Information submitted through contact forms will be used solely for the purpose of scheduling and responding to enquiries.</p>
+            <p>Upon launch, this website will comply with relevant data protection regulations (including India&apos;s DPDP Act, where applicable). Information submitted through contact forms will be used solely for the purpose of scheduling and responding to enquiries.</p>
 
             <h2 className="font-serif text-xl text-[#16232B] font-normal mt-8 mb-3">3. Third-Party Platforms</h2>
-            <p>This website utilizes links to WhatsApp for communication. WhatsApp is a third-party application, and communications through it are subject to WhatsApp's own privacy policy and terms of service.</p>
+            <p>This website utilizes links to WhatsApp for communication. WhatsApp is a third-party application, and communications through it are subject to WhatsApp&apos;s own privacy policy and terms of service.</p>
           </div>
         </RevealOnScroll>
       </div>

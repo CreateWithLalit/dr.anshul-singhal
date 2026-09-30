@@ -6,6 +6,7 @@ import type {
   Location,
   Article,
   SiteSettings,
+  PublicContactSettings,
 } from "./types";
 
 /**
@@ -51,6 +52,25 @@ export async function getArticleBySlug(slug: string): Promise<Article | undefine
 
 export async function getSiteSettings(): Promise<SiteSettings> {
   return seedContent.settings;
+}
+
+/**
+ * Explicit allowlist for client form shells. Do not add credentials, gate state,
+ * integration configuration, or any secret values here.
+ */
+export async function getPublicContactSettings(): Promise<PublicContactSettings> {
+  const primaryLocation = seedContent.locations.find((location) => location.isPrimary);
+  const settings = seedContent.settings;
+
+  return {
+    phone: settings.defaultPhone,
+    phoneFormatted: settings.defaultPhoneFormatted,
+    whatsappNumber: settings.defaultWhatsApp,
+    whatsappFormatted: settings.defaultWhatsAppFormatted,
+    whatsappMessage: settings.contactCtas.whatsappMessage,
+    locationName: primaryLocation?.name ?? settings.defaultLocationName,
+    locationDistrict: primaryLocation?.district ?? "[Consultation area to be confirmed]",
+  };
 }
 
 export * from "./types";

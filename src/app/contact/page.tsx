@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { ChatBubbleIcon, PhoneCallIcon, CalendarIcon, LocationPinIcon } from "@/components/illustrations";
 import type { MockFormResponse } from "@/lib/forms";
+import type { PublicContactSettings } from "@/lib/content";
 
 const BOOKING_STEPS = ["Location", "Date & Slot", "Confirm"] as const;
 type BookingStep = 0 | 1 | 2 | 3;
@@ -28,12 +29,20 @@ export default function ContactPage() {
   // Contact form state
   const [form, setForm] = useState({ name: "", phone: "", message: "", hp: "" });
   const [formState, setFormState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [contactSettings, setContactSettings] = useState<PublicContactSettings | null>(null);
 
   // Booking state
   const [bookStep, setBookStep] = useState<BookingStep>(0);
   const [selectedSlot, setSelectedSlot] = useState<string>("");
   const [selectedDay, setSelectedDay] = useState<Date | null>(null);
   const days = getNextDays(14);
+
+  useEffect(() => {
+    void fetch("/api/public-contact-settings")
+      .then((response) => (response.ok ? response.json() : null))
+      .then((settings: PublicContactSettings | null) => setContactSettings(settings))
+      .catch(() => setContactSettings(null));
+  }, []);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,7 +85,7 @@ export default function ContactPage() {
         <RevealOnScroll>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
             <a
-              href="https://wa.me/910000000000?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20a%20consultation%20with%20Dr.%20Anshul%20Singhal"
+              href={contactSettings ? `https://wa.me/${contactSettings.whatsappNumber}?text=${encodeURIComponent(contactSettings.whatsappMessage)}` : "#contact-options"}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 p-5 bg-[#0F5C63] text-white rounded-[16px] hover:bg-[#0b464c] transition-colors group"
@@ -86,11 +95,11 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="font-semibold">WhatsApp Consultation</p>
-                <p className="text-sm text-white/75">+91 00000 00000 (Placeholder)</p>
+                <p className="text-sm text-white/75">{contactSettings ? `${contactSettings.whatsappFormatted} (Placeholder)` : "Contact details loading…"}</p>
               </div>
             </a>
             <a
-              href="tel:+910000000000"
+              href={contactSettings ? `tel:${contactSettings.phone}` : "#contact-options"}
               className="flex items-center gap-4 p-5 bg-white border border-[#E4DFD6] rounded-[16px] hover:bg-[#FAF8F4] transition-colors"
             >
               <div className="w-12 h-12 rounded-full bg-[#DCEBEA] flex items-center justify-center flex-shrink-0">
@@ -98,7 +107,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="font-semibold text-[#16232B]">Call Clinic</p>
-                <p className="text-sm text-[#5B6870]">+91 00000 00000 (Placeholder)</p>
+                <p className="text-sm text-[#5B6870]">{contactSettings ? `${contactSettings.phoneFormatted} (Placeholder)` : "Contact details loading…"}</p>
               </div>
             </a>
           </div>
@@ -106,7 +115,7 @@ export default function ContactPage() {
 
         {/* Tabs */}
         <RevealOnScroll delay={0.1}>
-          <div className="flex items-center gap-2 mb-7 border-b border-[#E4DFD6] pb-0">
+          <div id="contact-options" className="flex items-center gap-2 mb-7 border-b border-[#E4DFD6] pb-0">
             {([["contact", "Send Enquiry"], ["booking", "Book Appointment"]] as const).map(([id, label]) => (
               <button
                 key={id}
@@ -247,8 +256,8 @@ export default function ContactPage() {
                   >
                     <LocationPinIcon size={20} className="text-[#0F5C63]" />
                     <div>
-                      <p className="font-medium text-[#16232B] text-sm">Specialist Surgical Suite</p>
-                      <p className="text-xs text-[#5B6870]">[Noida / Delhi NCR — address to be confirmed]</p>
+                      <p className="font-medium text-[#16232B] text-sm">{contactSettings?.locationName ?? "Consultation location loading…"}</p>
+                      <p className="text-xs text-[#5B6870]">{contactSettings?.locationDistrict ?? "[Consultation area to be confirmed]"}</p>
                     </div>
                   </button>
                 </div>

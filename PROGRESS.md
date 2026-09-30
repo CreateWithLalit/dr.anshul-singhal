@@ -48,7 +48,7 @@ The application must not need a visual redesign or component rebuild at approval
 ## Milestone Status Overview
 
 - [x] **M1: Pre-launch Setup** (100%) — Next.js 15, TypeScript strict, Tailwind tokens, fonts, password gate, noindex, pre-launch ribbon.
-- [x] **M2: Content Foundation** (85%) — Entity types, seed data, typed content-access module, credential status chips, portrait data contract, four pillars, and content-driven global contact CTA configuration. Remaining: complete the final display-content centralization audit and verified-content ingestion workflow.
+- [x] **M2: Content Foundation** (90%) — Entity types, seed data, typed content-access module, credential status chips, portrait data contract, four pillars, content-driven global contact CTA configuration, and an allowlisted client contact-settings boundary. Remaining: verified-content ingestion workflow and any future CMS adapter.
 - [x] **M3: Design System** (100%) — Header, Footer, BottomActionBar, 10 monoline SVG illustrations, motion wrappers (RevealOnScroll, Stagger, TextReveal, Lenis), reduced-motion safety.
 - [x] **M4: Core Pages** (92%) — Home, About, Services, 5× Service Detail, Locations (list + slug), Contact, Guide (list + 2 articles), For Doctors, Privacy, Not-Found. Conversion and emergency CTAs are clearer; remaining work is the final content-centralization audit and verified production content.
 - [x] **M5: Signature Interactions** (80%) — SVG draw hero, scroll-drawn timeline, count-up stats, card hover effects, page stagger animations. Missing: BeforeAfterSlider (slider is an illustration sequence), PageTransition (uses default App Router).
@@ -84,6 +84,16 @@ The application must not need a visual redesign or component rebuild at approval
 ---
 
 ## Session Log
+
+### Session: October 1, 2026 (final content-centralization audit)
+**Work completed:**
+- Audited remaining meaningful hard-coded display data. Added `PublicContactSettings` and `getPublicContactSettings()` to the typed content-access module, with an explicit public allowlist for phone, WhatsApp, generic prefill text, and primary-location display values.
+- Added the read-only `/api/public-contact-settings` route. It reads only from the content boundary and never returns gate passwords, environment values, provider configuration, credentials, or other secrets.
+- Updated the client Contact/Booking shell and the Referring Doctors shell to fetch that contract instead of independently hard-coding fake phone, WhatsApp, or location values. Their pre-launch form submission routes remain no-storage mocks.
+
+**Intentionally local presentation content:** language dictionaries remain client UI copy pending human Hindi review; dashboard figures remain local, clearly labelled sample reporting data; static headings, form labels, navigation labels, and known site-name metadata remain in their presentation/metadata layers. None represents client profile, credential, contact, service, location, or integration data.
+
+**Verification result:** `npm run type-check` exit 0; `npm run lint` exit 0 with no warnings or errors; `npm run build` exit 0 with 27 generated pages/routes.
 
 ### Session: October 1, 2026 (main product implementation phase)
 **Implemented from the final product/Gemini review:**

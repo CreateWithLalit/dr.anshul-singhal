@@ -1,13 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { CalendarIcon } from "@/components/illustrations";
 import type { MockFormResponse } from "@/lib/forms";
+import type { PublicContactSettings } from "@/lib/content";
 
 export default function ForDoctorsPage() {
   const [form, setForm] = useState({ drName: "", clinic: "", patientName: "", patientPhone: "", details: "", hp: "" });
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [contactSettings, setContactSettings] = useState<PublicContactSettings | null>(null);
+
+  useEffect(() => {
+    void fetch("/api/public-contact-settings")
+      .then((response) => (response.ok ? response.json() : null))
+      .then((settings: PublicContactSettings | null) => setContactSettings(settings))
+      .catch(() => setContactSettings(null));
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,14 +79,14 @@ export default function ForDoctorsPage() {
               <div className="bg-[#DCEBEA]/30 border border-[#0F5C63]/15 rounded-[12px] p-6">
                 <p className="font-medium text-[#16232B] mb-2 text-sm">Direct Clinician Line</p>
                 <p className="text-sm text-[#5B6870] mb-3">For urgent case discussions, please call the clinic and request the clinician line.</p>
-                <a href="tel:+910000000000" className="inline-flex items-center gap-2 text-[#0F5C63] font-medium text-sm">
-                  <CalendarIcon size={16} /> +91 00000 00000
+                <a href={contactSettings ? `tel:${contactSettings.phone}` : "#referral-form"} className="inline-flex items-center gap-2 text-[#0F5C63] font-medium text-sm">
+                  <CalendarIcon size={16} /> {contactSettings?.phoneFormatted ?? "Contact details loading…"}
                 </a>
               </div>
             </RevealOnScroll>
 
             <RevealOnScroll delay={0.1}>
-              <div className="bg-white border border-[#E4DFD6] rounded-[16px] p-6 sm:p-8">
+              <div id="referral-form" className="bg-white border border-[#E4DFD6] rounded-[16px] p-6 sm:p-8">
                 <p className="text-xs text-[#9BA7AE] mb-6">Demo only: nothing is sent or stored. Do not include medical records, images, or urgent emergency information.</p>
                 
                 {state === "sent" ? (

@@ -118,6 +118,17 @@ export interface SiteSettings {
   };
 }
 
+/** Safe, public subset of site settings for client-rendered interaction shells. */
+export interface PublicContactSettings {
+  phone: string;
+  phoneFormatted: string;
+  whatsappNumber: string;
+  whatsappFormatted: string;
+  whatsappMessage: string;
+  locationName: string;
+  locationDistrict: string;
+}
+
 export interface ContentData {
   doctor: Doctor;
   credentials: Credential[];

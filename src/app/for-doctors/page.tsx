@@ -100,25 +100,25 @@ export default function ForDoctorsPage() {
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <input type="text" name="website" value={form.hp} onChange={(e) => setForm({ ...form, hp: e.target.value })} className="hidden" tabIndex={-1} autoComplete="off" />
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Referring Doctor *</label>
-                      <input required type="text" value={form.drName} onChange={(e) => setForm({ ...form, drName: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
+                      <label htmlFor="referring-doctor" className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Referring Doctor *</label>
+                      <input id="referring-doctor" required type="text" value={form.drName} onChange={(e) => setForm({ ...form, drName: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Clinic Name</label>
-                      <input type="text" value={form.clinic} onChange={(e) => setForm({ ...form, clinic: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
+                      <label htmlFor="referring-clinic" className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Clinic Name</label>
+                      <input id="referring-clinic" type="text" value={form.clinic} onChange={(e) => setForm({ ...form, clinic: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Patient Name *</label>
-                      <input required maxLength={80} type="text" value={form.patientName} onChange={(e) => setForm({ ...form, patientName: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
+                      <label htmlFor="referred-patient-name" className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Patient Name *</label>
+                      <input id="referred-patient-name" required maxLength={80} type="text" value={form.patientName} onChange={(e) => setForm({ ...form, patientName: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Patient Phone *</label>
-                      <input required maxLength={20} pattern="[0-9+\\s()\\-]{7,20}" type="tel" value={form.patientPhone} onChange={(e) => setForm({ ...form, patientPhone: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
+                      <label htmlFor="referred-patient-phone" className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Patient Phone *</label>
+                      <input id="referred-patient-phone" required maxLength={20} pattern="[0-9+\\s()\\-]{7,20}" type="tel" value={form.patientPhone} onChange={(e) => setForm({ ...form, patientPhone: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63]" />
                     </div>
                     {state === "error" && <p className="text-sm text-[#B3392F]" role="alert">Please check the required fields and try again.</p>}
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Clinical Details</label>
-                      <textarea rows={3} value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63] resize-none" />
+                      <label htmlFor="referral-details" className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">Clinical Details</label>
+                      <textarea id="referral-details" rows={3} value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} className="w-full px-4 py-3 border border-[#E4DFD6] rounded-lg bg-[#FAF8F4] text-sm focus:outline-none focus:ring-2 focus:ring-[#0F5C63] resize-none" />
                     </div>
                     <button type="submit" disabled={state === "sending"} className="w-full py-3.5 rounded-full bg-[#0F5C63] text-white font-medium text-sm hover:bg-[#0b464c] transition-colors disabled:opacity-50">
                       {state === "sending" ? "Sending..." : "Submit Referral"}

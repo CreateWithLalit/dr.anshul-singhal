@@ -45,17 +45,17 @@ export function Header({ phone, whatsApp, ctas }: { phone: string; whatsApp: str
           : "bg-[#FAF8F4] py-4"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 flex items-center justify-between gap-6">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 flex items-center justify-between gap-2 sm:gap-6">
 
         {/* Wordmark — always one line */}
         <Link
           href="/"
           className="flex-shrink-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F5C63] rounded-sm"
         >
-          <span className="block font-serif text-[1.15rem] sm:text-[1.25rem] font-normal text-[#16232B] group-hover:text-[#0F5C63] transition-colors whitespace-nowrap leading-snug">
+          <span className="block font-serif text-[1rem] sm:text-[1.25rem] font-normal text-[#16232B] group-hover:text-[#0F5C63] transition-colors whitespace-nowrap leading-snug">
             {t("doctorName")}
           </span>
-          <span className="block text-[10px] uppercase tracking-[0.13em] text-[#5B6870] font-sans whitespace-nowrap">
+          <span className="block text-[9px] sm:text-[10px] uppercase tracking-[0.1em] sm:tracking-[0.13em] text-[#5B6870] font-sans whitespace-nowrap">
             {t("doctorTitle")}
           </span>
         </Link>
@@ -101,7 +101,7 @@ export function Header({ phone, whatsApp, ctas }: { phone: string; whatsApp: str
 
         {/* Mobile: language + hamburger */}
         <div className="flex items-center gap-2 lg:hidden">
-          <LanguageToggle />
+          <LanguageToggle compact />
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}

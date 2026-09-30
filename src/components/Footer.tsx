@@ -1,7 +1,13 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function Footer({ phoneDisplay }: { phoneDisplay: string }) {
+  const pathname = usePathname();
+  if (pathname === "/login") return null;
+
   return (
     <footer className="bg-[#16232B] text-[#FAF8F4] pt-14 pb-28 sm:pb-14 mt-auto border-t border-[#2C3B45]">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">

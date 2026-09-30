@@ -163,10 +163,11 @@ export default function ContactPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">
+                      <label htmlFor="contact-name" className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">
                         Full Name <span className="text-[#B3392F]">*</span>
                       </label>
                       <input
+                        id="contact-name"
                         type="text"
                         required
                         maxLength={80}
@@ -177,10 +178,11 @@ export default function ContactPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">
+                      <label htmlFor="contact-phone" className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">
                         Phone / WhatsApp <span className="text-[#B3392F]">*</span>
                       </label>
                       <input
+                        id="contact-phone"
                         type="tel"
                         required
                         maxLength={15}
@@ -193,10 +195,11 @@ export default function ContactPage() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">
+                    <label htmlFor="contact-message" className="block text-xs font-semibold uppercase tracking-wider text-[#16232B] mb-1.5">
                       Your Enquiry <span className="text-[#B3392F]">*</span>
                     </label>
                     <textarea
+                      id="contact-message"
                       required
                       maxLength={500}
                       rows={4}

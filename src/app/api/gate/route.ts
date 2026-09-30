@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { isPrelaunchMode } from "@/lib/prelaunch";
+import { createDemoSessionToken } from "@/lib/demo-session";
 
 const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;
 
@@ -20,7 +21,7 @@ export async function POST(request: Request) {
 
     if (typeof password === "string" && password.trim() === expectedPassword.trim()) {
       const cookieStore = await cookies();
-      cookieStore.set("demo_session", "authenticated", {
+      cookieStore.set("demo_session", await createDemoSessionToken(expectedPassword), {
         path: "/",
         httpOnly: true,
         sameSite: "lax",

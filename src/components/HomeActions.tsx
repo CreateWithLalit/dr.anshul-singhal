@@ -3,15 +3,24 @@
 import Link from "next/link";
 import { useLanguage } from "./LanguageContext";
 import { CalendarIcon, ChatBubbleIcon, PhoneCallIcon } from "./illustrations";
+import type { SiteSettings } from "@/lib/content";
 
-export function HomeActions({ phone, whatsApp }: { phone: string; whatsApp: string }) {
+export function HomeActions({
+  phone,
+  whatsApp,
+  whatsappMessage,
+}: {
+  phone: string;
+  whatsApp: string;
+  whatsappMessage: SiteSettings["contactCtas"]["whatsappMessage"];
+}) {
   const { language, t } = useLanguage();
   const lang = language === "hi" ? "hi" : "en";
 
   return (
     <div lang={lang} className={`flex flex-wrap items-center gap-3 ${language === "hi" ? "lang-hi" : ""}`}>
       <a
-        href={`https://wa.me/${whatsApp}?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20a%20consultation%20with%20Dr.%20Anshul%20Singhal`}
+        href={`https://wa.me/${whatsApp}?text=${encodeURIComponent(whatsappMessage)}`}
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-[#0F5C63] text-white font-medium text-[0.9375rem] hover:bg-[#0b464c] transition-colors shadow-[0_4px_14px_rgba(15,92,99,0.25)] active:scale-[0.98]"

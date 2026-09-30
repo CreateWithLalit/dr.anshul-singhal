@@ -1,12 +1,16 @@
 "use client";
 
 import React from "react";
+import { usePathname } from "next/navigation";
 import { ChatBubbleIcon, PhoneCallIcon } from "./illustrations";
 import { useLanguage } from "./LanguageContext";
 import type { SiteSettings } from "@/lib/content";
 
 export function BottomActionBar({ phone, whatsApp, ctas }: { phone: string; whatsApp: string; ctas: SiteSettings["contactCtas"] }) {
   const { t } = useLanguage();
+  const pathname = usePathname();
+
+  if (pathname === "/login") return null;
 
   return (
     <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-surface/95 backdrop-blur-md border-t border-hairline px-3 py-2 shadow-[0_-4px_16px_rgba(0,0,0,0.06)] pb-[calc(0.5rem+env(safe-area-inset-bottom,0))]">

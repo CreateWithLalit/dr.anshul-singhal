@@ -54,7 +54,7 @@ The application must not need a visual redesign or component rebuild at approval
 - [x] **M5: Signature Interactions** (80%) — SVG draw hero, scroll-drawn timeline, count-up stats, card hover effects, page stagger animations. Missing: BeforeAfterSlider (slider is an illustration sequence), PageTransition (uses default App Router).
 - [x] **M6: Remaining Pages** (85%) — Guide articles with reading progress bar, For Doctors referral form UI plus typed mock endpoint, mock booking flow UI, Privacy page, Language toggle with translated navigation/primary labels. Remaining: complete translation coverage and production integration readiness.
 - [x] **M7: Demo Dashboard** (100%) — `/demo/dashboard` built with animated metric cards (count-up), horizontal bar charts, vertical bar charts, SVG line chart. All hand-built SVG/CSS. No chart libraries. Footer link works.
-- [ ] **M8: Production Readiness & QA** (65%) — README and attributions exist; current type-check/lint/build pass. Pre-launch controls, private gate hardening, guarded structured-data seam, mock form boundaries, India-first contact CTA wiring, and Hindi/mobile affordances are implemented. Missing: verified asset/content ingestion, staging/mobile/Lighthouse checks, production-provider activation, and full launch checklist.
+- [ ] **M8: Production Readiness & QA** (75%) — Full local route, pre-launch, content-safety, accessibility, and responsive-source QA is complete; README and attributions exist; current type-check/lint/build pass. Signed private sessions, guarded structured-data, mock boundaries, India-first CTA wiring, and Hindi/mobile affordances are implemented. Missing: protected Vercel staging, real-device 360–390px validation, Lighthouse measurement, verified asset/content ingestion, production-provider activation, and the launch checklist.
 
 ---
 
@@ -84,6 +84,31 @@ The application must not need a visual redesign or component rebuild at approval
 ---
 
 ## Session Log
+
+### Session: October 1, 2026 (full product QA and staging-readiness audit)
+**QA findings and fixes:**
+- Exercised every required public route plus all five currently seeded service detail pages through the local application. With a valid pre-launch session, each route returned `200`; unauthenticated requests to every public route returned `307` to `/login`.
+- Fixed a pre-launch security defect: the prior static `demo_session=authenticated` cookie could be forged. The gate now issues an opaque HMAC-SHA-256 session token derived from the server-only `DEMO_PASSWORD`, and Edge middleware verifies it before allowing a protected route. A forged legacy cookie was verified to redirect to login.
+- Fixed login-route chrome: the footer and mobile WhatsApp/Call bar no longer render on `/login`, while the required pre-launch ribbon remains visible.
+- Fixed programmatic form labels for all Contact and Referring Doctors fields by associating labels and controls with explicit IDs.
+- Fixed the remaining hard-coded home WhatsApp prefill so it now consumes the typed site-settings contact contract.
+- Tightened the mobile header at narrow widths: compact language-toggle padding, smaller mobile wordmark typography, and a smaller mobile header gap prevent the title, language selector, and menu control from competing for the same row.
+
+**Pre-launch and safety verification:**
+- `robots.txt` returns `User-agent: *` and `Disallow: /`; authenticated pre-launch HTML returns `noindex, nofollow`; credential placeholders render; the fake `+91 00000 00000` contacts remain in use.
+- Wrong gate passwords return `401`; valid sessions return `200`; mock contact/referral requests return only `Demo only: nothing is sent.` Invalid payloads return `400`. No persistence, analytics SDK, tracker, external image, or real contact data was found.
+- A repository-wide prohibited-claim scan found no unsupported credentials, affiliations, patient testimonials, prices, experience claims, awards, or superlatives. Service text remains generic educational content and the typed content boundary remains the source for profile/contact/service/location data.
+
+**Gemini product-review status:**
+- **Implemented:** prominent WhatsApp/Call hierarchy, booking access, emergency call path, calm specialist presentation, placeholder credentials, portrait placeholder, care journey, doctor-referral pathway, no-price cost factors, India-first mobile action bar, base Hindi navigation/primary-button UX, pre-launch/noindex architecture, and lightweight charts.
+- **Partially implemented:** local SEO architecture (metadata and verified-data schema seam exist, but verified clinic data/Google Business Profile are unavailable); Hindi (navigation and primary labels only, awaiting human clinical review); accessibility (core semantics/focus/reduced-motion now covered, but real-device assistive-technology testing remains); performance (small asset set and no heavy chart/image dependencies, but no Lighthouse result).
+- **Intentionally deferred:** verified content/photo ingestion, real integrations and analytics, live map/directions, full Hindi medical translation, protected staging/deployment checks, before/after slider, tap-able face diagram, and page transitions.
+
+**Mobile and performance note:**
+- The in-app browser confirmed no document overflow at its 399px minimum viewport and a reachable fixed bottom action bar. It clamps requested 360/375/390px widths to 399px, so those three exact widths still require real-device or protected-staging verification. Source review found no fixed content widths in page layouts; the header was proactively tightened for the narrow-row constraint.
+- Lighthouse is not installed in this environment and was not run. The build uses no raster/remote images, has only lightweight SVG/CSS illustrations, self-hosted `next/font` loading, and no analytics/chart dependencies. These are inspection findings, not measured Lighthouse scores.
+
+**Verification result:** `npm run type-check` exit 0; `npm run lint` exit 0 with no warnings or errors; `npm run build` exit 0 with 27 static pages generated.
 
 ### Session: October 1, 2026 (final content-centralization audit)
 **Work completed:**
@@ -243,15 +268,15 @@ See `ATTRIBUTIONS.md` for full details and Unsplash search terms for each slot.
 | BeforeAfterSlider not built | Open — optional. Static illustration is in place. |
 | Interactive face/jaw diagram not built | Open — optional. |
 | PageTransition not built | Open — optional, uses default transitions. |
-| Vercel deployment not completed | Required only after pre-launch controls and staging checks are ready. |
-| Lighthouse run not completed | Open — manual testing recommended. |
+| Protected Vercel staging not completed | Required before deployment readiness can be confirmed. |
+| Lighthouse measurement not completed | Lighthouse is not installed in the local environment; run it against protected staging. |
 
 ---
 
 ## Next Work Order
 
-1. Complete the content-centralization audit and ingest only verified doctor, credential, service, location, legal, and approved-asset data through the typed content boundary.
-2. On a protected staging deployment, verify the password gate, `noindex` metadata, dynamic `robots.txt`, placeholder rendering, and structured-data suppression in pre-launch mode; separately verify the production-mode responses before enabling them.
+1. Create a protected Vercel staging deployment and repeat the password-gate, signed-session, `noindex`, `robots.txt`, placeholder, structured-data suppression, and exact 360/375/390px mobile checks.
+2. Run Lighthouse mobile and an assistive-technology keyboard/screen-reader pass against protected staging; record actual scores and regressions before launch approval.
 3. Select and connect approved contact, referral, booking, and analytics providers behind the existing typed boundaries, with privacy/retention review before collecting any data.
 4. Complete mobile, keyboard/accessibility, performance, Lighthouse, legal, Hindi-review, and end-to-end launch QA.
 5. Enable public production mode only after the launch checklist, verified content, integrations, and stakeholder approval are complete.

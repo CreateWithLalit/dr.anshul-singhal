@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { isPrelaunchMode } from "@/lib/prelaunch";
+import { createDemoSessionToken } from "@/lib/demo-session";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Never gate: API routes, login page, static assets
@@ -19,8 +20,10 @@ export function middleware(request: NextRequest) {
   // Only gate in demo mode
   if (!isPrelaunchMode) return NextResponse.next();
 
+  const password = process.env.DEMO_PASSWORD;
   const session = request.cookies.get("demo_session");
-  if (session?.value !== "authenticated") {
+  const expectedSession = password ? await createDemoSessionToken(password) : undefined;
+  if (!expectedSession || session?.value !== expectedSession) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("from", pathname);
     return NextResponse.redirect(loginUrl);

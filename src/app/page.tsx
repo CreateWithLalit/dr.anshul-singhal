@@ -106,7 +106,11 @@ export default async function HomePage() {
 
               {/* CTA buttons */}
               <RevealOnScroll delay={0.18}>
-                <HomeActions phone={settings.defaultPhone} whatsApp={settings.defaultWhatsApp} />
+                <HomeActions
+                  phone={settings.defaultPhone}
+                  whatsApp={settings.defaultWhatsApp}
+                  whatsappMessage={settings.contactCtas.whatsappMessage}
+                />
                 <p className="mt-2 text-[11px] text-[#9BA7AE] font-sans">
                   Contact details are placeholder — confirm before launch.
                 </p>

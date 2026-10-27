@@ -113,9 +113,7 @@ export default async function HomePage() {
                 <Image src={demoImages.hero.src} alt={demoImages.hero.alt} fill priority sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-top" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F2A43]/45 via-transparent" />
               </div>
-              <div className="absolute -left-2 bottom-7 bg-white rounded-xl p-3 shadow-lg text-xs"><b className="text-[#0F2A43]">Languages</b><br />English · हिन्दी</div>
               <div className="absolute -right-2 top-8 bg-[#C62828] text-white rounded-xl p-3 shadow-lg text-xs"><b>By appointment</b><br />Time slots coming soon</div>
-              <div className="absolute right-5 bottom-6 bg-[#F2A900] text-[#0F2A43] rounded-xl p-3 shadow-lg text-xs"><b>Plain-language</b><br />guidance</div>
             </div>
           </div>
         </div>
@@ -308,21 +306,31 @@ export default async function HomePage() {
                       kind="whatsapp"
                       value={primaryLocation.whatsappNumber}
                       verified={primaryLocation.verification.whatsapp}
-                      className="flex items-center justify-center gap-2 py-3 rounded-full bg-[#0F5C63] text-white text-sm font-medium hover:bg-[#0b464c] transition-colors"
+                      className="w-full flex items-center justify-center gap-2 py-3 px-4 min-h-[44px] rounded-full bg-[#0F5C63] text-white text-sm font-medium hover:bg-[#0b464c] transition-colors active:scale-[0.99]"
                     >
                       <ChatBubbleIcon size={15} strokeWidth={2} />
-                      WhatsApp
+                      <span>WhatsApp</span>
                     </ContactLink>
                     <ContactLink
                       kind="call"
                       value={primaryLocation.phone.replace(/\s/g, "")}
                       verified={primaryLocation.verification.phone}
-                      className="flex items-center justify-center gap-2 py-3 rounded-full border border-[#E4DFD6] text-[#16232B] text-sm font-medium hover:bg-[#FAF8F4] transition-colors"
+                      className="w-full flex items-center justify-center gap-2 py-3 px-4 min-h-[44px] rounded-full border border-[#E4DFD6] bg-white text-[#16232B] text-sm font-medium hover:bg-[#FAF8F4] transition-colors active:scale-[0.99]"
                     >
                       <PhoneCallIcon size={15} strokeWidth={1.8} className="text-[#0F5C63]" />
-                      Call
+                      <span>Call</span>
                     </ContactLink>
                   </div>
+
+                  {primaryLocation.bookingEnabled && (
+                    <Link
+                      href="/contact"
+                      className="flex items-center justify-center gap-2 w-full py-3 px-4 min-h-[44px] border border-[#0F5C63]/30 rounded-full text-[#0F5C63] text-sm font-medium hover:bg-[#DCEBEA]/40 transition-colors active:scale-[0.99]"
+                    >
+                      <CalendarIcon size={15} />
+                      <span>Book consultation</span>
+                    </Link>
+                  )}
                 </div>
               </div>
             </RevealOnScroll>

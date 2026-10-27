@@ -10,6 +10,7 @@ type ContactLinkProps = {
   value: string;
   verified: boolean;
   className?: string;
+  containerClassName?: string;
   children: React.ReactNode;
   serviceName?: string;
   ariaLabel?: string;
@@ -24,6 +25,7 @@ export function ContactLink({
   value,
   verified,
   className = "",
+  containerClassName,
   children,
   serviceName,
   ariaLabel,
@@ -48,8 +50,15 @@ export function ContactLink({
     window.open(`https://wa.me/${value}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
+  const isFullWidth = className.includes("w-full");
+  const wrapperClass = containerClassName !== undefined
+    ? containerClassName
+    : isFullWidth
+    ? "relative w-full flex"
+    : "relative inline-flex items-center";
+
   return (
-    <span className="relative inline-flex items-center">
+    <span className={wrapperClass}>
       <button
         type="button"
         onClick={handleClick}

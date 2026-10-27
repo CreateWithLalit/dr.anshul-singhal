@@ -87,7 +87,7 @@ export default function ContactPage() {
               kind="whatsapp"
               value={contactSettings?.whatsappNumber ?? ""}
               verified={contactSettings?.whatsappVerified ?? false}
-              className="flex items-center gap-4 p-5 bg-[#0F5C63] text-white rounded-[16px] hover:bg-[#0b464c] transition-colors group"
+              className="w-full flex items-center gap-4 p-5 bg-[#0F5C63] text-white rounded-[16px] hover:bg-[#0b464c] transition-colors group"
             >
               <div className="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center flex-shrink-0">
                 <ChatBubbleIcon size={22} strokeWidth={1.8} className="text-white" />
@@ -101,7 +101,7 @@ export default function ContactPage() {
               kind="call"
               value={contactSettings?.phone ?? ""}
               verified={contactSettings?.phoneVerified ?? false}
-              className="flex items-center gap-4 p-5 bg-white border border-[#E4DFD6] rounded-[16px] hover:bg-[#FAF8F4] transition-colors"
+              className="w-full flex items-center gap-4 p-5 bg-white border border-[#E4DFD6] rounded-[16px] hover:bg-[#FAF8F4] transition-colors"
             >
               <div className="w-12 h-12 rounded-full bg-[#DCEBEA] flex items-center justify-center flex-shrink-0">
                 <PhoneCallIcon size={22} strokeWidth={1.6} className="text-[#0F5C63]" />

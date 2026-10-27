@@ -66,34 +66,34 @@ export default async function LocationsPage() {
                       ))}
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2.5 pt-2">
+                    <div className="grid grid-cols-2 gap-3 pt-2">
                       <ContactLink
                         kind="whatsapp"
                         value={loc.whatsappNumber}
                         verified={loc.verification.whatsapp}
-                        className="flex items-center justify-center gap-1.5 py-3 rounded-full bg-[#0F5C63] text-white text-sm font-medium hover:bg-[#0b464c] transition-colors"
+                        className="w-full flex items-center justify-center gap-2 py-3 px-4 min-h-[44px] rounded-full bg-[#0F5C63] text-white text-sm font-medium hover:bg-[#0b464c] transition-colors active:scale-[0.99]"
                       >
-                        <ChatBubbleIcon size={14} strokeWidth={2} />
-                        WhatsApp
+                        <ChatBubbleIcon size={15} strokeWidth={2} />
+                        <span>WhatsApp</span>
                       </ContactLink>
                       <ContactLink
                         kind="call"
                         value={loc.phone.replace(/\s/g, "")}
                         verified={loc.verification.phone}
-                        className="flex items-center justify-center gap-1.5 py-3 rounded-full border border-[#E4DFD6] text-[#16232B] text-sm font-medium hover:bg-[#FAF8F4] transition-colors"
+                        className="w-full flex items-center justify-center gap-2 py-3 px-4 min-h-[44px] rounded-full border border-[#E4DFD6] bg-white text-[#16232B] text-sm font-medium hover:bg-[#FAF8F4] transition-colors active:scale-[0.99]"
                       >
-                        <PhoneCallIcon size={14} strokeWidth={1.8} className="text-[#0F5C63]" />
-                        Call
+                        <PhoneCallIcon size={15} strokeWidth={1.8} className="text-[#0F5C63]" />
+                        <span>Call</span>
                       </ContactLink>
                     </div>
 
                     {loc.bookingEnabled && (
                       <Link
                         href="/contact"
-                        className="flex items-center justify-center gap-2 w-full py-3 border border-[#0F5C63]/30 rounded-full text-[#0F5C63] text-sm font-medium hover:bg-[#DCEBEA]/40 transition-colors"
+                        className="flex items-center justify-center gap-2 w-full py-3 px-4 min-h-[44px] border border-[#0F5C63]/30 rounded-full text-[#0F5C63] text-sm font-medium hover:bg-[#DCEBEA]/40 transition-colors active:scale-[0.99]"
                       >
-                        <CalendarIcon size={14} />
-                        {settings.contactCtas.bookLabel}
+                        <CalendarIcon size={15} />
+                        <span>{settings.contactCtas.bookLabel}</span>
                       </Link>
                     )}
                   </div>

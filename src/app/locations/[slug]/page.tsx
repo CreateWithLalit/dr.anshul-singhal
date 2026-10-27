@@ -1,9 +1,10 @@
 import React from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getLocationBySlug, getLocations } from "@/lib/content";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
-import { LocationPinIcon, ChatBubbleIcon, PhoneCallIcon } from "@/components/illustrations";
+import { LocationPinIcon, ChatBubbleIcon, PhoneCallIcon, CalendarIcon } from "@/components/illustrations";
 import { prelaunchRobots } from "@/lib/prelaunch";
 import { ContactLink } from "@/components/ContactLink";
 import { demoImages } from "@/config/demoImages";
@@ -58,15 +59,35 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
               <p className="text-sm text-[#5B6870] credential-placeholder">{loc.address}</p>
               {loc.hours.map((h, i) => <p key={i} className="text-xs text-[#5B6870]">{h}</p>)}
               <div className="grid grid-cols-2 gap-3 pt-2">
-                <ContactLink kind="whatsapp" value={loc.whatsappNumber} verified={loc.verification.whatsapp}
-                  className="flex items-center justify-center gap-2 py-3 rounded-full bg-[#0F5C63] text-white text-sm font-medium">
-                  <ChatBubbleIcon size={15} strokeWidth={2} /> WhatsApp
+                <ContactLink
+                  kind="whatsapp"
+                  value={loc.whatsappNumber}
+                  verified={loc.verification.whatsapp}
+                  className="w-full flex items-center justify-center gap-2 py-3 px-4 min-h-[44px] rounded-full bg-[#0F5C63] text-white text-sm font-medium hover:bg-[#0b464c] transition-colors active:scale-[0.99]"
+                >
+                  <ChatBubbleIcon size={15} strokeWidth={2} />
+                  <span>WhatsApp</span>
                 </ContactLink>
-                <ContactLink kind="call" value={loc.phone.replace(/\s/g, "")} verified={loc.verification.phone}
-                  className="flex items-center justify-center gap-2 py-3 rounded-full border border-[#E4DFD6] text-[#16232B] text-sm font-medium">
-                  <PhoneCallIcon size={15} strokeWidth={1.8} className="text-[#0F5C63]" /> Call
+                <ContactLink
+                  kind="call"
+                  value={loc.phone.replace(/\s/g, "")}
+                  verified={loc.verification.phone}
+                  className="w-full flex items-center justify-center gap-2 py-3 px-4 min-h-[44px] rounded-full border border-[#E4DFD6] bg-white text-[#16232B] text-sm font-medium hover:bg-[#FAF8F4] transition-colors active:scale-[0.99]"
+                >
+                  <PhoneCallIcon size={15} strokeWidth={1.8} className="text-[#0F5C63]" />
+                  <span>Call</span>
                 </ContactLink>
               </div>
+
+              {loc.bookingEnabled && (
+                <Link
+                  href="/contact"
+                  className="flex items-center justify-center gap-2 w-full py-3 px-4 min-h-[44px] border border-[#0F5C63]/30 rounded-full text-[#0F5C63] text-sm font-medium hover:bg-[#DCEBEA]/40 transition-colors active:scale-[0.99]"
+                >
+                  <CalendarIcon size={15} />
+                  <span>Book consultation</span>
+                </Link>
+              )}
             </div>
           </div>
         </RevealOnScroll>

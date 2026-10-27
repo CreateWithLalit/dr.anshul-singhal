@@ -34,7 +34,7 @@ const dictionary: Record<Language, Record<string, string>> = {
       "Specialist surgical care for the face, mouth, and jaws — calm, transparent, and patient-first.",
     whatsappMessage: "Hello, I would like to enquire about a consultation.",
     whatsappServiceMessage: "Hello, I would like to know more about",
-    contactDemoNotice: "Demo: to be confirmed",
+    contactDemoNotice: "Number coming soon",
   },
   hi: {
     // Demo translation — Needs human clinical review before live release
@@ -55,7 +55,7 @@ const dictionary: Record<Language, Record<string, string>> = {
       "चेहरे, जबड़े एवं मुख की विशेषज्ञ शल्य चिकित्सा — शांत, स्पष्ट और गरिमापूर्ण देखभाल।",
     whatsappMessage: "नमस्ते, मैं परामर्श के बारे में जानकारी लेना चाहता/चाहती हूँ।",
     whatsappServiceMessage: "नमस्ते, मैं इसके बारे में और जानकारी लेना चाहता/चाहती हूँ:",
-    contactDemoNotice: "डेमो: पुष्टि होना बाकी है",
+    contactDemoNotice: "नंबर जल्द उपलब्ध होगा",
   },
 };
 

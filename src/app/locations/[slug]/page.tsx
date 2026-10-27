@@ -4,10 +4,11 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getLocationBySlug, getLocations } from "@/lib/content";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
-import { LocationPinIcon, ChatBubbleIcon, PhoneCallIcon, CalendarIcon } from "@/components/illustrations";
+import { LocationPinIcon, PhoneCallIcon, CalendarIcon } from "@/components/illustrations";
 import { prelaunchRobots } from "@/lib/prelaunch";
 import { ContactLink } from "@/components/ContactLink";
 import { demoImages } from "@/config/demoImages";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
 export async function generateStaticParams() {
   const locs = await getLocations();
@@ -63,9 +64,9 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
                   kind="whatsapp"
                   value={loc.whatsappNumber}
                   verified={loc.verification.whatsapp}
-                  className="w-full flex items-center justify-center gap-2 py-3 px-4 min-h-[44px] rounded-full bg-[#0F5C63] text-white text-sm font-medium hover:bg-[#0b464c] transition-colors active:scale-[0.99]"
+                  className="w-full flex items-center justify-center gap-2 py-3 px-4 min-h-[48px] rounded-full bg-[#25D366] text-[#102B24] text-sm font-semibold hover:bg-[#1fb85a] transition-colors active:scale-[0.99] shadow-xs"
                 >
-                  <ChatBubbleIcon size={15} strokeWidth={2} />
+                  <WhatsAppIcon size={16} />
                   <span>WhatsApp</span>
                 </ContactLink>
                 <ContactLink

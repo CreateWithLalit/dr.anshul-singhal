@@ -129,6 +129,62 @@ export const seedContent: ContentData = {
       status: "to-confirm",
       sampleBeforeAfterNote:
         "Sample illustration showing pre-operative angled impaction vs. post-operative healed ridge.",
+      media: {
+        hero: {
+          src: "/images/wisdom-teeth.jpg",
+          alt: "Anatomical molar tooth specimens illustrating tooth morphology",
+          altHi: "दाढ़ और अक्ल दाढ़ की संरचना को दर्शाने वाले नमूने",
+          caption: "Anatomical tooth specimens showing root and crown morphology",
+          captionHi: "दाढ़ की जड़ और क्राउन संरचना",
+          temporary: true,
+        },
+        expect: [
+          {
+            title: "Consultation & Imaging",
+            titleHi: "परामर्श एवं इमेजिंग",
+            description: "Panoramic OPG or 3D scan to visualize root geometry and nerve proximity.",
+            descriptionHi: "जड़ और तंत्रिका की स्थिति देखने के लिए विस्तृत स्कैन।",
+            image: {
+              src: "/images/consultation.jpg",
+              alt: "Consultation room with doctor explaining diagnostic records",
+              altHi: "परामर्श कक्ष",
+              temporary: true,
+            },
+          },
+          {
+            title: "Procedure",
+            titleHi: "शल्य प्रक्रिया",
+            description: "Careful, gentle removal under profound local anesthesia with bone preservation.",
+            descriptionHi: "स्थानीय एनेस्थीसिया के तहत सौम्य निष्कासन।",
+            image: {
+              src: "/images/clinic-equipment.jpg",
+              alt: "Clean surgical dental instrument setup on tray",
+              altHi: "स्वच्छ सर्जिकल ट्रे",
+              temporary: true,
+            },
+          },
+          {
+            title: "Recovery & Review",
+            titleHi: "स्वास्थ्य लाभ एवं समीक्षा",
+            description: "Structured recovery guidelines, dietary advice, and scheduled healing review.",
+            descriptionHi: "स्पष्ट स्वास्थ्य लाभ दिशानिर्देश और समीक्षा।",
+            image: {
+              src: "/images/family-consultation.jpg",
+              alt: "Doctor providing post-procedure care guidance to patient",
+              altHi: "देखभाल मार्गदर्शन",
+              temporary: true,
+            },
+          },
+        ],
+        diagram: {
+          type: "wisdom-teeth",
+          title: "The Four Primary Impaction Angles",
+          titleHi: "चार प्राथमिक इम्पैक्शन कोण",
+          caption: "Illustration for education",
+          captionHi: "शिक्षा के लिए चित्र",
+          needsDoctorReview: true,
+        },
+      },
     },
     {
       slug: "facial-injury",
@@ -193,6 +249,62 @@ export const seedContent: ContentData = {
       status: "to-confirm",
       sampleBeforeAfterNote:
         "Sample diagram showing mini-plate reduction across a mandibular fracture line.",
+      media: {
+        hero: {
+          src: "/images/facial-injury.jpg",
+          alt: "3D craniofacial anatomical structure showing structural facial skeleton lines",
+          altHi: "चेहरे की हड्डियों की संरचना को दर्शाने वाला 3D मॉडल",
+          caption: "3D craniofacial anatomical model illustrating facial bone structure",
+          captionHi: "चेहरे की अस्थि संरचना का 3D मॉडल",
+          temporary: true,
+        },
+        expect: [
+          {
+            title: "Emergency Triage & CT",
+            titleHi: "आपातकालीन ट्राइएज एवं सीटी",
+            description: "Airway safety verification followed by multi-slice 3D CT reconstruction.",
+            descriptionHi: "हड्डी के विस्थापन को मैप करने के लिए 3D इमेजिंग।",
+            image: {
+              src: "/images/consultation.jpg",
+              alt: "Clinician assessing diagnostic radiographic data",
+              altHi: "इमेजिंग समीक्षा",
+              temporary: true,
+            },
+          },
+          {
+            title: "Precision Realignment",
+            titleHi: "सटीक पुनर्संरेखण",
+            description: "Direct bone repositioning and biocompatible titanium mini-plate osteosynthesis.",
+            descriptionHi: "टाइटेनियम मिनी-प्लेट के साथ सटीक निर्धारण।",
+            image: {
+              src: "/images/clinic-chair.jpg",
+              alt: "Clinical surgical consultation room",
+              altHi: "उपचार कक्ष",
+              temporary: true,
+            },
+          },
+          {
+            title: "Functional Recovery",
+            titleHi: "कार्यात्मक सुधार",
+            description: "Bite alignment verification and supported gradual return to mastication.",
+            descriptionHi: "काटने के संरेखण का सत्यापन।",
+            image: {
+              src: "/images/family-consultation.jpg",
+              alt: "Doctor reviewing healing milestones with patient and family",
+              altHi: "पुनर्प्राप्ति सलाह",
+              temporary: true,
+            },
+          },
+        ],
+        diagram: {
+          type: "facial-injury",
+          title: "Mandibular Fracture & Mini-Plate Fixation",
+          titleHi: "जबड़े का फ्रैक्चर और निर्धारण",
+          caption: "Illustration for education",
+          captionHi: "शिक्षा के लिए चित्र",
+          needsDoctorReview: true,
+        },
+      },
     },
     {
       slug: "dental-implants",
@@ -257,6 +369,62 @@ export const seedContent: ContentData = {
       status: "to-confirm",
       sampleBeforeAfterNote:
         "Sample sequential illustration of tooth gap, osteotomy, implant placement, and crown restoration.",
+      media: {
+        hero: {
+          src: "/images/dental-implants.jpg",
+          alt: "Cross-section dental implant model showing titanium post, abutment, and crown restoration",
+          altHi: "टाइटेनियम इम्प्लांट और क्राउन को दर्शाने वाला क्रॉस-सेक्शन मॉडल",
+          caption: "Cross-section model showing titanium implant fixture and crown restoration",
+          captionHi: "टाइटेनियम इम्प्लांट और क्राउन बहाली",
+          temporary: true,
+        },
+        expect: [
+          {
+            title: "3D Bone Assessment",
+            titleHi: "3D हड्डी का मूल्यांकन",
+            description: "High-resolution CBCT to measure ridge dimensions, bone density, and anatomy.",
+            descriptionHi: "हड्डी के घनत्व का मूल्यांकन करने के लिए सीटी स्कैन।",
+            image: {
+              src: "/images/consultation.jpg",
+              alt: "Clinician assessing 3D volumetric bone scan",
+              altHi: "उपचार योजना",
+              temporary: true,
+            },
+          },
+          {
+            title: "Precision Placement",
+            titleHi: "सटीक इम्प्लांट प्लेसमेंट",
+            description: "Minimally invasive osteotomy and placement of medical-grade titanium fixture.",
+            descriptionHi: "जबड़े की हड्डी में टाइटेनियम इम्प्लांट लगाना।",
+            image: {
+              src: "/images/clinic-equipment.jpg",
+              alt: "Surgical dental instruments arranged cleanly",
+              altHi: "सर्जिकल उपकरण",
+              temporary: true,
+            },
+          },
+          {
+            title: "Crown Restoration",
+            titleHi: "अनुकूलित क्राउन बहाली",
+            description: "Custom aesthetic ceramic crown fitted onto titanium abutment after integration.",
+            descriptionHi: "मजबूत एकीकरण के बाद अनुकूलित क्राउन।",
+            image: {
+              src: "/images/clinic-chair.jpg",
+              alt: "Modern dental operatory treatment chair",
+              altHi: "आधुनिक क्लिनिक",
+              temporary: true,
+            },
+          },
+        ],
+        diagram: {
+          type: "dental-implants",
+          title: "Anatomy of an Implant Restoration",
+          titleHi: "इम्प्लांट बहाली की संरचना",
+          caption: "Illustration for education",
+          captionHi: "शिक्षा के लिए चित्र",
+          needsDoctorReview: true,
+        },
+      },
     },
     {
       slug: "geriatric-dentistry",
@@ -290,6 +458,62 @@ export const seedContent: ContentData = {
       relatedSlugs: ["dental-implants", "full-mouth-rehabilitation"],
       status: "to-confirm",
       sampleBeforeAfterNote: "Sample layout only. Future approved media can be added after consent and verification.",
+      media: {
+        hero: {
+          src: "/images/geriatric-dentistry.jpg",
+          alt: "Prosthodontic dental prosthesis care and delicate maintenance tool",
+          altHi: "दंत कृत्रिम अंग की कोमल देखभाल और रखरखाव",
+          caption: "Demonstration of dental prosthetic maintenance and delicate care",
+          captionHi: "दंत कृत्रिम अंग का प्रदर्शन और रखरखाव",
+          temporary: true,
+        },
+        expect: [
+          {
+            title: "Comprehensive Health Audit",
+            titleHi: "व्यापक स्वास्थ्य समीक्षा",
+            description: "Thorough check of systemic conditions, medications, and individual mobility comfort.",
+            descriptionHi: "प्रणालीगत स्वास्थ्य और दवाओं की सावधानीपूर्वक समीक्षा।",
+            image: {
+              src: "/images/family-consultation.jpg",
+              alt: "Consultation involving patient and supportive family",
+              altHi: "पारिवारिक परामर्श",
+              temporary: true,
+            },
+          },
+          {
+            title: "Comfort-Focused Care",
+            titleHi: "आराम-केंद्रित देखभाल",
+            description: "Paced appointments designed to preserve chewing function and oral comfort.",
+            descriptionHi: "प्राकृतिक दांतों को संरक्षित करने पर केंद्रित सौम्य उपचार।",
+            image: {
+              src: "/images/clinic-chair.jpg",
+              alt: "Ergonomic clinical dental suite",
+              altHi: "क्लिनिक कुर्सी",
+              temporary: true,
+            },
+          },
+          {
+            title: "Home Support Guidance",
+            titleHi: "घरेलू सहायता मार्गदर्शन",
+            description: "Practical hygiene techniques designed for patients and home caregivers.",
+            descriptionHi: "मरीजों और देखभाल करने वालों के लिए व्यावहारिक सलाह।",
+            image: {
+              src: "/images/consultation.jpg",
+              alt: "Doctor sharing oral hygiene guidelines",
+              altHi: "निवारक सलाह",
+              temporary: true,
+            },
+          },
+        ],
+        diagram: {
+          type: "geriatric-dentistry",
+          title: "Full-Arch Preventive Preservation Plan",
+          titleHi: "पूर्ण-आर्च निवारक संरक्षण",
+          caption: "Illustration for education",
+          captionHi: "शिक्षा के लिए चित्र",
+          needsDoctorReview: true,
+        },
+      },
     },
     {
       slug: "full-mouth-rehabilitation",
@@ -323,6 +547,62 @@ export const seedContent: ContentData = {
       relatedSlugs: ["dental-implants", "geriatric-dentistry"],
       status: "to-confirm",
       sampleBeforeAfterNote: "Sample layout only. Future approved media can be added after consent and verification.",
+      media: {
+        hero: {
+          src: "/images/full-mouth-rehab.jpg",
+          alt: "Diagnostic dental arch study casts in dental plaster for comprehensive rehabilitation planning",
+          altHi: "व्यापक पुनर्वास योजना के लिए प्लास्टर कास्ट मॉडल",
+          caption: "Diagnostic study casts showing complete upper and lower dental arches",
+          captionHi: "ऊपरी और निचले दोनों मेहराबों को दर्शाने वाले नैदानिक अध्ययन मॉडल",
+          temporary: true,
+        },
+        expect: [
+          {
+            title: "Bite & Occlusal Records",
+            titleHi: "काटने का विश्लेषण",
+            description: "Comprehensive 3D study models and facial photographic analysis.",
+            descriptionHi: "जबड़े के संबंधों का नैदानिक अध्ययन।",
+            image: {
+              src: "/images/consultation.jpg",
+              alt: "Diagnostic models and comprehensive treatment planning",
+              altHi: "नैदानिक रिकॉर्ड",
+              temporary: true,
+            },
+          },
+          {
+            title: "Staged Reconstruction",
+            titleHi: "चरणबद्ध पुनर्निर्माण",
+            description: "Coordinated restoration of vertical dimension, missing teeth, and worn surfaces.",
+            descriptionHi: "घिसे हुए दांतों और काटने की ऊंचाई का पुनर्निर्माण।",
+            image: {
+              src: "/images/clinic-equipment.jpg",
+              alt: "Sterile precision restorative instruments",
+              altHi: "सटीक उपकरण",
+              temporary: true,
+            },
+          },
+          {
+            title: "Bite Harmony & Splint",
+            titleHi: "सुरक्षात्मक रखरखाव",
+            description: "Bilateral chew comfort testing and protective night splint for long-term stability.",
+            descriptionHi: "संतुलित चबाने की जांच और सुरक्षात्मक स्प्लिंट।",
+            image: {
+              src: "/images/family-consultation.jpg",
+              alt: "Follow-up review for full arch rehabilitation",
+              altHi: "रखरखाव योजना",
+              temporary: true,
+            },
+          },
+        ],
+        diagram: {
+          type: "full-mouth-rehabilitation",
+          title: "Stepwise Dual-Arch Functional Plan",
+          titleHi: "चरणबद्ध दोहरा-आर्च कार्यात्मक योजना",
+          caption: "Illustration for education",
+          captionHi: "शिक्षा के लिए चित्र",
+          needsDoctorReview: true,
+        },
+      },
     },
   ],
 

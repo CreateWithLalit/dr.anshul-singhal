@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
-import { CalendarIcon } from "@/components/illustrations";
+import { PhoneCallIcon } from "@/components/illustrations";
 import type { MockFormResponse } from "@/lib/forms";
 import type { PublicContactSettings } from "@/lib/content";
 import Link from "next/link";
@@ -78,15 +78,21 @@ export default function ForDoctorsPage() {
                 </li>
               </ul>
 
-              <div className="bg-[#DCEBEA]/30 border border-[#0F5C63]/15 rounded-[12px] p-6">
-                <p className="font-medium text-[#16232B] mb-2 text-sm">Direct Clinician Line</p>
-                <p className="text-sm text-[#5B6870] mb-3">For urgent case discussions, please call the clinic and request the clinician line.</p>
-                <ContactLink kind="call" value={contactSettings?.phone ?? ""} verified={contactSettings?.phoneVerified ?? false} className="inline-flex items-center gap-2 text-[#0F5C63] font-medium text-sm">
-                  <CalendarIcon size={16} /> {contactSettings?.phoneFormatted ?? "Contact details loading…"}
-                </ContactLink>
-                <Link href="/demo/dashboard" className="contextual-link mt-4 inline-flex text-xs font-medium text-[#0F5C63]">
-                  Practice reporting preview
-                </Link>
+              <div className="bg-[#DCEBEA]/30 border border-[#0F5C63]/15 rounded-[12px] p-6 space-y-4">
+                <div>
+                  <p className="font-medium text-[#16232B] mb-1.5 text-sm">Direct Clinician Line</p>
+                  <p className="text-sm text-[#5B6870] mb-3">For urgent case discussions, please call the clinic and request the clinician line.</p>
+                  <ContactLink kind="call" value={contactSettings?.phone ?? ""} verified={contactSettings?.phoneVerified ?? false} className="inline-flex items-center gap-2 text-[#0F5C63] font-semibold text-sm hover:underline">
+                    <PhoneCallIcon size={16} strokeWidth={2} />
+                    <span>{contactSettings?.phoneFormatted ?? "Contact details loading…"}</span>
+                  </ContactLink>
+                </div>
+
+                <div className="pt-3 border-t border-[#0F5C63]/10">
+                  <Link href="/demo/dashboard" className="contextual-link inline-flex items-center gap-1.5 text-xs font-medium text-[#0F5C63] hover:underline">
+                    <span>Practice reporting preview →</span>
+                  </Link>
+                </div>
               </div>
             </RevealOnScroll>
 

@@ -2,10 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
-import { ChatBubbleIcon, PhoneCallIcon, CalendarIcon, LocationPinIcon } from "@/components/illustrations";
+import { PhoneCallIcon, CalendarIcon, LocationPinIcon } from "@/components/illustrations";
 import type { MockFormResponse } from "@/lib/forms";
 import type { PublicContactSettings } from "@/lib/content";
 import { ContactLink } from "@/components/ContactLink";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
 const BOOKING_STEPS = ["Location", "Date & Slot", "Confirm"] as const;
 type BookingStep = 0 | 1 | 2 | 3;
@@ -87,14 +88,14 @@ export default function ContactPage() {
               kind="whatsapp"
               value={contactSettings?.whatsappNumber ?? ""}
               verified={contactSettings?.whatsappVerified ?? false}
-              className="w-full flex items-center gap-4 p-5 bg-[#0F5C63] text-white rounded-[16px] hover:bg-[#0b464c] transition-colors group"
+              className="w-full flex items-center gap-4 p-5 bg-[#25D366] text-[#102B24] rounded-[16px] hover:bg-[#1fb85a] shadow-[0_4px_16px_rgba(37,211,102,0.2)] transition-colors group min-h-[48px]"
             >
-              <div className="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center flex-shrink-0">
-                <ChatBubbleIcon size={22} strokeWidth={1.8} className="text-white" />
+              <div className="w-12 h-12 rounded-full bg-[#102B24]/10 flex items-center justify-center flex-shrink-0">
+                <WhatsAppIcon size={24} className="text-[#102B24]" />
               </div>
               <div>
-                <p className="font-semibold">WhatsApp Consultation</p>
-                <p className="text-sm text-white/75">{contactSettings ? `${contactSettings.whatsappFormatted} (Placeholder)` : "Contact details loading…"}</p>
+                <p className="font-semibold text-[#102B24]">WhatsApp Consultation</p>
+                <p className="text-sm text-[#102B24]/80">{contactSettings ? `${contactSettings.whatsappFormatted} (Placeholder)` : "Contact details loading…"}</p>
               </div>
             </ContactLink>
             <ContactLink

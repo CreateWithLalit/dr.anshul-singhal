@@ -5,7 +5,6 @@ import { CountUp, TimelineLine } from "./_home-animations";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import {
-  ChatBubbleIcon,
   PhoneCallIcon,
   LocationPinIcon,
   CalendarIcon,
@@ -14,7 +13,9 @@ import { getServices, getLocations, getSiteSettings } from "@/lib/content";
 import { HomeActions } from "@/components/HomeActions";
 import { ContactLink } from "@/components/ContactLink";
 import { ServiceStoneCard } from "@/components/ServiceStoneCard";
+import { ServiceHelpCard } from "@/components/ServiceHelpCard";
 import { demoImages } from "@/config/demoImages";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
 const CARE_STEPS = [
   {
@@ -40,9 +41,9 @@ const CARE_STEPS = [
 ];
 
 const SAMPLE_STATS = [
-  { value: 4, suffix: "", label: "steps in your care journey" },
-  { value: 3, suffix: "", label: "educational service pillars" },
-  { value: 1, suffix: "", label: "clear next-step pathway" },
+  { value: 4, suffix: "", label: "care steps in your treatment journey" },
+  { value: 4, suffix: "", label: "specialist surgical pillars" },
+  { value: 1, suffix: "", label: "clear personal care pathway" },
 ];
 
 
@@ -112,8 +113,9 @@ export default async function HomePage() {
               <div className="absolute inset-0 overflow-hidden rounded-[28px] bg-[#0F2A43] shadow-[0_18px_40px_rgba(15,42,67,.20)]">
                 <Image src={demoImages.hero.src} alt={demoImages.hero.alt} fill priority sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-top" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F2A43]/45 via-transparent" />
+                <span className="temporary-image-label absolute left-4 top-4 z-10">Temporary image</span>
               </div>
-              <div className="absolute -right-2 top-8 bg-[#C62828] text-white rounded-xl p-3 shadow-lg text-xs"><b>By appointment</b><br />Time slots coming soon</div>
+              <div className="absolute -right-2 top-8 bg-[#C62828] text-white rounded-xl p-3 shadow-lg text-xs z-20"><b>By appointment</b><br />Time slots coming soon</div>
             </div>
           </div>
         </div>
@@ -140,12 +142,18 @@ export default async function HomePage() {
             </div>
           </RevealOnScroll>
 
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
             {services.map((svc, index) => (
               <StaggerItem key={svc.slug}>
                 <ServiceStoneCard service={svc} index={index} />
               </StaggerItem>
             ))}
+            <StaggerItem key="help-card">
+              <ServiceHelpCard
+                whatsApp={settings.defaultWhatsApp}
+                whatsAppVerified={settings.contactVerification.whatsapp}
+              />
+            </StaggerItem>
           </StaggerContainer>
         </div>
       </section>
@@ -272,65 +280,109 @@ export default async function HomePage() {
 
           {primaryLocation && (
             <RevealOnScroll delay={0.1}>
-              <div className="max-w-2xl bg-[#FAF8F4] rounded-[16px] border border-[#E4DFD6] overflow-hidden">
-                {/* Map placeholder */}
-                <div className="h-44 sm:h-52 bg-[#DCEBEA]/40 flex items-center justify-center relative border-b border-[#E4DFD6]">
-                  <div className="text-center space-y-2">
-                    <LocationPinIcon size={32} className="text-[#0F5C63] mx-auto" />
-                    <p className="text-xs text-[#5B6870] font-sans">
-                      {primaryLocation.mapReferenceNote}
-                    </p>
+              <div className="grid grid-cols-1 lg:grid-cols-[55%_1fr] gap-6 lg:gap-8 items-stretch">
+                {/* Clinic Image: order-1 on mobile/tablet (16:10 aspect ratio), order-2 on lg (stretches to full card height) */}
+                <div className="order-1 lg:order-2 relative w-full aspect-[16/10] lg:aspect-auto lg:h-full min-h-[260px] lg:min-h-0 rounded-[12px] border border-[#E4DFD6] overflow-hidden shadow-xs bg-[#F3F6FA]">
+                  <Image
+                    src={demoImages.clinic.src}
+                    alt="Modern consultation room"
+                    fill
+                    sizes="(min-width: 1024px) 45vw, 100vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent pointer-events-none" />
+                  <span className="temporary-image-label absolute left-3 top-3 z-10">Temporary image</span>
+
+                  {/* Overlay chips at bottom */}
+                  <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 z-10 flex flex-wrap gap-2">
+                    <span className="px-3 py-1 rounded-full bg-white/95 text-[#16232B] text-xs font-medium shadow-xs backdrop-blur-xs">
+                      By appointment
+                    </span>
+                    <span className="px-3 py-1 rounded-full bg-white/95 text-[#16232B] text-xs font-medium shadow-xs backdrop-blur-xs">
+                      Family members welcome
+                    </span>
                   </div>
                 </div>
 
-                <div className="p-6 sm:p-7 space-y-4">
-                  <div>
-                    <h3 className="font-serif text-xl text-[#16232B] font-normal mb-1">
-                      {primaryLocation.name}
-                    </h3>
-                    <p className="text-sm text-[#5B6870]">{primaryLocation.district}</p>
+                {/* Clinic Card: order-2 on mobile/tablet, order-1 on lg (55% width) */}
+                <div className="order-2 lg:order-1 bg-[#FAF8F4] rounded-[12px] border border-[#E4DFD6] overflow-hidden shadow-xs flex flex-col justify-between">
+                  {/* Outdoor Hospital / Clinic Exterior Image */}
+                  <div className="relative h-48 sm:h-56 w-full border-b border-[#E4DFD6] overflow-hidden bg-[#DCEBEA]/30">
+                    <Image
+                      src={demoImages.clinicExterior.src}
+                      alt={demoImages.clinicExterior.alt}
+                      fill
+                      sizes="(min-width: 1024px) 55vw, 100vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
+                    <span className="temporary-image-label absolute left-3 top-3 z-10">
+                      Temporary image
+                    </span>
+                    <div className="absolute bottom-2.5 left-3 right-3 z-10 flex items-center justify-between gap-2">
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-white/95 bg-[#16232B]/75 backdrop-blur-xs px-2.5 py-1 rounded-md">
+                        <LocationPinIcon size={12} className="text-[#D9C7A8]" />
+                        <span>Outdoor clinical facility</span>
+                      </span>
+                      <span className="text-[10px] text-white/80 bg-black/40 backdrop-blur-xs px-2 py-0.5 rounded">
+                        Location to be confirmed
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="space-y-1.5 text-sm text-[#5B6870]">
-                    <p className="flex items-start gap-2">
-                      <LocationPinIcon size={14} className="text-[#0F5C63] mt-0.5 flex-shrink-0" />
-                      <span className="credential-placeholder">{primaryLocation.address}</span>
-                    </p>
-                    {primaryLocation.hours.map((h, i) => (
-                      <p key={i} className="pl-5 text-xs">{h}</p>
-                    ))}
-                  </div>
+                  <div className="p-6 sm:p-7 space-y-4 flex-1 flex flex-col justify-between">
+                    <div className="space-y-4">
+                      <div>
+                        <h3 className="font-serif text-xl text-[#16232B] font-normal mb-1">
+                          {primaryLocation.name}
+                        </h3>
+                        <p className="text-sm text-[#5B6870]">{primaryLocation.district}</p>
+                      </div>
 
-                  <div className="grid grid-cols-2 gap-3 pt-2">
-                    <ContactLink
-                      kind="whatsapp"
-                      value={primaryLocation.whatsappNumber}
-                      verified={primaryLocation.verification.whatsapp}
-                      className="w-full flex items-center justify-center gap-2 py-3 px-4 min-h-[44px] rounded-full bg-[#0F5C63] text-white text-sm font-medium hover:bg-[#0b464c] transition-colors active:scale-[0.99]"
-                    >
-                      <ChatBubbleIcon size={15} strokeWidth={2} />
-                      <span>WhatsApp</span>
-                    </ContactLink>
-                    <ContactLink
-                      kind="call"
-                      value={primaryLocation.phone.replace(/\s/g, "")}
-                      verified={primaryLocation.verification.phone}
-                      className="w-full flex items-center justify-center gap-2 py-3 px-4 min-h-[44px] rounded-full border border-[#E4DFD6] bg-white text-[#16232B] text-sm font-medium hover:bg-[#FAF8F4] transition-colors active:scale-[0.99]"
-                    >
-                      <PhoneCallIcon size={15} strokeWidth={1.8} className="text-[#0F5C63]" />
-                      <span>Call</span>
-                    </ContactLink>
-                  </div>
+                      <div className="space-y-1.5 text-sm text-[#5B6870]">
+                        <p className="flex items-start gap-2">
+                          <LocationPinIcon size={14} className="text-[#0F5C63] mt-0.5 flex-shrink-0" />
+                          <span className="credential-placeholder">{primaryLocation.address}</span>
+                        </p>
+                        {primaryLocation.hours.map((h, i) => (
+                          <p key={i} className="pl-5 text-xs">{h}</p>
+                        ))}
+                      </div>
+                    </div>
 
-                  {primaryLocation.bookingEnabled && (
-                    <Link
-                      href="/contact"
-                      className="flex items-center justify-center gap-2 w-full py-3 px-4 min-h-[44px] border border-[#0F5C63]/30 rounded-full text-[#0F5C63] text-sm font-medium hover:bg-[#DCEBEA]/40 transition-colors active:scale-[0.99]"
-                    >
-                      <CalendarIcon size={15} />
-                      <span>Book consultation</span>
-                    </Link>
-                  )}
+                    <div className="space-y-3 pt-2">
+                      <div className="grid grid-cols-2 gap-3">
+                        <ContactLink
+                          kind="whatsapp"
+                          value={primaryLocation.whatsappNumber}
+                          verified={primaryLocation.verification.whatsapp}
+                          className="w-full flex items-center justify-center gap-2 py-3 px-4 min-h-[48px] rounded-full bg-[#25D366] text-[#102B24] text-sm font-semibold hover:bg-[#1fb85a] transition-colors active:scale-[0.99] shadow-xs"
+                        >
+                          <WhatsAppIcon size={16} />
+                          <span>WhatsApp</span>
+                        </ContactLink>
+                        <ContactLink
+                          kind="call"
+                          value={primaryLocation.phone.replace(/\s/g, "")}
+                          verified={primaryLocation.verification.phone}
+                          className="w-full flex items-center justify-center gap-2 py-3 px-4 min-h-[48px] rounded-full border border-[#E4DFD6] bg-white text-[#16232B] text-sm font-medium hover:bg-[#FAF8F4] transition-colors active:scale-[0.99]"
+                        >
+                          <PhoneCallIcon size={15} strokeWidth={1.8} className="text-[#0F5C63]" />
+                          <span>Call</span>
+                        </ContactLink>
+                      </div>
+
+                      {primaryLocation.bookingEnabled && (
+                        <Link
+                          href="/contact"
+                          className="flex items-center justify-center gap-2 w-full py-3 px-4 min-h-[48px] border border-[#0F5C63]/30 rounded-full text-[#0F5C63] text-sm font-medium hover:bg-[#DCEBEA]/40 transition-colors active:scale-[0.99]"
+                        >
+                          <CalendarIcon size={15} />
+                          <span>Book consultation</span>
+                        </Link>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </RevealOnScroll>

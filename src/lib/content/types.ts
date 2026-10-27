@@ -48,6 +48,38 @@ export interface ServiceFAQ {
   answer: string;
 }
 
+export interface ServiceMediaItem {
+  src: string;
+  alt: string;
+  altHi?: string;
+  caption?: string;
+  captionHi?: string;
+  temporary: boolean;
+}
+
+export interface ServiceExpectItem {
+  title: string;
+  titleHi?: string;
+  description: string;
+  descriptionHi?: string;
+  image: ServiceMediaItem;
+}
+
+export interface ServiceDiagramMeta {
+  type: string;
+  title: string;
+  titleHi?: string;
+  caption: string;
+  captionHi?: string;
+  needsDoctorReview: true;
+}
+
+export interface ServiceMedia {
+  hero: ServiceMediaItem;
+  expect: ServiceExpectItem[];
+  diagram: ServiceDiagramMeta;
+}
+
 export interface Service {
   slug: string;
   pillar: ServicePillar;
@@ -62,6 +94,7 @@ export interface Service {
   relatedSlugs: string[];
   status: ServiceStatus;
   sampleBeforeAfterNote?: string;
+  media?: ServiceMedia;
 }
 
 export interface Location {

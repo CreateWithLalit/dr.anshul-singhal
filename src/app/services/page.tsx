@@ -1,9 +1,10 @@
 import React from "react";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
-import { getServices } from "@/lib/content";
+import { getServices, getSiteSettings } from "@/lib/content";
 import { prelaunchRobots } from "@/lib/prelaunch";
 import { ServiceStoneCard } from "@/components/ServiceStoneCard";
+import { ServiceHelpCard } from "@/components/ServiceHelpCard";
 
 export const metadata = {
   title: "Surgical Services | Dr. Anshul Singhal",
@@ -12,7 +13,7 @@ export const metadata = {
 };
 
 export default async function ServicesPage() {
-  const services = await getServices();
+  const [services, settings] = await Promise.all([getServices(), getSiteSettings()]);
 
   return (
     <div className="bg-[#FAF8F4]">
@@ -44,18 +45,23 @@ export default async function ServicesPage() {
 
       {/* Service stone cards */}
       <section className="py-16 sm:py-20">
-        <div className="max-w-5xl mx-auto px-5 sm:px-8">
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-8">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-8">
             {services.map((svc, index) => (
               <StaggerItem key={svc.slug}>
                 <ServiceStoneCard
                   service={svc}
                   index={index}
-                  showStatusBadge
                   actionLabel="Read overview"
                 />
               </StaggerItem>
             ))}
+            <StaggerItem key="help-card">
+              <ServiceHelpCard
+                whatsApp={settings.defaultWhatsApp}
+                whatsAppVerified={settings.contactVerification.whatsapp}
+              />
+            </StaggerItem>
           </StaggerContainer>
         </div>
       </section>

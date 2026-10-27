@@ -4,6 +4,7 @@ import React from "react";
 import { PhoneCallIcon, CalendarIcon } from "./illustrations";
 import { useLanguage } from "./LanguageContext";
 import { ContactLink } from "./ContactLink";
+import { WhatsAppIcon } from "./WhatsAppIcon";
 
 export function BottomActionBar({ phone, whatsApp, phoneVerified, whatsAppVerified }: { phone: string; whatsApp: string; phoneVerified: boolean; whatsAppVerified: boolean }) {
   const { t } = useLanguage();
@@ -17,9 +18,9 @@ export function BottomActionBar({ phone, whatsApp, phoneVerified, whatsAppVerifi
             kind="whatsapp"
             value={whatsApp}
             verified={whatsAppVerified}
-            className="w-full flex items-center justify-center gap-1 py-3 px-2 rounded-pill bg-[#25D366] text-[#102B24] font-semibold text-xs shadow-soft active:scale-[0.98] transition-transform"
+            className="w-full min-h-[48px] flex items-center justify-center gap-1.5 py-3 px-2 rounded-pill bg-[#25D366] text-[#102B24] font-semibold text-xs shadow-soft active:scale-[0.98] transition-transform"
           >
-            <span aria-hidden className="text-base leading-none">◉</span>
+            <WhatsAppIcon size={16} />
             <span>{t("btnWhatsApp")}</span>
           </ContactLink>
           {/* Call */}
@@ -27,14 +28,14 @@ export function BottomActionBar({ phone, whatsApp, phoneVerified, whatsAppVerifi
             kind="call"
             value={phone}
             verified={phoneVerified}
-            className="w-full flex items-center justify-center gap-1 py-3 px-2 rounded-pill bg-surface text-ink border border-hairline font-medium text-xs active:bg-background shadow-soft active:scale-[0.98] transition-transform"
+            className="w-full min-h-[48px] flex items-center justify-center gap-1.5 py-3 px-2 rounded-pill bg-surface text-ink border border-hairline font-medium text-xs active:bg-background shadow-soft active:scale-[0.98] transition-transform"
           >
-            <PhoneCallIcon size={17} strokeWidth={2} className="text-[#0F5C63]" />
+            <PhoneCallIcon size={16} strokeWidth={2} className="text-[#0F5C63]" />
             <span>{t("btnCall")}</span>
           </ContactLink>
         </div>
         {/* Book Consultation */}
-        <a href="/contact" className="flex items-center justify-center gap-1 py-3 px-2 rounded-pill bg-[#C62828] text-white font-semibold text-xs">
+        <a href="/contact" className="min-h-[48px] flex items-center justify-center gap-1.5 py-3 px-2 rounded-pill bg-[#C62828] text-white font-semibold text-xs active:scale-[0.98] transition-transform">
           <CalendarIcon size={15} />
           <span>{t("btnBook")}</span>
         </a>

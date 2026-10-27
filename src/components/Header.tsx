@@ -8,7 +8,6 @@ import { LanguageToggle } from "./LanguageToggle";
 import { useLanguage } from "./LanguageContext";
 import { DoctorLogo } from "./DoctorLogo";
 import {
-  ChatBubbleIcon,
   CalendarIcon,
   JawSkullIcon,
   FaceProfileIcon,
@@ -17,6 +16,7 @@ import {
   ToothIcon,
 } from "./illustrations";
 import { ContactLink } from "./ContactLink";
+import { WhatsAppIcon } from "./WhatsAppIcon";
 import type { SiteSettings } from "@/lib/content";
 
 interface NavLinkItem {
@@ -193,9 +193,9 @@ export function Header({
             kind="whatsapp"
             value={whatsApp}
             verified={whatsAppVerified}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0F5C63] text-white text-xs font-semibold hover:bg-[#0b464c] shadow-xs transition-all whitespace-nowrap min-h-[38px]"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#25D366] text-[#102B24] text-xs font-semibold hover:bg-[#1fb85a] shadow-xs transition-all whitespace-nowrap min-h-[38px]"
           >
-            <ChatBubbleIcon size={14} strokeWidth={2.2} />
+            <WhatsAppIcon size={14} />
             <span>{ctas.whatsappLabel}</span>
           </ContactLink>
 
@@ -218,9 +218,9 @@ export function Header({
             kind="whatsapp"
             value={whatsApp}
             verified={whatsAppVerified}
-            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#0F5C63] text-white text-xs font-semibold hover:bg-[#0b464c] transition-colors whitespace-nowrap min-h-[40px]"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#25D366] text-[#102B24] text-xs font-semibold hover:bg-[#1fb85a] transition-colors whitespace-nowrap min-h-[40px]"
           >
-            <ChatBubbleIcon size={14} strokeWidth={2.2} />
+            <WhatsAppIcon size={14} />
             <span>WhatsApp</span>
           </ContactLink>
 
@@ -370,9 +370,9 @@ export function Header({
                     kind="whatsapp"
                     value={whatsApp}
                     verified={whatsAppVerified}
-                    className="flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-[#0F5C63] text-white text-xs font-semibold hover:bg-[#0b464c] shadow-xs transition-all"
+                    className="flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-[#25D366] text-[#102B24] text-xs font-semibold hover:bg-[#1fb85a] shadow-xs transition-all"
                   >
-                    <ChatBubbleIcon size={16} strokeWidth={2.2} />
+                    <WhatsAppIcon size={16} />
                     <span>{ctas.whatsappLabel || t("btnWhatsApp")}</span>
                   </ContactLink>
 

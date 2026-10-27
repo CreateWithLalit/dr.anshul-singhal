@@ -136,10 +136,39 @@ export function CountUp({
   suffix?: string;
   prefix?: string;
 }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const prefersReduced = useReducedMotion();
+  const [displayValue, setDisplayValue] = React.useState(prefersReduced ? value : 0);
+
+  React.useEffect(() => {
+    if (prefersReduced) {
+      setDisplayValue(value);
+      return;
+    }
+    if (!inView) return;
+
+    const duration = 900; // ms
+    const startTime = performance.now();
+
+    const frame = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      setDisplayValue(Math.round(ease * value));
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      }
+    };
+
+    const handle = requestAnimationFrame(frame);
+    return () => cancelAnimationFrame(handle);
+  }, [inView, value, prefersReduced]);
+
   return (
-    <span>
+    <span ref={ref}>
       {prefix}
-      {new Intl.NumberFormat("en-IN").format(value)}
+      {new Intl.NumberFormat("en-IN").format(displayValue)}
       {suffix}
     </span>
   );

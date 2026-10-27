@@ -143,7 +143,7 @@ export function ServiceStoneCard({
 
       {/* Card Content Top */}
       <div className="relative z-10">
-        <div className="flex items-start justify-between gap-4 mb-5">
+        <div className="flex items-start justify-between gap-4 mb-4">
           {/* Pebble-shaped icon badge */}
           <div
             className={`w-12 h-12 rounded-[14px_10px_16px_12px/12px_16px_10px_14px] flex items-center justify-center transition-all duration-400 group-hover:scale-105 shadow-xs ${palette.defaultIconBg} ${palette.defaultIconColor} ${palette.hoverIconBg} ${palette.hoverIconColor}`}

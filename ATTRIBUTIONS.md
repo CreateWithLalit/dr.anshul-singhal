@@ -24,6 +24,12 @@ All temporary stock images below are local copies in `public/images/`, registere
 | `family-consultation.jpg` | https://www.pexels.com/photo/a-doctor-in-a-consultation-with-a-mother-and-her-daughter-7653094/ | Pavel Danilyuk | Pexels License |
 | `clinic-equipment.jpg` | https://www.pexels.com/photo/a-dental-equipment-in-the-clinic-6812453/ | Pavel Danilyuk | Pexels License |
 | `clinic-chair.jpg` | https://www.pexels.com/photo/a-clinic-with-dental-equipment-5355920/ | Tima Miroshnichenko | Pexels License |
+| `wisdom-teeth.jpg` | https://images.unsplash.com/photo-1712258084525-5beab086e5c6 | Unsplash Contributor | Unsplash License |
+| `facial-injury.jpg` | https://images.unsplash.com/photo-1657808741509-dced0cde853f | Unsplash Contributor | Unsplash License |
+| `dental-implants.jpg` | https://www.pexels.com/photo/dental-implant-model-6502305/ | Pexels Contributor | Pexels License |
+| `geriatric-dentistry.jpg` | https://www.pexels.com/photo/a-dentist-showing-an-elderly-woman-her-denture-6627589/ | Pexels Contributor | Pexels License |
+| `full-mouth-rehab.jpg` | https://www.pexels.com/photo/4687407/ | Pexels Contributor | Pexels License |
+| `clinic-exterior.jpg` | https://images.unsplash.com/photo-1586773860418-d37222d8fce3 | National Cancer Institute | Unsplash License |
 
 All visuals are:
 - Monoline SVG illustrations built as React components (`src/components/illustrations/index.tsx`)

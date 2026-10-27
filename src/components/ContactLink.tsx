@@ -49,7 +49,7 @@ export function ContactLink({
   };
 
   return (
-    <span className="inline-flex flex-col items-stretch">
+    <span className="relative inline-flex items-center">
       <button
         type="button"
         onClick={handleClick}
@@ -60,7 +60,11 @@ export function ContactLink({
         {children}
       </button>
       {showNotice && (
-        <span id="contact-demo-notice" role="status" className="mt-1 text-center text-[11px] leading-snug text-[#5B6870]">
+        <span
+          id="contact-demo-notice"
+          role="status"
+          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap bg-[#16232B] text-white text-[11px] font-medium px-2.5 py-1 rounded-md shadow-lg z-50 pointer-events-none"
+        >
           {t("contactDemoNotice")}
         </span>
       )}

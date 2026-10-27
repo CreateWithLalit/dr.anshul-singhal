@@ -1,23 +1,14 @@
 import React from "react";
-import Link from "next/link";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
-import { JawSkullIcon, DentalImplantIcon, ToothIcon, FaceProfileIcon } from "@/components/illustrations";
 import { getServices } from "@/lib/content";
-import type { ServicePillar } from "@/lib/content/types";
 import { prelaunchRobots } from "@/lib/prelaunch";
+import { ServiceStoneCard } from "@/components/ServiceStoneCard";
 
 export const metadata = {
   title: "Surgical Services | Dr. Anshul Singhal",
   description: "Educational guides about oral and maxillofacial care. Service availability is confirmed before public launch.",
   robots: prelaunchRobots,
-};
-
-const PILLAR_ICONS: Record<ServicePillar, React.ReactNode> = {
-  maxillofacial: <JawSkullIcon size={32} strokeWidth={1.3} />,
-  implantology: <DentalImplantIcon size={32} strokeWidth={1.3} />,
-  geriatric: <ToothIcon size={32} strokeWidth={1.3} />,
-  rehabilitation: <FaceProfileIcon size={32} strokeWidth={1.3} />,
 };
 
 export default async function ServicesPage() {
@@ -51,36 +42,18 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      {/* Service cards */}
+      {/* Service stone cards */}
       <section className="py-16 sm:py-20">
         <div className="max-w-5xl mx-auto px-5 sm:px-8">
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {services.map((svc) => (
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-8">
+            {services.map((svc, index) => (
               <StaggerItem key={svc.slug}>
-                <Link
-                  href={`/services/${svc.slug}`}
-                  className="group flex flex-col gap-5 p-7 sm:p-8 bg-white border border-[#E4DFD6] rounded-[16px] hover:border-[#0F5C63]/30 hover:shadow-[0_8px_32px_rgba(15,92,99,0.08)] hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="w-14 h-14 rounded-[12px] bg-[#DCEBEA] flex items-center justify-center text-[#0F5C63]">
-                      {PILLAR_ICONS[svc.pillar]}
-                    </div>
-                    <span className="text-[10px] text-[#5B6870] border border-dashed border-[#A2AFB6]/60 px-2.5 py-1 rounded-lg bg-[#DCEBEA]/10">
-                      {svc.status === "to-confirm" ? "To confirm" : "Offered"}
-                    </span>
-                  </div>
-                  <div>
-                    <p className="text-[10px] uppercase tracking-[0.12em] text-[#5B6870] mb-1.5">{svc.pillarLabel}</p>
-                    <h2 className="font-serif text-xl text-[#16232B] font-normal mb-3">{svc.title}</h2>
-                    <p className="text-sm text-[#5B6870] leading-relaxed">{svc.shortSummary}</p>
-                  </div>
-                  <div className="contextual-link flex w-fit items-center gap-1.5 text-[#0F5C63] text-sm font-medium mt-auto group-hover:gap-2.5 transition-all">
-                    Read overview
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 18l6-6-6-6" />
-                    </svg>
-                  </div>
-                </Link>
+                <ServiceStoneCard
+                  service={svc}
+                  index={index}
+                  showStatusBadge
+                  actionLabel="Read overview"
+                />
               </StaggerItem>
             ))}
           </StaggerContainer>

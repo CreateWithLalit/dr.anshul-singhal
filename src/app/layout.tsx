@@ -27,6 +27,11 @@ export const metadata: Metadata = {
   title: "Dr. Anshul Singhal | Oral & Maxillofacial Surgeon",
   description:
     "Information about oral and maxillofacial consultation with Dr. Anshul Singhal.",
+  openGraph: {
+    title: "Dr. Anshul Singhal | Oral & Maxillofacial Surgeon",
+    description:
+      "Information about oral and maxillofacial consultation with Dr. Anshul Singhal.",
+  },
   robots: prelaunchRobots,
   ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),
 };

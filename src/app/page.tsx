@@ -5,10 +5,6 @@ import { CountUp, TimelineLine } from "./_home-animations";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import {
-  JawSkullIcon,
-  DentalImplantIcon,
-  ToothIcon,
-  FaceProfileIcon,
   ChatBubbleIcon,
   PhoneCallIcon,
   LocationPinIcon,
@@ -17,6 +13,7 @@ import {
 import { getServices, getLocations, getSiteSettings } from "@/lib/content";
 import { HomeActions } from "@/components/HomeActions";
 import { ContactLink } from "@/components/ContactLink";
+import { ServiceStoneCard } from "@/components/ServiceStoneCard";
 import { demoImages } from "@/config/demoImages";
 
 const CARE_STEPS = [
@@ -48,12 +45,6 @@ const SAMPLE_STATS = [
   { value: 1, suffix: "", label: "clear next-step pathway" },
 ];
 
-const PILLAR_ICONS: Record<string, React.ReactNode> = {
-  maxillofacial: <JawSkullIcon size={28} strokeWidth={1.4} />,
-  implantology: <DentalImplantIcon size={28} strokeWidth={1.4} />,
-  geriatric: <ToothIcon size={28} strokeWidth={1.4} />,
-  rehabilitation: <FaceProfileIcon size={28} strokeWidth={1.4} />,
-};
 
 export default async function HomePage() {
   const [services, locations, settings] = await Promise.all([
@@ -151,34 +142,10 @@ export default async function HomePage() {
             </div>
           </RevealOnScroll>
 
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
-            {services.map((svc) => (
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+            {services.map((svc, index) => (
               <StaggerItem key={svc.slug}>
-                <Link
-                  href={`/services/${svc.slug}`}
-                  className="group flex flex-col gap-4 p-6 bg-[#FAF8F4] border border-[#E4DFD6] rounded-[12px] hover:border-[#0F5C63]/30 hover:shadow-[0_8px_24px_rgba(15,92,99,0.08)] hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div className="w-11 h-11 rounded-[10px] bg-[#DCEBEA] flex items-center justify-center text-[#0F5C63]">
-                    {PILLAR_ICONS[svc.pillar] ?? <ToothIcon size={24} strokeWidth={1.4} />}
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-[10px] uppercase tracking-[0.12em] text-[#5B6870] mb-1.5">
-                      {svc.pillarLabel}
-                    </p>
-                    <h3 className="font-serif text-lg text-[#16232B] font-normal leading-snug mb-2">
-                      {svc.title}
-                    </h3>
-                    <p className="text-sm text-[#5B6870] leading-relaxed line-clamp-3">
-                      {svc.shortSummary}
-                    </p>
-                  </div>
-                  <span className="text-[#0F5C63] text-sm font-medium flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
-                    Learn more
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 18l6-6-6-6" />
-                    </svg>
-                  </span>
-                </Link>
+                <ServiceStoneCard service={svc} index={index} />
               </StaggerItem>
             ))}
           </StaggerContainer>

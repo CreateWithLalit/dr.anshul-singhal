@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { DoctorLogo } from "./DoctorLogo";
 
 export function Footer({ phoneDisplay }: { phoneDisplay: string }) {
   return (
@@ -10,13 +11,10 @@ export function Footer({ phoneDisplay }: { phoneDisplay: string }) {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
           {/* Identity */}
           <div className="md:col-span-2 space-y-3">
-            <h2 className="font-serif text-xl font-normal text-white leading-snug">
-              Dr. Anshul Singhal
-            </h2>
-            <p className="text-[10px] uppercase tracking-[0.14em] text-[#D9C7A8]">
-              Oral &amp; Maxillofacial Surgeon
-            </p>
-            <p className="text-sm text-[#9BA7AE] leading-relaxed max-w-sm">
+            <Link href="/" className="inline-block group">
+              <DoctorLogo variant="light" />
+            </Link>
+            <p className="text-sm text-[#9BA7AE] leading-relaxed max-w-sm mt-3">
               Clear information and a simple pathway to enquire about a consultation.
             </p>
             <div className="pt-1">
@@ -34,6 +32,7 @@ export function Footer({ phoneDisplay }: { phoneDisplay: string }) {
             </h3>
             <ul className="space-y-2 text-sm text-[#9BA7AE]">
               {[
+                ["/", "Home"],
                 ["/about", "About & Credentials"],
                 ["/services", "Surgical Services"],
                 ["/locations", "Clinic Location"],

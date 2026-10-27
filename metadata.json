@@ -1,0 +1,8 @@
+{
+  "name": "Dr. Anshul Singhal - Oral & Maxillofacial Surgeon",
+  "description": "Production-ready website for Dr. Anshul Singhal, Oral & Maxillofacial Surgeon.",
+  "requestFramePermissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

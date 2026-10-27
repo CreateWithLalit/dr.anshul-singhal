@@ -14,7 +14,7 @@ export default function PrivacyPage() {
         <RevealOnScroll>
           <h1 className="font-serif text-3xl sm:text-4xl text-[#16232B] font-normal mb-10">Privacy & Disclaimer</h1>
           <div className="prose prose-sm max-w-none text-[#5B6870] space-y-6">
-            <p><strong>Demo Prototype Notice</strong>: This is a placeholder privacy policy for the private demo prototype. No real patient data is collected or stored on this site.</p>
+            <p><strong>Privacy notice</strong>: This policy is awaiting final review. No real patient data is collected or stored on this site.</p>
             
             <h2 className="font-serif text-xl text-[#16232B] font-normal mt-8 mb-3">1. Medical Disclaimer</h2>
             <p>The content provided on this website is for general educational and informational purposes only. It is not intended as, and should not be considered, medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.</p>

@@ -1,10 +1,13 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import { LocationPinIcon, ChatBubbleIcon, PhoneCallIcon, CalendarIcon } from "@/components/illustrations";
 import { getLocations, getSiteSettings } from "@/lib/content";
 import { prelaunchRobots } from "@/lib/prelaunch";
+import { ContactLink } from "@/components/ContactLink";
+import { demoImages } from "@/config/demoImages";
 
 export const metadata = {
   title: "Clinic Location | Dr. Anshul Singhal",
@@ -17,13 +20,17 @@ export default async function LocationsPage() {
   return (
     <div className="bg-[#FAF8F4]">
       <section className="bg-white border-b border-[#E4DFD6] py-12 sm:py-16">
-        <div className="max-w-5xl mx-auto px-5 sm:px-8">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 grid gap-8 md:grid-cols-[1fr_0.7fr] md:items-center">
           <RevealOnScroll>
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0F5C63] mb-3">Consultation Suite</p>
             <h1 className="font-serif text-4xl sm:text-5xl text-[#16232B] font-normal mb-4">Clinic Location</h1>
             <p className="text-base text-[#5B6870] max-w-lg leading-relaxed">
               Address and clinic hours will be confirmed with Dr. Singhal before public launch.
             </p>
+          </RevealOnScroll>
+          <RevealOnScroll delay={0.08} className="relative aspect-[16/9] overflow-hidden rounded-[16px] border border-[#E4DFD6]">
+            <Image src={demoImages.clinic.src} alt={demoImages.clinic.alt} fill sizes="(max-width: 767px) 100vw, 40vw" className="object-cover" />
+            <span className="temporary-image-label absolute left-3 top-3">Temporary image</span>
           </RevealOnScroll>
         </div>
       </section>
@@ -35,9 +42,12 @@ export default async function LocationsPage() {
               <StaggerItem key={loc.slug}>
                 <div className="bg-white rounded-[16px] border border-[#E4DFD6] overflow-hidden">
                   {/* Map placeholder */}
-                  <div className="h-48 bg-[#DCEBEA]/30 flex flex-col items-center justify-center gap-2 border-b border-[#E4DFD6] text-center px-4">
+                  <div className="relative h-48 overflow-hidden border-b border-[#E4DFD6] text-center">
+                    <Image src={demoImages.equipment.src} alt={demoImages.equipment.alt} fill sizes="(max-width: 767px) 100vw, 50vw" className="object-cover opacity-30" />
+                    <div className="absolute inset-0 bg-[#0F2A43]/10 flex flex-col items-center justify-center gap-2 px-4">
                     <LocationPinIcon size={28} className="text-[#0F5C63]" />
                     <p className="text-xs text-[#5B6870]">{loc.mapReferenceNote}</p>
+                    </div>
                   </div>
 
                   <div className="p-6 space-y-4">
@@ -57,22 +67,24 @@ export default async function LocationsPage() {
                     </div>
 
                     <div className="grid grid-cols-2 gap-2.5 pt-2">
-                      <a
-                        href={`https://wa.me/${loc.whatsappNumber}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <ContactLink
+                        kind="whatsapp"
+                        value={loc.whatsappNumber}
+                        verified={loc.verification.whatsapp}
                         className="flex items-center justify-center gap-1.5 py-3 rounded-full bg-[#0F5C63] text-white text-sm font-medium hover:bg-[#0b464c] transition-colors"
                       >
                         <ChatBubbleIcon size={14} strokeWidth={2} />
                         WhatsApp
-                      </a>
-                      <a
-                        href={`tel:${loc.phone.replace(/\s/g, "")}`}
+                      </ContactLink>
+                      <ContactLink
+                        kind="call"
+                        value={loc.phone.replace(/\s/g, "")}
+                        verified={loc.verification.phone}
                         className="flex items-center justify-center gap-1.5 py-3 rounded-full border border-[#E4DFD6] text-[#16232B] text-sm font-medium hover:bg-[#FAF8F4] transition-colors"
                       >
                         <PhoneCallIcon size={14} strokeWidth={1.8} className="text-[#0F5C63]" />
                         Call
-                      </a>
+                      </ContactLink>
                     </div>
 
                     {loc.bookingEnabled && (

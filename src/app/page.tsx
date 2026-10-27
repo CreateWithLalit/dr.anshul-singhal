@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { HeroIllustration, CountUp, TimelineLine } from "./_home-animations";
+import Image from "next/image";
+import { CountUp, TimelineLine } from "./_home-animations";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import {
@@ -15,6 +16,8 @@ import {
 } from "@/components/illustrations";
 import { getServices, getLocations, getSiteSettings } from "@/lib/content";
 import { HomeActions } from "@/components/HomeActions";
+import { ContactLink } from "@/components/ContactLink";
+import { demoImages } from "@/config/demoImages";
 
 const CARE_STEPS = [
   {
@@ -40,9 +43,9 @@ const CARE_STEPS = [
 ];
 
 const SAMPLE_STATS = [
-  { value: 4, suffix: " steps", label: "in every care journey" },
-  { value: 3, suffix: " specialties", label: "under one surgical roof" },
-  { value: 1, suffix: " goal", label: "clear, confident recovery" },
+  { value: 4, suffix: "", label: "steps in your care journey" },
+  { value: 3, suffix: "", label: "educational service pillars" },
+  { value: 1, suffix: "", label: "clear next-step pathway" },
 ];
 
 const PILLAR_ICONS: Record<string, React.ReactNode> = {
@@ -64,7 +67,7 @@ export default async function HomePage() {
   return (
     <>
       {/* ─── HERO ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-[#FAF8F4] pt-8 pb-16 sm:pt-12 sm:pb-24 lg:pt-16 lg:pb-28">
+      <section className="relative overflow-hidden bg-[#F8F3E9] pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-16 lg:pb-20">
         {/* Subtle background texture ring */}
         <div
           className="pointer-events-none absolute -top-32 -right-32 w-[550px] h-[550px] rounded-full"
@@ -76,12 +79,12 @@ export default async function HomePage() {
         />
 
         <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="lg:grid lg:grid-cols-5 lg:gap-12 lg:items-center">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-14 lg:items-center">
             {/* Left column */}
-            <div className="lg:col-span-3 space-y-6 lg:space-y-8">
+            <div className="space-y-5 lg:space-y-7">
               {/* Specialty pill */}
               <RevealOnScroll>
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#DCEBEA] text-[#0F5C63] text-xs font-semibold uppercase tracking-wider">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F2A900]/15 text-[#0F2A43] text-xs font-semibold uppercase tracking-wider">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0F5C63]" />
                   Oral &amp; Maxillofacial Surgeon
                 </div>
@@ -89,18 +92,15 @@ export default async function HomePage() {
 
               {/* Name */}
               <RevealOnScroll delay={0.05}>
-                <h1 className="font-serif text-[2.6rem] sm:text-[3.4rem] lg:text-[4rem] font-normal text-[#16232B] leading-[1.08] tracking-[-0.01em]">
-                  Dr. Anshul
-                  <br />
-                  Singhal
+                <h1 className="font-serif text-[2.8rem] sm:text-[3.7rem] lg:text-[4.35rem] font-semibold text-[#0F2A43] leading-[1.03] tracking-[-0.025em]">
+                  Specialist care for your face, mouth and jaw.
                 </h1>
               </RevealOnScroll>
 
               {/* Positioning line */}
               <RevealOnScroll delay={0.12}>
                 <p className="text-lg sm:text-xl text-[#5B6870] leading-relaxed font-sans max-w-lg">
-                  Specialist surgical care for the face, mouth, and jaws —
-                  <em className="font-normal text-[#16232B] not-italic"> calm, transparent, and patient-first.</em>
+                  Clear, plain-language guidance for surgical concerns — in English and हिन्दी.
                 </p>
               </RevealOnScroll>
 
@@ -109,23 +109,28 @@ export default async function HomePage() {
                 <HomeActions
                   phone={settings.defaultPhone}
                   whatsApp={settings.defaultWhatsApp}
-                  whatsappMessage={settings.contactCtas.whatsappMessage}
+                  phoneVerified={settings.contactVerification.phone}
+                  whatsAppVerified={settings.contactVerification.whatsapp}
                 />
-                <p className="mt-2 text-[11px] text-[#9BA7AE] font-sans">
-                  Contact details are placeholder — confirm before launch.
-                </p>
+                <p className="mt-2 text-[12px] text-[#5B6870] font-sans">Clinic number coming soon.</p>
               </RevealOnScroll>
             </div>
 
             {/* Right column — animated illustration */}
-            <div className="lg:col-span-2 mt-12 lg:mt-0 flex items-center justify-center">
-              <div className="w-full max-w-[320px] lg:max-w-none">
-                <HeroIllustration />
+            <div className="mt-9 lg:mt-0 relative min-h-[430px] sm:min-h-[520px]">
+              <div className="absolute inset-0 overflow-hidden rounded-[28px] bg-[#0F2A43] shadow-[0_18px_40px_rgba(15,42,67,.20)]">
+                <Image src={demoImages.hero.src} alt={demoImages.hero.alt} fill priority sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-top" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0F2A43]/45 via-transparent" />
               </div>
+              <div className="absolute -left-2 bottom-7 bg-white rounded-xl p-3 shadow-lg text-xs"><b className="text-[#0F2A43]">Languages</b><br />English · हिन्दी</div>
+              <div className="absolute -right-2 top-8 bg-[#C62828] text-white rounded-xl p-3 shadow-lg text-xs"><b>By appointment</b><br />Time slots coming soon</div>
+              <div className="absolute right-5 bottom-6 bg-[#F2A900] text-[#0F2A43] rounded-xl p-3 shadow-lg text-xs"><b>Plain-language</b><br />guidance</div>
             </div>
           </div>
         </div>
       </section>
+
+      <section className="bg-[#0F2A43] text-white py-4"><div className="max-w-6xl mx-auto px-5 sm:px-8 grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm"><span>✓ By appointment</span><span>✓ English & हिन्दी</span><span>✓ Family members welcome</span></div></section>
 
       {/* ─── SERVICE PILLARS ─────────────────────────────────── */}
       <section className="bg-white py-20 sm:py-24 border-t border-[#E4DFD6]">
@@ -177,6 +182,13 @@ export default async function HomePage() {
               </StaggerItem>
             ))}
           </StaggerContainer>
+        </div>
+      </section>
+
+      <section className="bg-[#F8F3E9] py-14 sm:py-16">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-8 items-center">
+          <div><p className="inline-block text-xs font-semibold bg-[#F2A900]/20 text-[#0F2A43] rounded-full px-3 py-1">CLINIC & FACILITIES</p><h2 className="font-serif text-3xl sm:text-4xl text-[#0F2A43] mt-3">A calm setting for a clear conversation.</h2><div className="w-14 h-1 bg-[#F2A900] mt-4" /><p className="mt-5 text-[#5B6870]">Clinic details and appointment availability will be shared here once confirmed.</p><Link href="/locations" className="inline-flex mt-5 text-[#0F5C63] font-semibold">View clinic information →</Link></div>
+          <div className="grid grid-cols-2 gap-3">{[demoImages.clinic, demoImages.equipment, demoImages.consultation, demoImages.family].map((image) => <figure key={image.src} className="relative aspect-[4/3] overflow-hidden rounded-xl"><Image src={image.src} alt={image.alt} fill sizes="(max-width: 1024px) 50vw, 25vw" className="object-cover" /><figcaption className="absolute bottom-2 left-2 bg-white/90 rounded px-2 py-1 text-[10px] text-[#0F2A43]">Temporary image</figcaption></figure>)}</div>
         </div>
       </section>
 
@@ -243,7 +255,7 @@ export default async function HomePage() {
                   <p className="font-serif text-[3rem] sm:text-[3.5rem] font-normal text-white leading-none">
                     <CountUp value={stat.value} suffix={stat.suffix} />
                   </p>
-                  <p className="text-sm text-[#9BA7AE] capitalize">{stat.label}</p>
+                  <p className="text-sm text-[#9BA7AE]">{stat.label}</p>
                 </div>
               </StaggerItem>
             ))}
@@ -267,13 +279,15 @@ export default async function HomePage() {
               </p>
             </div>
           </div>
-          <a
-            href={`tel:${settings.emergencyCallNumber}`}
+          <ContactLink
+            kind="call"
+            value={settings.emergencyCallNumber}
+            verified={settings.contactVerification.emergencyPhone}
             className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#B3392F] text-white font-medium text-sm hover:bg-[#922e26] transition-colors flex-shrink-0 active:scale-[0.98]"
           >
             <PhoneCallIcon size={16} strokeWidth={2} className="text-white" />
             Emergency Call
-          </a>
+          </ContactLink>
         </div>
       </section>
 
@@ -323,22 +337,24 @@ export default async function HomePage() {
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 pt-2">
-                    <a
-                      href={`https://wa.me/${primaryLocation.whatsappNumber}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <ContactLink
+                      kind="whatsapp"
+                      value={primaryLocation.whatsappNumber}
+                      verified={primaryLocation.verification.whatsapp}
                       className="flex items-center justify-center gap-2 py-3 rounded-full bg-[#0F5C63] text-white text-sm font-medium hover:bg-[#0b464c] transition-colors"
                     >
                       <ChatBubbleIcon size={15} strokeWidth={2} />
                       WhatsApp
-                    </a>
-                    <a
-                      href={`tel:${primaryLocation.phone.replace(/\s/g, "")}`}
+                    </ContactLink>
+                    <ContactLink
+                      kind="call"
+                      value={primaryLocation.phone.replace(/\s/g, "")}
+                      verified={primaryLocation.verification.phone}
                       className="flex items-center justify-center gap-2 py-3 rounded-full border border-[#E4DFD6] text-[#16232B] text-sm font-medium hover:bg-[#FAF8F4] transition-colors"
                     >
                       <PhoneCallIcon size={15} strokeWidth={1.8} className="text-[#0F5C63]" />
                       Call
-                    </a>
+                    </ContactLink>
                   </div>
                 </div>
               </div>

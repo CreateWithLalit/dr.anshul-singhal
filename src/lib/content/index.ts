@@ -70,6 +70,8 @@ export async function getPublicContactSettings(): Promise<PublicContactSettings>
     whatsappMessage: settings.contactCtas.whatsappMessage,
     locationName: primaryLocation?.name ?? settings.defaultLocationName,
     locationDistrict: primaryLocation?.district ?? "[Consultation area to be confirmed]",
+    phoneVerified: settings.contactVerification.phone,
+    whatsappVerified: settings.contactVerification.whatsapp,
   };
 }
 

@@ -3,6 +3,20 @@
 
 ---
 
+## Owner overrides — October 27, 2026
+
+These owner-approved decisions supersede conflicting pre-launch rules in this document for the current live-client preview.
+
+1. Remove the login/private gate, `DemoRibbon`, and prototype/demo labelling. Use neutral wording such as "Number coming soon" for unverified values.
+2. Keep `noindex` and `robots` disallow rules active until real clinic details and launch approval are confirmed. Removing the login gate does not make the site indexable.
+3. The official, unaltered WhatsApp asset is permitted for click-to-chat buttons.
+4. Temporary stock photography featuring people is permitted only from Unsplash, Pexels, or Pixabay. Prefer Indian-looking subjects; download, optimise, self-host, register in one `demoImages` config with a `temporary` marker, and list the source URL, photographer, and licence in `ATTRIBUTIONS.md`.
+5. Never use reference-site or Google Images assets, clinical/before-after images of real patients, or stock photos as Dr. Singhal. Alt text, captions, and schema must describe people generically. Do not invent testimonials, ratings, statistics, qualifications, registration numbers, affiliations, hospitals, or fees. Keep unverified facts as configuration placeholders and leave testimonials and press feature flags off.
+6. Add `/fees-insurance` as a config-driven route using placeholders only.
+7. The launch checklist must include: replace all temporary stock images with approved photos, fill real contact details, then lift `noindex`.
+
+---
+
 ## 0. Your role and how to work
 You are a senior full-stack engineer and front-end designer. You are building the production-ready personal website for Dr. Anshul Singhal, Oral and Maxillofacial Surgeon. It is currently operating in a private, pre-launch content state while verified content, assets, and integrations are collected. It will be shown to Dr. Singhal for approval, then launched by replacing verified data and enabling production integrations—not by rebuilding the application.
 

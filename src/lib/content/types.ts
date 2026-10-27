@@ -76,6 +76,14 @@ export interface Location {
   mapReferenceNote: string;
   bookingEnabled: boolean;
   isPrimary?: boolean;
+  verification: {
+    name: boolean;
+    district: boolean;
+    address: boolean;
+    hours: boolean;
+    phone: boolean;
+    whatsapp: boolean;
+  };
 }
 
 export interface Article {
@@ -104,6 +112,11 @@ export interface SiteSettings {
   defaultWhatsApp: string;
   defaultWhatsAppFormatted: string;
   emergencyCallNumber: string;
+  contactVerification: {
+    phone: boolean;
+    whatsapp: boolean;
+    emergencyPhone: boolean;
+  };
   defaultLocationName: string;
   disclaimerText: string;
   privacyNoticeText: string;
@@ -127,6 +140,8 @@ export interface PublicContactSettings {
   whatsappMessage: string;
   locationName: string;
   locationDistrict: string;
+  phoneVerified: boolean;
+  whatsappVerified: boolean;
 }
 
 export interface ContentData {

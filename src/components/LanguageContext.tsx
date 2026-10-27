@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 export type Language = "en" | "hi";
 
@@ -32,6 +32,9 @@ const dictionary: Record<Language, Record<string, string>> = {
     btnBook: "Book Appointment",
     heroPositioning:
       "Specialist surgical care for the face, mouth, and jaws — calm, transparent, and patient-first.",
+    whatsappMessage: "Hello, I would like to enquire about a consultation.",
+    whatsappServiceMessage: "Hello, I would like to know more about",
+    contactDemoNotice: "Demo: to be confirmed",
   },
   hi: {
     // Demo translation — Needs human clinical review before live release
@@ -50,6 +53,9 @@ const dictionary: Record<Language, Record<string, string>> = {
     btnBook: "अपॉइंटमेंट बुक करें",
     heroPositioning:
       "चेहरे, जबड़े एवं मुख की विशेषज्ञ शल्य चिकित्सा — शांत, स्पष्ट और गरिमापूर्ण देखभाल।",
+    whatsappMessage: "नमस्ते, मैं परामर्श के बारे में जानकारी लेना चाहता/चाहती हूँ।",
+    whatsappServiceMessage: "नमस्ते, मैं इसके बारे में और जानकारी लेना चाहता/चाहती हूँ:",
+    contactDemoNotice: "डेमो: पुष्टि होना बाकी है",
   },
 };
 
@@ -61,6 +67,17 @@ const LanguageContext = createContext<LanguageContextType>({
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>("en");
+
+  useEffect(() => {
+    const storedLanguage = window.localStorage.getItem("site-language");
+    if (storedLanguage === "hi" || storedLanguage === "en") setLanguage(storedLanguage);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+    document.documentElement.dir = "ltr";
+    window.localStorage.setItem("site-language", language);
+  }, [language]);
 
   const t = (key: string) => {
     return dictionary[language]?.[key] || dictionary.en[key] || key;

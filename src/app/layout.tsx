@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Fraunces, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
-import { DemoRibbon } from "@/components/DemoRibbon";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BottomActionBar } from "@/components/BottomActionBar";
@@ -17,16 +16,17 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
-const inter = Inter({
+const notoSansDevanagari = Noto_Sans_Devanagari({
   variable: "--font-sans",
-  subsets: ["latin"],
+  subsets: ["latin", "devanagari"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Dr. Anshul Singhal | Oral & Maxillofacial Surgeon",
   description:
-    "A pre-launch website for Dr. Anshul Singhal, Oral and Maxillofacial Surgeon.",
+    "Information about oral and maxillofacial consultation with Dr. Anshul Singhal.",
   robots: prelaunchRobots,
   ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),
 };
@@ -45,7 +45,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable}`}
+      className={`${fraunces.variable} ${notoSansDevanagari.variable}`}
       suppressHydrationWarning
     >
       <body
@@ -66,11 +66,10 @@ export default async function RootLayout({
         </a>
         <LanguageProvider>
           <LenisSmoothScroll />
-          <DemoRibbon />
-          <Header phone={settings.defaultPhone} whatsApp={settings.defaultWhatsApp} ctas={settings.contactCtas} />
+          <Header phone={settings.defaultPhone} whatsApp={settings.defaultWhatsApp} phoneVerified={settings.contactVerification.phone} whatsAppVerified={settings.contactVerification.whatsapp} ctas={settings.contactCtas} />
           <main id="main-content" className="flex-1 flex flex-col min-h-screen">{children}</main>
           <Footer phoneDisplay={settings.defaultPhoneFormatted} />
-          <BottomActionBar phone={settings.defaultPhone} whatsApp={settings.defaultWhatsApp} ctas={settings.contactCtas} />
+          <BottomActionBar phone={settings.defaultPhone} whatsApp={settings.defaultWhatsApp} phoneVerified={settings.contactVerification.phone} whatsAppVerified={settings.contactVerification.whatsapp} />
         </LanguageProvider>
       </body>
     </html>

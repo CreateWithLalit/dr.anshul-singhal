@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 interface RevealOnScrollProps {
@@ -19,6 +19,30 @@ export function RevealOnScroll({
   className = "",
 }: RevealOnScrollProps) {
   const shouldReduceMotion = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+
+    const revealWhenInView = () => {
+      const rect = ref.current?.getBoundingClientRect();
+      if (!rect) return;
+      if (rect.top < window.innerHeight - 40 && rect.bottom > 40) {
+        setIsVisible(true);
+        window.removeEventListener("scroll", revealWhenInView);
+        window.removeEventListener("resize", revealWhenInView);
+      }
+    };
+
+    revealWhenInView();
+    window.addEventListener("scroll", revealWhenInView, { passive: true });
+    window.addEventListener("resize", revealWhenInView);
+    return () => {
+      window.removeEventListener("scroll", revealWhenInView);
+      window.removeEventListener("resize", revealWhenInView);
+    };
+  }, [shouldReduceMotion]);
 
   if (shouldReduceMotion) {
     return <div className={className}>{children}</div>;
@@ -26,9 +50,9 @@ export function RevealOnScroll({
 
   return (
     <motion.div
+      ref={ref}
       initial={{ opacity: 0, y: yOffset }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
+      animate={isVisible ? { opacity: 1, y: 0 } : undefined}
       transition={{
         duration,
         delay,

@@ -48,7 +48,20 @@ export async function GET() {
   if (!isPrelaunchMode) return NextResponse.json({ authenticated: true });
   const cookieStore = await cookies();
   const session = cookieStore.get("demo_session");
-  const isAuthenticated = session?.value === "authenticated";
+  const expectedPassword = process.env.DEMO_PASSWORD;
+  const expectedSession = expectedPassword
+    ? await createDemoSessionToken(expectedPassword)
+    : undefined;
+  const isAuthenticated = Boolean(
+    expectedSession && session?.value === expectedSession
+  );
 
   return NextResponse.json({ authenticated: isAuthenticated });
 }
+
+export async function DELETE() {
+  const cookieStore = await cookies();
+  cookieStore.delete("demo_session");
+  return NextResponse.json({ success: true });
+}
+

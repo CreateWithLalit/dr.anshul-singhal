@@ -74,7 +74,7 @@ export default async function ServicesPage() {
                     <h2 className="font-serif text-xl text-[#16232B] font-normal mb-3">{svc.title}</h2>
                     <p className="text-sm text-[#5B6870] leading-relaxed">{svc.shortSummary}</p>
                   </div>
-                  <div className="flex items-center gap-1.5 text-[#0F5C63] text-sm font-medium mt-auto group-hover:gap-2.5 transition-all">
+                  <div className="contextual-link flex w-fit items-center gap-1.5 text-[#0F5C63] text-sm font-medium mt-auto group-hover:gap-2.5 transition-all">
                     Read overview
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 18l6-6-6-6" />

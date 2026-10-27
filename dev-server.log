@@ -1,0 +1,55 @@
+
+> dr-anshul-singhal-demo@0.1.0 dev
+> next dev --hostname 127.0.0.1 --port 3000
+
+   ▲ Next.js 15.1.7
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 3.7s
+ ✓ Compiled /src/middleware in 347ms
+ ✓ Compiled (98 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 9.9s (1545 modules)
+ ✓ Compiled in 3.4s (736 modules)
+ GET / 200 in 13333ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 687ms (806 modules)
+ GET /favicon.ico 200 in 900ms
+ GET / 200 in 318ms
+ ○ Compiling /about ...
+ ✓ Compiled /about in 1042ms (1534 modules)
+ GET /about 200 in 1357ms
+ ○ Compiling /services ...
+ ✓ Compiled /services in 885ms (1539 modules)
+ GET /services 200 in 1106ms
+ ○ Compiling /locations ...
+ ✓ Compiled /locations in 867ms (1544 modules)
+ GET /locations 200 in 1076ms
+ ○ Compiling /guide ...
+ ✓ Compiled /guide in 990ms (1531 modules)
+ GET /guide 200 in 1305ms
+ ○ Compiling /guide/[slug] ...
+ ✓ Compiled /guide/[slug] in 2.8s (1552 modules)
+ GET /guide/when-should-you-see-a-jaw-surgeon 200 in 4545ms
+ GET /guide/when-should-you-see-a-jaw-surgeon 200 in 60ms
+ ○ Compiling /contact ...
+ ✓ Compiled /contact in 1031ms (1559 modules)
+ GET /contact 200 in 1422ms
+ ○ Compiling /api/public-contact-settings ...
+ ✓ Compiled /api/public-contact-settings in 1327ms (1577 modules)
+ GET /api/public-contact-settings 200 in 1530ms
+ GET /api/public-contact-settings 200 in 20ms
+ GET /about 200 in 520ms
+ GET / 200 in 133ms
+ ○ Compiling /for-doctors ...
+ ✓ Compiled /for-doctors in 1237ms (1576 modules)
+ GET /for-doctors 200 in 1527ms
+ GET /api/public-contact-settings 200 in 43ms
+ GET /api/public-contact-settings 200 in 24ms
+ GET /about 200 in 91ms
+ GET /guide 200 in 57ms
+ GET /about 200 in 93ms
+ GET / 200 in 119ms

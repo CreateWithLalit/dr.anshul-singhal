@@ -1,0 +1,16 @@
+import Link from "next/link";
+import Image from "next/image";
+import { CalendarIcon, ChatBubbleIcon } from "@/components/illustrations";
+import { demoImages } from "@/config/demoImages";
+
+export const metadata = { title: "Fees & Insurance | Dr. Anshul Singhal", robots: { index: false, follow: false } };
+
+const factors = ["The type and complexity of the concern", "Investigations or scans that may be advised", "Materials, treatment setting and follow-up needs", "The plan discussed after an individual consultation"];
+
+export default function FeesInsurancePage() {
+  return <div className="bg-[#F8F3E9] min-h-full">
+    <section className="bg-white border-b border-[#E4DFD6] py-12 sm:py-16"><div className="max-w-5xl mx-auto px-5 sm:px-8 grid gap-8 md:grid-cols-[1fr_0.75fr] md:items-center"><div><p className="section-label">Fees &amp; insurance</p><h1 className="section-heading mt-3">Clear conversations before you decide.</h1><p className="mt-5 max-w-xl text-[#5B6870]">An individual consultation is the right place to understand options and the factors that can affect a treatment estimate.</p></div><div className="relative aspect-[4/3] overflow-hidden rounded-[16px] border border-[#E4DFD6]"><Image src={demoImages.equipment.src} alt={demoImages.equipment.alt} fill priority sizes="(max-width: 767px) 100vw, 40vw" className="object-cover" /><span className="temporary-image-label absolute left-3 top-3">Temporary image</span></div></div></section>
+    <section className="max-w-5xl mx-auto px-5 sm:px-8 py-14 grid md:grid-cols-2 gap-7"><article className="bg-white rounded-[16px] p-7 border border-[#E4DFD6]"><p className="section-label">Planning</p><h2 className="font-serif text-2xl text-[#0F2A43] mt-2">What can affect the cost?</h2><ul className="mt-5 space-y-4">{factors.map((item) => <li key={item} className="flex gap-3 text-[#52626b]"><span className="text-[#C62828] font-bold">•</span>{item}</li>)}</ul></article><article className="bg-white rounded-[16px] p-7 border border-[#E4DFD6]"><p className="section-label">Information</p><h2 className="font-serif text-2xl text-[#0F2A43] mt-2">Insurance &amp; payment</h2><p className="mt-5 text-[#52626b]">Insurance, payment and documentation options are being confirmed. Please check with your insurer and the clinic before making plans.</p><p className="mt-5 inline-flex rounded-lg bg-[#F2A900]/15 px-3 py-2 text-sm text-[#0F2A43]">Details coming soon</p></article></section>
+    <section className="max-w-5xl mx-auto px-5 sm:px-8 pb-20"><div className="bg-[#C62828] rounded-[16px] p-7 text-white flex flex-col sm:flex-row justify-between gap-5 items-start sm:items-center"><div><h2 className="font-serif text-2xl">Need to discuss your concern?</h2><p className="text-white/80">Book an appointment or start a WhatsApp enquiry.</p></div><div className="flex flex-wrap gap-3"><Link href="/contact" className="bg-white text-[#0F2A43] rounded-full px-5 py-3 text-sm font-semibold inline-flex items-center gap-2"><CalendarIcon size={16}/> Book appointment</Link><Link href="/contact" className="border border-white/50 rounded-full px-5 py-3 text-sm font-semibold inline-flex items-center gap-2"><ChatBubbleIcon size={16}/> WhatsApp</Link></div></div></section>
+  </div>;
+}

@@ -15,7 +15,15 @@ Both fonts are self-hosted via `next/font/google` at build time — no runtime C
 
 ## Images
 
-No external photographic images have been used in this prototype.
+All temporary stock images below are local copies in `public/images/`, registered in `src/config/demoImages.ts`, and must be replaced with approved photography before public launch.
+
+| Local asset | Source | Photographer | Licence |
+|---|---|---|---|
+| `hero-doctor.jpg` | https://www.pexels.com/photo/doctor-19438566/ | Oys Photography | Pexels License |
+| `consultation.jpg` | https://www.pexels.com/photo/woman-consulting-a-doctor-5215008/ | Antoni Shkraba | Pexels License |
+| `family-consultation.jpg` | https://www.pexels.com/photo/a-doctor-in-a-consultation-with-a-mother-and-her-daughter-7653094/ | Pavel Danilyuk | Pexels License |
+| `clinic-equipment.jpg` | https://www.pexels.com/photo/a-dental-equipment-in-the-clinic-6812453/ | Pavel Danilyuk | Pexels License |
+| `clinic-chair.jpg` | https://www.pexels.com/photo/a-clinic-with-dental-equipment-5355920/ | Tima Miroshnichenko | Pexels License |
 
 All visuals are:
 - Monoline SVG illustrations built as React components (`src/components/illustrations/index.tsx`)

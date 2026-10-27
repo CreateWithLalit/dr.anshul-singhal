@@ -2,14 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 export function Footer({ phoneDisplay }: { phoneDisplay: string }) {
-  const pathname = usePathname();
-  if (pathname === "/login") return null;
-
   return (
-    <footer className="bg-[#16232B] text-[#FAF8F4] pt-14 pb-28 sm:pb-14 mt-auto border-t border-[#2C3B45]">
+    <footer className="bg-[#0F2A43] text-[#FAF8F4] pt-14 pb-28 sm:pb-14 mt-auto border-t border-[#203d58]">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
           {/* Identity */}
@@ -21,12 +17,12 @@ export function Footer({ phoneDisplay }: { phoneDisplay: string }) {
               Oral &amp; Maxillofacial Surgeon
             </p>
             <p className="text-sm text-[#9BA7AE] leading-relaxed max-w-sm">
-              A pre-launch information and consultation pathway. Services and contact details await verification.
+              Clear information and a simple pathway to enquire about a consultation.
             </p>
             <div className="pt-1">
-              <span className="inline-flex items-center gap-2 text-[11px] bg-[#1E2F3A] text-[#DCEBEA] px-3 py-1.5 rounded-full border border-[#2C3B45]">
+              <span className="inline-flex items-center gap-2 text-[11px] bg-[#173650] text-[#DCEBEA] px-3 py-1.5 rounded-full border border-[#2C3B45]">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#D9C7A8]" />
-                Prototype Edition — Content is placeholder
+                Contact details: number coming soon
               </span>
             </div>
           </div>
@@ -54,21 +50,15 @@ export function Footer({ phoneDisplay }: { phoneDisplay: string }) {
             </ul>
           </div>
 
-          {/* Prototype tools */}
+          {/* Privacy */}
           <div className="space-y-3">
             <h3 className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#D9C7A8]">
-              Prototype
+              Information
             </h3>
             <ul className="space-y-2 text-sm text-[#9BA7AE]">
               <li>
-                <Link href="/demo/dashboard" className="flex items-center gap-2 hover:text-white transition-colors">
-                  Analytics Preview
-                  <span className="text-[10px] bg-[#0F5C63] text-white px-1.5 py-0.5 rounded">
-                    Demo
-                  </span>
-                </Link>
-              </li>
-              <li>
+                <Link href="/fees-insurance" className="hover:text-white transition-colors">Fees & Insurance</Link>
+              </li><li>
                 <Link href="/privacy" className="hover:text-white transition-colors">
                   Privacy & Disclaimer
                 </Link>
@@ -76,7 +66,7 @@ export function Footer({ phoneDisplay }: { phoneDisplay: string }) {
               <li className="pt-2 text-xs text-[#9BA7AE]/70">
                 WhatsApp: {phoneDisplay}
                 <br />
-                <span className="text-[10px] text-[#6F7D85]">(Placeholder — confirm before launch)</span>
+                <span className="text-[10px] text-[#6F7D85]">(Number coming soon)</span>
               </li>
             </ul>
           </div>
@@ -89,11 +79,9 @@ export function Footer({ phoneDisplay }: { phoneDisplay: string }) {
             Information on this website is for general educational purposes only. It does not substitute for an individual clinical examination or surgical consultation with a qualified specialist. All credentials and services are subject to formal confirmation.
           </p>
           <div className="flex flex-col sm:flex-row justify-between gap-2 text-xs text-[#6F7D85]">
-            <span>© 2026 Dr. Anshul Singhal. Private demo prototype.</span>
+            <span>© 2026 Dr. Anshul Singhal.</span>
             <div className="flex items-center gap-3">
               <Link href="/privacy" className="hover:text-[#9BA7AE] transition-colors">Privacy Policy</Link>
-              <span>·</span>
-              <Link href="/demo/dashboard" className="hover:text-[#9BA7AE] transition-colors">Analytics Preview</Link>
             </div>
           </div>
         </div>

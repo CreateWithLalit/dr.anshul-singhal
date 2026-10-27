@@ -131,34 +131,15 @@ export function CountUp({
   value,
   suffix = "",
   prefix = "",
-  duration = 1400,
 }: {
   value: number;
   suffix?: string;
   prefix?: string;
-  duration?: number;
 }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-  const prefersReduced = useReducedMotion();
-  const [count, setCount] = React.useState(prefersReduced ? value : 0);
-
-  React.useEffect(() => {
-    if (!inView || prefersReduced) return;
-    const start = Date.now();
-    const step = () => {
-      const elapsed = Date.now() - start;
-      const progress = Math.min(elapsed / duration, 1);
-      setCount(Math.floor(progress * value));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [inView, value, duration, prefersReduced]);
-
   return (
-    <span ref={ref}>
+    <span>
       {prefix}
-      {new Intl.NumberFormat("en-IN").format(count)}
+      {new Intl.NumberFormat("en-IN").format(value)}
       {suffix}
     </span>
   );

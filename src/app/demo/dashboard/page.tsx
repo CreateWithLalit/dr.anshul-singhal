@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import {
@@ -30,7 +31,7 @@ const ENQUIRIES_BY_PAGE = [
 ];
 
 const ENQUIRIES_BY_LOCATION = [
-  { label: "Noida Central", value: 73, maxValue: 82 },
+  { label: "Primary consultation location", value: 73, maxValue: 82 },
   { label: "Other / Not specified", value: 9, maxValue: 82 },
 ];
 
@@ -103,8 +104,9 @@ export default function DemoDashboardPage() {
       <section className="bg-white border-b border-[#E4DFD6] py-10 sm:py-12">
         <div className="max-w-5xl mx-auto px-5 sm:px-8">
           <RevealOnScroll>
-            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 min-w-0">
               <div>
+                <Image src="/images/dr-anshul-singhal-logo-cropped.png" alt="Dr. Anshul Singhal" width={150} height={47} className="h-9 w-auto object-contain mb-5" />
                 <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0F5C63] mb-2">
                   For Referring Clinicians &amp; Practice Review
                 </p>

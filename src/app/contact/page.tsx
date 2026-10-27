@@ -5,6 +5,7 @@ import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { ChatBubbleIcon, PhoneCallIcon, CalendarIcon, LocationPinIcon } from "@/components/illustrations";
 import type { MockFormResponse } from "@/lib/forms";
 import type { PublicContactSettings } from "@/lib/content";
+import { ContactLink } from "@/components/ContactLink";
 
 const BOOKING_STEPS = ["Location", "Date & Slot", "Confirm"] as const;
 type BookingStep = 0 | 1 | 2 | 3;
@@ -24,8 +25,6 @@ function getNextDays(n: number) {
 }
 
 export default function ContactPage() {
-  const [tab, setTab] = useState<"whatsapp" | "contact" | "booking">("whatsapp");
-
   // Contact form state
   const [form, setForm] = useState({ name: "", phone: "", message: "", hp: "" });
   const [formState, setFormState] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -74,7 +73,7 @@ export default function ContactPage() {
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0F5C63] mb-3">Get in Touch</p>
             <h1 className="font-serif text-4xl sm:text-5xl text-[#16232B] font-normal mb-4">Contact & Appointments</h1>
             <p className="text-base text-[#5B6870] max-w-lg leading-relaxed">
-              WhatsApp and phone contact routes will be verified before launch. This pre-launch page demonstrates the intended patient pathway.
+              WhatsApp and phone details will appear here once they have been verified. Until then, numbers are shown as placeholders.
             </p>
           </RevealOnScroll>
         </div>
@@ -84,10 +83,10 @@ export default function ContactPage() {
         {/* Primary: WhatsApp + Call prominent CTA */}
         <RevealOnScroll>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-            <a
-              href={contactSettings ? `https://wa.me/${contactSettings.whatsappNumber}?text=${encodeURIComponent(contactSettings.whatsappMessage)}` : "#contact-options"}
-              target="_blank"
-              rel="noopener noreferrer"
+            <ContactLink
+              kind="whatsapp"
+              value={contactSettings?.whatsappNumber ?? ""}
+              verified={contactSettings?.whatsappVerified ?? false}
               className="flex items-center gap-4 p-5 bg-[#0F5C63] text-white rounded-[16px] hover:bg-[#0b464c] transition-colors group"
             >
               <div className="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center flex-shrink-0">
@@ -97,9 +96,11 @@ export default function ContactPage() {
                 <p className="font-semibold">WhatsApp Consultation</p>
                 <p className="text-sm text-white/75">{contactSettings ? `${contactSettings.whatsappFormatted} (Placeholder)` : "Contact details loading…"}</p>
               </div>
-            </a>
-            <a
-              href={contactSettings ? `tel:${contactSettings.phone}` : "#contact-options"}
+            </ContactLink>
+            <ContactLink
+              kind="call"
+              value={contactSettings?.phone ?? ""}
+              verified={contactSettings?.phoneVerified ?? false}
               className="flex items-center gap-4 p-5 bg-white border border-[#E4DFD6] rounded-[16px] hover:bg-[#FAF8F4] transition-colors"
             >
               <div className="w-12 h-12 rounded-full bg-[#DCEBEA] flex items-center justify-center flex-shrink-0">
@@ -109,36 +110,23 @@ export default function ContactPage() {
                 <p className="font-semibold text-[#16232B]">Call Clinic</p>
                 <p className="text-sm text-[#5B6870]">{contactSettings ? `${contactSettings.phoneFormatted} (Placeholder)` : "Contact details loading…"}</p>
               </div>
-            </a>
+            </ContactLink>
           </div>
         </RevealOnScroll>
 
-        {/* Tabs */}
+        {/* Both patient pathways are visible immediately; no tab selection is required. */}
         <RevealOnScroll delay={0.1}>
-          <div id="contact-options" className="flex items-center gap-2 mb-7 border-b border-[#E4DFD6] pb-0">
-            {([["contact", "Send Enquiry"], ["booking", "Book Appointment"]] as const).map(([id, label]) => (
-              <button
-                key={id}
-                type="button"
-                onClick={() => setTab(id)}
-                className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors -mb-px ${
-                  tab === id
-                    ? "border-[#0F5C63] text-[#0F5C63]"
-                    : "border-transparent text-[#5B6870] hover:text-[#16232B]"
-                }`}
-              >
-                {label}
-              </button>
-            ))}
+          <div id="contact-options" className="mb-7 border-b border-[#E4DFD6] pb-4">
+            <h2 className="font-serif text-2xl text-[#16232B]">Send Enquiry</h2>
+            <p className="mt-1 text-sm text-[#5B6870]">Share a brief message and the clinic can follow up once contact details are verified.</p>
           </div>
         </RevealOnScroll>
 
         {/* Contact Form */}
-        {tab === "contact" && (
-          <RevealOnScroll>
-            <div className="bg-white border border-[#E4DFD6] rounded-[16px] p-6 sm:p-8">
+        <RevealOnScroll>
+          <div className="bg-white border border-[#E4DFD6] rounded-[16px] p-6 sm:p-8">
               <p className="text-xs text-[#9BA7AE] mb-6 font-sans">
-                Demo only: this form is a prototype. Nothing is stored or transmitted.
+                This enquiry form is not connected yet. Nothing is stored or transmitted.
               </p>
 
               {formState === "sent" ? (
@@ -150,7 +138,7 @@ export default function ContactPage() {
                   </div>
                   <p className="font-serif text-xl text-[#16232B]">Form preview complete</p>
                   <p className="text-sm text-[#5B6870]">
-                    Demo only: nothing is sent or stored.
+                    Nothing is sent or stored.
                   </p>
                   <button onClick={() => setFormState("idle")} className="text-[#0F5C63] underline text-sm">
                     Send another
@@ -223,16 +211,21 @@ export default function ContactPage() {
                   </button>
                 </form>
               )}
-            </div>
-          </RevealOnScroll>
-        )}
+          </div>
+        </RevealOnScroll>
 
         {/* Booking Flow */}
-        {tab === "booking" && (
+        <section className="mt-12" aria-labelledby="booking-heading">
+          <RevealOnScroll>
+            <div className="mb-7 border-b border-[#E4DFD6] pb-4">
+              <h2 id="booking-heading" className="font-serif text-2xl text-[#16232B]">Book Appointment</h2>
+              <p className="mt-1 text-sm text-[#5B6870]">Choose a preferred consultation time. Booking confirmation will be available once contact details are verified.</p>
+            </div>
+          </RevealOnScroll>
           <RevealOnScroll>
             <div className="bg-white border border-[#E4DFD6] rounded-[16px] p-6 sm:p-8">
               <p className="text-xs text-[#9BA7AE] mb-6">
-                Demo only: this is a prototype booking flow. Nothing is confirmed or stored.
+                This booking flow is not connected yet. Nothing is confirmed or stored.
               </p>
 
               {/* Step indicator */}
@@ -340,7 +333,7 @@ export default function ContactPage() {
                     </p>
                   </div>
                   <p className="text-xs text-[#9BA7AE] max-w-xs mx-auto">
-                    Demo only: no actual booking has been made. In the live build, a confirmation message would be sent via WhatsApp.
+                    No appointment has been made. Confirmation will be available once the booking route is connected.
                   </p>
                   <button
                     onClick={() => { setBookStep(0); setSelectedDay(null); setSelectedSlot(""); }}
@@ -352,7 +345,7 @@ export default function ContactPage() {
               )}
             </div>
           </RevealOnScroll>
-        )}
+        </section>
       </div>
     </div>
   );

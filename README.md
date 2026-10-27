@@ -1,4 +1,4 @@
-# Dr. Anshul Singhal — Pre-Launch Production Website
+# Dr. Anshul Singhal — Client Preview Website
 
 A production-ready personal website for **Dr. Anshul Singhal, Oral and Maxillofacial Surgeon**, currently operating in a private pre-launch content state.
 
@@ -23,7 +23,7 @@ npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000).
 
-The site is password-protected in pre-launch mode. Set `DEMO_PASSWORD` in `.env.local`; do not rely on the development fallback outside local work.
+The client preview has no visitor-facing password gate. Search-engine blocking remains active.
 
 ---
 
@@ -47,8 +47,6 @@ Copy `.env.example` to `.env.local` and fill in:
 # Pre-launch mode toggle — keep true until the launch checklist is complete
 NEXT_PUBLIC_DEMO_MODE=true
 
-# Password for the pre-launch gate — use a private value
-DEMO_PASSWORD=replace-with-a-private-access-code
 
 # Add only when preparing production metadata and canonical URLs
 NEXT_PUBLIC_SITE_URL=https://www.example.com
@@ -124,7 +122,7 @@ When Dr. Singhal confirms a credential, update its `status` from `placeholder` t
 
 The application is built to launch without redesigning it. Complete the following sequence only after client approval and written verification of relevant information.
 
-1. Ingest verified doctor profile, credentials, registration details, services, clinic address/hours, contact routes, and approved photography through the typed content-access boundary. Keep unverified records `pending` or `placeholder`.
+1. Replace all temporary stock images with approved photos, fill in real contact details, and retain `noindex` until the owner confirms launch approval.
 2. Add consented testimonials, approved clinical/before-after assets, and structured-data values only if they have the required consent and verification.
 3. Connect real contact, referral, booking, and analytics providers behind their existing route/event boundaries. Confirm privacy, retention, and DPDP requirements before collecting data.
 4. Review every live route, Hindi translation, accessibility behaviour, mobile layout, performance budget, legal text, and WhatsApp disclosure.

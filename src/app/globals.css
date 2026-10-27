@@ -12,6 +12,8 @@
   --sand: #D9C7A8;
   --hairline: #E4DFD6;
   --emergency: #B3392F;
+  --navy: #0F2A43;
+  --marigold: #F2A900;
 }
 
 html {
@@ -31,13 +33,55 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
 }
 
-/* Hindi UI labels use the platform's Devanagari-capable fallback without adding a third web font. */
-.lang-hi,
-[lang="hi"] {
-  font-family: var(--font-sans), "Nirmala UI", "Noto Sans Devanagari", sans-serif;
+/* Shared page language. Individual layouts retain their own content hierarchy. */
+.section-label {
+  color: var(--accent);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.section-heading {
+  color: var(--ink);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(2rem, 1.5rem + 2vw, 3.25rem);
+  font-weight: 400;
+  line-height: 1.12;
+}
+
+.section-heading::after {
+  background: var(--marigold);
+  content: "";
+  display: block;
+  height: 3px;
+  margin-top: 0.75rem;
+  width: 3rem;
+}
+
+.temporary-image-label {
+  background: rgba(15, 42, 67, 0.88);
+  border-radius: 999px;
+  color: white;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.55rem;
+  text-transform: uppercase;
+}
+
+.contextual-link {
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.2em;
+}
+
+/* One body family provides both Latin and Devanagari glyphs on every platform. */
+:lang(hi) {
+  font-family: var(--font-sans), sans-serif;
   line-height: 1.7;
 }
 
@@ -47,7 +91,7 @@ a,
 input, 
 select, 
 textarea {
-  min-height: 48px;
+  min-height: 44px;
 }
 
 /* Focus styles for keyboard accessibility */

@@ -1,4 +1,5 @@
 import { ContentData } from "./types";
+import { clinicConfig } from "@/config/clinic";
 
 export const seedContent: ContentData = {
   doctor: {
@@ -327,21 +328,25 @@ export const seedContent: ContentData = {
 
   locations: [
     {
-      slug: "noida-central",
-      name: "Specialist Surgical Consultation Suite",
-      district: "[Consultation area to be confirmed]",
-      address: "[Clinic Address to be confirmed • Sector / Landmark, Noida, UP]",
-      hours: [
-        "Monday – Friday: [Hours to be confirmed]",
-        "Saturday: [Hours to be confirmed]",
-        "Sunday: By prior specialist appointment only",
-      ],
-      phone: "+91 00000 00000",
-      whatsappNumber: "910000000000",
-      whatsappDisplay: "+91 00000 00000",
-      mapReferenceNote: "Interactive map embed will appear here once verified clinic location is confirmed.",
+      slug: clinicConfig.location.slug.value,
+      name: clinicConfig.location.name.value,
+      district: clinicConfig.location.district.value,
+      address: clinicConfig.location.address.value,
+      hours: [...clinicConfig.location.hours.value],
+      phone: clinicConfig.contacts.phoneDisplay.value,
+      whatsappNumber: clinicConfig.contacts.whatsapp.value,
+      whatsappDisplay: clinicConfig.contacts.whatsappDisplay.value,
+      mapReferenceNote: clinicConfig.location.mapReferenceNote.value,
       bookingEnabled: true,
       isPrimary: true,
+      verification: {
+        name: clinicConfig.location.name.verified,
+        district: clinicConfig.location.district.verified,
+        address: clinicConfig.location.address.verified,
+        hours: clinicConfig.location.hours.verified,
+        phone: clinicConfig.contacts.phone.verified,
+        whatsapp: clinicConfig.contacts.whatsapp.verified,
+      },
     },
   ],
 
@@ -380,11 +385,16 @@ export const seedContent: ContentData = {
     isDemoMode: true,
     demoNotice:
       "Demo prototype: content is placeholder. Not for public distribution.",
-    defaultPhone: "+910000000000",
-    defaultPhoneFormatted: "+91 00000 00000",
-    defaultWhatsApp: "910000000000",
-    defaultWhatsAppFormatted: "+91 00000 00000",
-    emergencyCallNumber: "+910000000000",
+    defaultPhone: clinicConfig.contacts.phone.value,
+    defaultPhoneFormatted: clinicConfig.contacts.phoneDisplay.value,
+    defaultWhatsApp: clinicConfig.contacts.whatsapp.value,
+    defaultWhatsAppFormatted: clinicConfig.contacts.whatsappDisplay.value,
+    emergencyCallNumber: clinicConfig.contacts.emergencyPhone.value,
+    contactVerification: {
+      phone: clinicConfig.contacts.phone.verified,
+      whatsapp: clinicConfig.contacts.whatsapp.verified,
+      emergencyPhone: clinicConfig.contacts.emergencyPhone.verified,
+    },
     defaultLocationName: "[Consultation location to be confirmed]",
     disclaimerText:
       "Medical Disclaimer: Information on this website is for general educational purposes only and does not constitute formal medical diagnosis or treatment advice. Seek an individual clinical evaluation from an appropriately qualified professional.",

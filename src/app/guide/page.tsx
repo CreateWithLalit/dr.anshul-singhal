@@ -1,9 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import { getArticles } from "@/lib/content";
 import { prelaunchRobots } from "@/lib/prelaunch";
+import { demoImages } from "@/config/demoImages";
 
 export const metadata = {
   title: "Patient Guide | Dr. Anshul Singhal",
@@ -30,12 +32,17 @@ export default async function GuidePage() {
       <section className="py-16 sm:py-20">
         <div className="max-w-4xl mx-auto px-5 sm:px-8">
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {articles.map((article) => (
+            {articles.map((article, index) => (
               <StaggerItem key={article.slug}>
                 <Link
                   href={`/guide/${article.slug}`}
-                  className="group flex flex-col gap-4 p-6 sm:p-7 bg-white border border-[#E4DFD6] rounded-[16px] hover:border-[#0F5C63]/30 hover:shadow-[0_8px_24px_rgba(15,92,99,0.07)] hover:-translate-y-1 transition-all duration-300"
+                  className="group flex flex-col overflow-hidden bg-white border border-[#E4DFD6] rounded-[16px] hover:border-[#0F5C63]/30 hover:shadow-[0_8px_24px_rgba(15,92,99,0.07)] hover:-translate-y-1 transition-all duration-300"
                 >
+                  <div className="relative aspect-[16/8] bg-[#DCEBEA]/30">
+                    <Image src={(index % 2 === 0 ? demoImages.consultation : demoImages.equipment).src} alt={(index % 2 === 0 ? demoImages.consultation : demoImages.equipment).alt} fill sizes="(max-width: 767px) 100vw, 50vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                    <span className="temporary-image-label absolute left-3 top-3">Temporary image</span>
+                  </div>
+                  <div className="flex flex-1 flex-col gap-4 p-6 sm:p-7">
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] uppercase tracking-widest text-[#0F5C63] bg-[#DCEBEA] px-2.5 py-1 rounded-full font-semibold">
                       {article.category}
@@ -48,12 +55,13 @@ export default async function GuidePage() {
                     </h2>
                     <p className="text-sm text-[#5B6870] leading-relaxed line-clamp-3">{article.bodyParagraphs[0]}</p>
                   </div>
-                  <span className="text-[#0F5C63] text-sm font-medium flex items-center gap-1.5 group-hover:gap-3 transition-all mt-auto">
+                  <span className="contextual-link text-[#0F5C63] text-sm font-medium flex w-fit items-center gap-1.5 group-hover:gap-3 transition-all mt-auto">
                     Read article
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 18l6-6-6-6" />
                     </svg>
                   </span>
+                  </div>
                 </Link>
               </StaggerItem>
             ))}

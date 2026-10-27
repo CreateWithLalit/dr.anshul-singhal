@@ -5,6 +5,8 @@ import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { CalendarIcon } from "@/components/illustrations";
 import type { MockFormResponse } from "@/lib/forms";
 import type { PublicContactSettings } from "@/lib/content";
+import Link from "next/link";
+import { ContactLink } from "@/components/ContactLink";
 
 export default function ForDoctorsPage() {
   const [form, setForm] = useState({ drName: "", clinic: "", patientName: "", patientPhone: "", details: "", hp: "" });
@@ -79,21 +81,24 @@ export default function ForDoctorsPage() {
               <div className="bg-[#DCEBEA]/30 border border-[#0F5C63]/15 rounded-[12px] p-6">
                 <p className="font-medium text-[#16232B] mb-2 text-sm">Direct Clinician Line</p>
                 <p className="text-sm text-[#5B6870] mb-3">For urgent case discussions, please call the clinic and request the clinician line.</p>
-                <a href={contactSettings ? `tel:${contactSettings.phone}` : "#referral-form"} className="inline-flex items-center gap-2 text-[#0F5C63] font-medium text-sm">
+                <ContactLink kind="call" value={contactSettings?.phone ?? ""} verified={contactSettings?.phoneVerified ?? false} className="inline-flex items-center gap-2 text-[#0F5C63] font-medium text-sm">
                   <CalendarIcon size={16} /> {contactSettings?.phoneFormatted ?? "Contact details loading…"}
-                </a>
+                </ContactLink>
+                <Link href="/demo/dashboard" className="contextual-link mt-4 inline-flex text-xs font-medium text-[#0F5C63]">
+                  Practice reporting preview
+                </Link>
               </div>
             </RevealOnScroll>
 
             <RevealOnScroll delay={0.1}>
               <div id="referral-form" className="bg-white border border-[#E4DFD6] rounded-[16px] p-6 sm:p-8">
-                <p className="text-xs text-[#9BA7AE] mb-6">Demo only: nothing is sent or stored. Do not include medical records, images, or urgent emergency information.</p>
+                <p className="text-xs text-[#9BA7AE] mb-6">This form is not connected yet. Nothing is sent or stored. Do not include medical records, images, or urgent emergency information.</p>
                 
                 {state === "sent" ? (
                   <div className="text-center py-8">
                     <div className="w-12 h-12 rounded-full bg-[#DCEBEA] flex items-center justify-center mx-auto mb-4">✓</div>
                     <p className="font-serif text-lg text-[#16232B]">Form preview complete</p>
-                    <p className="text-sm text-[#5B6870] mt-2">Demo only: nothing is sent or stored.</p>
+                    <p className="text-sm text-[#5B6870] mt-2">Nothing is sent or stored.</p>
                     <button onClick={() => setState("idle")} className="text-[#0F5C63] underline text-sm mt-4">Send another</button>
                   </div>
                 ) : (

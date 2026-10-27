@@ -7,6 +7,7 @@ import { ChatBubbleIcon, PhoneCallIcon } from "@/components/illustrations";
 import { VideoSlot } from "@/components/VideoSlot";
 import { getServiceBySlug, getServices, getSiteSettings } from "@/lib/content";
 import { prelaunchRobots } from "@/lib/prelaunch";
+import { ContactLink } from "@/components/ContactLink";
 
 export async function generateStaticParams() {
   const services = await getServices();
@@ -74,10 +75,12 @@ export default async function ServiceDetailPage({
         </div>
       </section>
 
+      <nav aria-label="On this page" className="sticky top-[72px] z-30 bg-white/95 backdrop-blur border-b border-[#E4DFD6] overflow-x-auto"><div className="max-w-4xl mx-auto px-5 sm:px-8 flex min-w-max gap-5 text-xs font-semibold text-[#0F2A43] py-3"><a href="#overview">Overview</a><a href="#procedure">Procedure</a><a href="#recovery">Recovery</a><a href="#faq">FAQ</a><a href="#cost">Cost</a></div></nav>
+
       <div className="max-w-4xl mx-auto px-5 sm:px-8 py-12 sm:py-16 space-y-14">
         {/* Overview */}
         <RevealOnScroll>
-          <div className="prose prose-lg max-w-none text-[#5B6870] leading-relaxed font-sans">
+          <div id="overview" className="prose prose-lg max-w-none text-[#5B6870] leading-relaxed font-sans">
             <h2 className="font-serif text-2xl text-[#16232B] font-normal mb-4">
               What This Generally Involves
             </h2>
@@ -87,7 +90,7 @@ export default async function ServiceDetailPage({
 
         {/* What to expect */}
         <RevealOnScroll>
-          <h2 className="font-serif text-2xl text-[#16232B] font-normal mb-5">
+          <h2 id="recovery" className="font-serif text-2xl text-[#16232B] font-normal mb-5">
             What to Expect
           </h2>
           <ul className="space-y-3">
@@ -106,7 +109,7 @@ export default async function ServiceDetailPage({
 
         {/* Steps */}
         <RevealOnScroll>
-          <h2 className="font-serif text-2xl text-[#16232B] font-normal mb-7">
+          <h2 id="procedure" className="font-serif text-2xl text-[#16232B] font-normal mb-7">
             Step-by-Step
           </h2>
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -126,7 +129,7 @@ export default async function ServiceDetailPage({
 
         {/* Cost factors */}
         <RevealOnScroll>
-          <div className="bg-white border border-[#E4DFD6] rounded-[16px] p-6 sm:p-8">
+          <div id="cost" className="bg-white border border-[#E4DFD6] rounded-[16px] p-6 sm:p-8">
             <h2 className="font-serif text-2xl text-[#16232B] font-normal mb-5">
               Cost Factors
             </h2>
@@ -149,9 +152,9 @@ export default async function ServiceDetailPage({
             <aside className="rounded-[16px] border border-[#B3392F]/25 bg-[#B3392F]/5 p-6" aria-label="Emergency contact guidance">
               <h2 className="font-serif text-xl font-normal text-[#16232B]">Need urgent help after a facial injury?</h2>
               <p className="mt-2 text-sm leading-relaxed text-[#5B6870]">For immediate danger, breathing difficulty, severe bleeding, or loss of consciousness, contact local emergency services immediately. For a non-life-threatening concern, use the verified clinic number when it is published.</p>
-              <a href={`tel:${settings.emergencyCallNumber}`} className="mt-4 inline-flex min-h-12 items-center gap-2 rounded-full bg-[#B3392F] px-5 py-3 text-sm font-medium text-white hover:bg-[#922e26]">
+              <ContactLink kind="call" value={settings.emergencyCallNumber} verified={settings.contactVerification.emergencyPhone} className="mt-4 inline-flex min-h-12 items-center gap-2 rounded-full bg-[#B3392F] px-5 py-3 text-sm font-medium text-white hover:bg-[#922e26]">
                 <PhoneCallIcon size={16} strokeWidth={2} /> {settings.contactCtas.emergencyLabel}
-              </a>
+              </ContactLink>
               <p className="mt-2 text-xs text-[#5B6870]">Placeholder number — replace only with verified emergency contact details.</p>
             </aside>
           </RevealOnScroll>
@@ -159,7 +162,7 @@ export default async function ServiceDetailPage({
 
         {/* FAQs */}
         <RevealOnScroll>
-          <h2 className="font-serif text-2xl text-[#16232B] font-normal mb-7">
+          <h2 id="faq" className="font-serif text-2xl text-[#16232B] font-normal mb-7">
             Frequently Asked Questions
           </h2>
           <div className="space-y-4">
@@ -222,22 +225,25 @@ export default async function ServiceDetailPage({
               </p>
             </div>
             <div className="flex flex-wrap gap-3 flex-shrink-0">
-              <a
-                href={`https://wa.me/${settings.defaultWhatsApp}?text=${encodeURIComponent(settings.contactCtas.whatsappMessage)}`}
-                target="_blank"
-                rel="noopener noreferrer"
+              <ContactLink
+                kind="whatsapp"
+                value={settings.defaultWhatsApp}
+                verified={settings.contactVerification.whatsapp}
+                serviceName={service.title}
                 className="flex items-center gap-2 px-5 py-3 rounded-full bg-[#0F5C63] text-white text-sm font-medium hover:bg-[#0b464c] transition-colors"
               >
                 <ChatBubbleIcon size={15} strokeWidth={2} />
                 {settings.contactCtas.whatsappLabel}
-              </a>
-              <a
-                href={`tel:${settings.defaultPhone}`}
+              </ContactLink>
+              <ContactLink
+                kind="call"
+                value={settings.defaultPhone}
+                verified={settings.contactVerification.phone}
                 className="flex items-center gap-2 px-5 py-3 rounded-full border border-[#2C3B45] text-white text-sm font-medium hover:bg-[#1E2F3A] transition-colors"
               >
                 <PhoneCallIcon size={15} strokeWidth={1.8} />
                 {settings.contactCtas.callLabel}
-              </a>
+              </ContactLink>
               <Link href="/contact" className="flex items-center gap-2 px-5 py-3 rounded-full bg-white text-[#16232B] text-sm font-medium hover:bg-[#DCEBEA] transition-colors">
                 {settings.contactCtas.bookLabel}
               </Link>
